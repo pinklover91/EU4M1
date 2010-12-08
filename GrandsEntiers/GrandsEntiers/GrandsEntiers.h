@@ -3,12 +3,29 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string>
+#include <iostream>
+#include <conio.h>
 
-using namespace std ;
+using namespace std;
 
-#pragma warning( disable : 4996 )		// evite la depreciation de la fonction strcpy
-#pragma warning( error : 4706 )			// signale une erreur pour l'affectation dans une expression conditionnelle (= au lieu de =)
-#pragma warning( error : 4700 )			// signale une erreur pour variable non initialise
+// Grand Entier
+typedef struct bint {
+	// bloques
+	unsigned long long *b;
+
+	// longeur. Nombre de bloques utilises
+	unsigned int nb;
+
+	// longeur reel. Longeur d'array
+	unsigned int internal_nb;
+} bint;
+
+bint bint_creerVide();
+
+void bint_info(bint b);
+
+void bint_assigner(bint &b, int n);
+
+void bint_ajouter(int b);
 
 #endif
