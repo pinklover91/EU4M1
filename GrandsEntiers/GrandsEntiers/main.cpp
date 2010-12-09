@@ -2,10 +2,23 @@
 #include "globals.h"
 
 int main(){
+	bint test = bint_creerVide();
+	bint_info(test);
+	bint_assigner(test, 53);
+	bint_info(test);
+	bint_setLongInter(test, 5);
+	bint_info(test);
+
+	cout << endl << "=====================" << endl;
+
 	bint a = bint_creerVide();
+
 	bint_info(a);
-	cout << endl;
-	bint_assigner(a, 78);
+
+	bint_assigner(a, 18446744073709551615);
+	bint_info(a);
+
+	bint_ajouter(a, 1);
 	bint_info(a);
 
 	cout << endl; attendeEcran();
