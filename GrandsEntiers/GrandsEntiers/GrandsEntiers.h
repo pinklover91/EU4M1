@@ -32,6 +32,7 @@ typedef struct bint {
 // fonctions basiques
 bint bint_creerVide();
 void bint_assigner(bint &b, unsigned long long n);
+bint bint_copier(const bint &a);
 
 
 
@@ -65,20 +66,50 @@ void bint_ajouter(bint &a, int b);
 void bint_ajouter(bint &a, unsigned long long b);
 void bint_ajouter(bint &a, const bint &b);
 
-//ajoute un nombre en certain position du array
+// ajoute un nombre en certain position du array
 void bint_ajouter(bint &a, unsigned long long b, int pos);
 
 // a=a-b
 void bint_sustraire(bint &a, int b);
 void bint_sustraire(bint &a, unsigned long long b);
 
+// sustraire un nombre en certain position du array
+void bint_sustraire(bint &a, unsigned long long b, int pos);
+
 // a=a*b
+void bint_multiplier(bint &a, unsigned int b);
 void bint_multiplier(bint &a, const bint &b);
 
 // a=a^b
-void bint_pow(bint &a, const bint &b);
+void bint_pow(bint &base, unsigned long long exp);
+void bint_pow(bint &base, const bint &exp);
 
 
+
+
+
+
+
+
+
+
+// comparaison
+
+// TRUE si a>b. FALSE si a<=b
+bool bint_plusGrandQue(const bint &a, unsigned long long  b);
+bool bint_plusGrandQue(const bint &a, const bint &b);
+
+// TRUE si a<b. FALSE si a>=b
+bool bint_plusPetitQue(const bint &a, unsigned long long  b);
+bool bint_plusPetitQue(const bint &a, const bint &b);
+
+// TRUE si a==b
+
+bool bint_egal(const bint &a, unsigned long long b);
+bool bint_egal(const bint &a, const bint &b);
+
+// TRUE si a==b et les arrays sont egales aussi
+bool bint_egalExact(const bint &a, const bint &b);
 
 
 
@@ -88,5 +119,6 @@ void bint_pow(bint &a, const bint &b);
 void bint_setLongInter(bint &a, unsigned int L);
 bool uint64GetBit(unsigned long long N, unsigned char bit);
 string uint64ToBinStr(unsigned long long n);
+const unsigned long long uint64MaxValue = 18446744073709551615;
 
 #endif

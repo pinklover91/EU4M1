@@ -10,6 +10,17 @@ bint bint_creerVide(){
 	return n;
 }
 
+bint bint_copier(const bint &a){
+	bint n;
+	n.internal_nb=a.internal_nb;
+	n.nb=a.nb;
+	n.b = new unsigned long long[a.internal_nb];
+	for(unsigned int i=0; i<n.internal_nb; i++){
+		n.b[i]=a.b[i];
+	}
+	return n;
+}
+
 void bint_info(bint &b){
 	cout << endl << endl;
 	cout << "Longeur (bloques utilises) : " << b.nb << endl;
@@ -61,11 +72,92 @@ void bint_ajouter(bint &a, unsigned long long b, int pos){
 	if(a.b[pos]<antVal) bint_ajouter(a, 1, pos+1);
 }
 
-void bint_sustraire(bint &a, unsigned long long b){
-	cout << "NOT IMPLEMENTED: bint_sustraire" << endl;
-	system("pause");
-	exit(1);
+void bint_ajouter(bint &a, const bint &b){
+	for(unsigned int i=0; i<b.nb; i++){
+		bint_ajouter(a, b.b[i], i);
+	}
 }
+
+void bint_sustraire(bint &a, unsigned long long b){
+	bint_sustraire(a, b, 0);
+}
+
+void bint_sustraire(bint &a, unsigned long long b, int pos){
+	unsigned long long andVal=a.b[pos];
+	a.b[pos]-=b;
+
+	// nombres negatives
+	if(a.nb==1 && pos==0 && b>a.b[pos]) throw "bint underload";
+
+	// underload
+	if(a.b[pos]>andVal) bint_sustraire(a, 1, pos+1);
+
+	while(a.b[a.nb-1]==0) a.nb--;
+}
+
+void bint_multiplier(bint &a, unsigned int b){
+	if(b==0) bint_assigner(a, 0);
+	else {
+		bint orig = bint_copier(a);
+		for(unsigned int i=0; i<b-1; i++) {
+			bint_ajouter(a, orig);
+		}
+	}
+}
+
+void bint_multiplier(bint &a, const bint &b){
+	if(bint_egal(b, 0)) bint_assigner(a, 0);
+	else {
+		bint orig = bint_copier(a);
+		for(bint temp = bint_copier(b); bint_plusGrandQue(temp, 1); bint_sustraire(temp, 1)){
+			bint_ajouter(a, orig);
+		}
+	}
+}
+
+void bint_pow(bint &base, unsigned long long exp){
+	bint exp2 = bint_creerVide();
+	bint_assigner(exp2, exp);
+	return bint_pow(base, exp2);
+}
+
+void bint_pow(bint &base, const bint &exp){
+	// base^0=1
+	if(bint_egal(exp, 0)) bint_assigner(base, 1);
+
+	// base^1=base
+	else if(bint_egal(exp, 1)) return;
+
+	else {
+		bint orig = bint_copier(base);
+		for(bint temp = bint_copier(exp); bint_plusGrandQue(temp, 1); bint_sustraire(temp, 1)){
+			bint_multiplier(base, orig);
+		}
+	}
+}
+
+bool bint_plusGrandQue(const bint &a, unsigned long long b){
+	bint c = bint_creerVide();
+	bint_assigner(c, b);
+	return bint_plusGrandQue(a, c);
+}
+
+bool bint_plusGrandQue(const bint &a, const bint &b){
+	if(a.nb>b.nb) return true;
+	if(a.nb<b.nb) return false;
+
+	//a.nb == b.nb :
+	for(long i=a.nb-1; i>=0; i--) {
+		if(a.b[i]>b.b[i]) return true;
+	}
+	return false;
+}
+
+bool bint_egal(const bint &a, unsigned long long b){
+	if(a.nb==1 && a.b[0]==b) return true;
+	else return false;
+}
+
 
 // changer la longeur interieure de bint
 void bint_setLongInter(bint &a, unsigned int L){
