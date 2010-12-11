@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       145,          7]
-NotebookDataLength[     54926,       1379]
-NotebookOptionsPosition[     53273,       1325]
-NotebookOutlinePosition[     53637,       1341]
-CellTagsIndexPosition[     53594,       1338]
+NotebookDataLength[     54913,       1379]
+NotebookOptionsPosition[     53260,       1325]
+NotebookOutlinePosition[     53624,       1341]
+CellTagsIndexPosition[     53581,       1338]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -895,11 +895,11 @@ Cell[BoxData[
  TagBox[
   StyleBox[
    DynamicModuleBox[{$CellContext`T1$$ = Rational[15, 32] 
-    Pi, $CellContext`T2$$ = Rational[1, 2] Pi, $CellContext`T3$$ = 
-    Rational[-1, 2] Pi, $CellContext`T4$$ = Rational[1, 2] Pi, 
-    Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
-    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
-    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{{
+    Pi, $CellContext`T2$$ = 0, $CellContext`T3$$ = Rational[-1, 2] 
+    Pi, $CellContext`T4$$ = Rational[1, 2] Pi, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
        Hold[$CellContext`T1$$], Rational[15, 32] Pi, "base"}, 0, 2 Pi, 
       Rational[1, 32] Pi}, {{
        Hold[$CellContext`T2$$], Rational[1, 2] Pi, "link 1"}, 0, Pi, 
@@ -1003,8 +1003,8 @@ $CellContext`TakeDH[
 $CellContext`M1 := {0, Pi/2, 0, FE`T1$$27}, 
        FE`T1$$27 = (15 Pi)/32, $CellContext`M2 := {8, 0, 0, FE`T2$$27}, 
        FE`T2$$27 = Pi/2, $CellContext`M3 := {5, Pi/2, 0, FE`T3$$27}, 
-       FE`T3$$27 = -Pi/2, $CellContext`M4 := {3, 0, 0, FE`T4$$27}, FE`T4$$27 = 
-       Pi/2, $CellContext`ConstructDH[{
+       FE`T3$$27 = (-Pi)/2, $CellContext`M4 := {3, 0, 0, FE`T4$$27}, 
+       FE`T4$$27 = Pi/2, $CellContext`ConstructDH[{
           Pattern[$CellContext`a, 
            Blank[]], 
           Pattern[$CellContext`\[Alpha], 
@@ -1170,7 +1170,7 @@ Cell[BoxData[
   StyleBox[
    DynamicModuleBox[{$CellContext`T1$$ = Rational[15, 32] 
     Pi, $CellContext`T2$$ = Rational[1, 2] Pi, $CellContext`T3$$ = 
-    Rational[-7, 32] Pi, $CellContext`T4$$ = Rational[1, 2] Pi, 
+    Rational[-3, 8] Pi, $CellContext`T4$$ = Rational[1, 2] Pi, 
     Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
     Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
     1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{{
@@ -1268,8 +1268,8 @@ $CellContext`RotZ[
 $CellContext`M3, $CellContext`M4}, $CellContext`M1 := {0, Pi/2, 0, FE`T1$$27},
         FE`T1$$27 = (15 Pi)/32, $CellContext`M2 := {8, 0, 0, FE`T2$$27}, 
        FE`T2$$27 = Pi/2, $CellContext`M3 := {5, Pi/2, 0, FE`T3$$27}, 
-       FE`T3$$27 = -Pi/2, $CellContext`M4 := {3, 0, 0, FE`T4$$27}, FE`T4$$27 = 
-       Pi/2, $CellContext`DrawJoint[
+       FE`T3$$27 = (-Pi)/2, $CellContext`M4 := {3, 0, 0, FE`T4$$27}, 
+       FE`T4$$27 = Pi/2, $CellContext`DrawJoint[
          Pattern[$CellContext`M, 
           Blank[]], 
          Pattern[$CellContext`Mdh, 
@@ -1374,12 +1374,12 @@ Cell[27707, 723, 485, 13, 72, "Input"],
 Cell[28195, 738, 1400, 37, 152, "Input"],
 Cell[CellGroupData[{
 Cell[29620, 779, 4758, 112, 612, "Input"],
-Cell[34381, 893, 7575, 166, 454, "Output"]
+Cell[34381, 893, 7561, 166, 454, "Output"]
 }, Open  ]],
-Cell[41971, 1062, 4015, 97, 592, "Input"],
+Cell[41957, 1062, 4015, 97, 592, "Input"],
 Cell[CellGroupData[{
-Cell[46011, 1163, 105, 2, 31, "Input"],
-Cell[46119, 1167, 7138, 155, 454, "Output"]
+Cell[45997, 1163, 105, 2, 31, "Input"],
+Cell[46105, 1167, 7139, 155, 454, "Output"]
 }, Open  ]]
 }
 ]
