@@ -1,0 +1,1118 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     42831,       1109]
+NotebookOptionsPosition[     39224,        990]
+NotebookOutlinePosition[     39898,       1014]
+CellTagsIndexPosition[     39855,       1011]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Cin\[EAcute]matique Directe et Inverse", "Title",
+ CellChangeTimes->{{3.4982089678433123`*^9, 3.4982089699194307`*^9}, {
+   3.4982942663608694`*^9, 3.49829426945387*^9}, {3.4982942997468696`*^9, 
+   3.4982943125678697`*^9}, {3.498392594035488*^9, 3.4983925998454885`*^9}, 
+   3.498399839348488*^9}],
+
+Cell["\<\
+
+Simulation de manipulateurs d'architecture s\[EAcute]rielle en utilisant \
+l'approche Denavit-Hartemberg et animation.
+
+
+A. Bulnes, D. Fuenmayor, V. Lysandra (david.fuenmayor@eu4m.eu)\
+\>", "Author(s)",
+ CellChangeTimes->{{3.4960476169899454`*^9, 3.496047648677314*^9}, {
+  3.4960477350261765`*^9, 3.4960477356373577`*^9}, {3.498209011678819*^9, 
+  3.498209029677849*^9}, {3.4983927289724884`*^9, 3.4983927312834883`*^9}, {
+  3.5011606066644397`*^9, 3.5011606627776394`*^9}}],
+
+Cell[TextData[{
+ StyleBox["R\[EAcute]sum\[EAcute]\[NonBreakingSpace]:",
+  FontWeight->"Bold"],
+ " D\[EAcute]veloppement de programmes utilisant an paradigme de \
+programmation fonctional sur logiciel Wolfram ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " de fa\[CCedilla]on \[AGrave] calculer et simuler les actions et \
+comportements de bras robotis\[EAcute]s d'architecture s\[EAcute]rielle avec \
+un nombre variant de joints et liens qui ont \[EAcute]t\[EAcute] \
+pr\[EAcute]alablement d\[EAcute]finis en utilisant ses correspondantes  param\
+\[EAcute]tres Denavit-Hartemberg. En addition, on compte sur une simulation \
+graphique r\[EAcute]presentant l'utilisation de la cin\[EAcute]matique \
+directe afin d'animer le mouvement en temps r\[EAcute]el de l'ensemble \
+lorsque chaque param\[EGrave]tre devient modifi\[EAcute] \[AGrave] travers de \
+l'interface graphique.\n\n\n",
+ StyleBox["Mots-cl\[EAcute]s\[NonBreakingSpace]:",
+  FontWeight->"Bold"],
+ "  Denavit-Hartemberg, cin\[EAcute]matique directe, robotique, manipulateurs."
+}], "Abstract",
+ CellChangeTimes->{{3.4960477643941927`*^9, 3.4960477909480863`*^9}, {
+  3.4982090393584023`*^9, 3.4982090819708395`*^9}, {3.498238122680553*^9, 
+  3.4982381233405905`*^9}, {3.498392770784488*^9, 3.498392771839488*^9}, {
+  3.4983943716454883`*^9, 3.4983945091354885`*^9}, {3.4983945545134883`*^9, 
+  3.498394634044488*^9}, {3.4983946644804883`*^9, 3.498394682306488*^9}, {
+  3.498394759438488*^9, 3.498394867674488*^9}, {3.498394921042488*^9, 
+  3.498395016499488*^9}, {3.498395051028488*^9, 3.498395062452488*^9}, {
+  3.498395095490488*^9, 3.4983952108554883`*^9}, {3.4983955260834885`*^9, 
+  3.4983955266704884`*^9}, {3.498396128121488*^9, 3.498396129606488*^9}, {
+  3.5011603548804398`*^9, 3.5011605056388397`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Abstract\[NonBreakingSpace]:",
+  FontWeight->"Bold"],
+ " Development of computer programs using a functional programming paradigm \
+approach based on Wolfram Mathematica software in order to calculate and \
+simulate the inner workings and behaviour of serial robotic arms with \
+variable number of joints and linkages, defined by their Denavit-Hartenberg \
+parameters, plus graphical simulation of the final effector's forward \
+kinematics by graphically depicting the overall status of the manipulator \
+when changing joints' parameters using the graphical user interface.\n\n",
+ StyleBox["Keywords\[NonBreakingSpace]:",
+  FontWeight->"Bold"],
+ " Denavit-Hartemberg, forward kinematics, robotics, manipulators."
+}], "Abstract",
+ CellChangeTimes->{{3.4960477964852123`*^9, 3.496047818758851*^9}, {
+  3.4982379020109315`*^9, 3.4982379224991035`*^9}, {3.498238006769923*^9, 
+  3.4982381731154375`*^9}, {3.498392806806488*^9, 3.4983928520714884`*^9}, {
+  3.4983928844514885`*^9, 3.498393079759488*^9}, {3.4983932858884883`*^9, 
+  3.498393287357488*^9}, {3.4983943194254885`*^9, 3.4983943645194883`*^9}, {
+  3.498394772488488*^9, 3.498394774247488*^9}, {3.50116051911724*^9, 
+  3.5011605995508394`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["", "Subtitle",
+ CellChangeTimes->{{3.4982401398661013`*^9, 3.498240142109197*^9}, 
+   3.4982944103648696`*^9}],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ 
+ CounterBox["Section"],
+ "\[NonBreakingSpace] Introduction"
+}], "Section",
+ CellChangeTimes->{{3.4982090964246664`*^9, 3.498209119509987*^9}, {
+  3.4982092869945664`*^9, 3.4982093240716867`*^9}, {3.498240219205823*^9, 
+  3.4982402298793135`*^9}, {3.4982403594763546`*^9, 3.4982403646655903`*^9}, {
+  3.4982944160548697`*^9, 3.4982944201438694`*^9}}],
+
+Cell["\<\
+Le probl\[EGrave]me de la cin\[EAcute]matique directe et inverse des \
+manipulateurs a int\[EAcute]ress\[EAcute] aux ing\[EAcute]nieurs pendant des \
+ann\[EAcute]es, en tant qu'elle permet de placer de fa\[CCedilla]on appropri\
+\[EAcute]e l'effecteur d'un manipulateur et de lui imprimer une certe force \
+et vitesse de fa\[CCedilla]on \[AGrave] mener \[AGrave] bien toutes sortes de \
+taches requises dans le cadre d'un processus industriel d'assemblage, usinage \
+ou transport des pi\[EGrave]ces parmi d'autres.\
+\>", "Text",
+ CellChangeTimes->{{3.4982403858675585`*^9, 3.498240406052476*^9}, {
+  3.4982944266268697`*^9, 3.4982945266338696`*^9}, {3.4983773148502564`*^9, 
+  3.498377316068326*^9}, {3.4983933202964883`*^9, 3.498393363823488*^9}, {
+  3.498393514014488*^9, 3.498393723832488*^9}, {3.4983938024324884`*^9, 
+  3.4983939217044883`*^9}, {3.50116070021764*^9, 3.5011607120424395`*^9}}],
+
+Cell["\<\
+La cin\[EAcute]matique \[EAcute]tudie la relation entre les variables ind\
+\[EAcute]pendantes des liaisons et les positions atteints par le robot. Il y \
+a deux types de cin\[EAcute]matique, cin\[EAcute]matique directe \
+(transformation des param\[EGrave]tres des liens en position globale du \
+manipulateur) et cin\[EAcute]matique inverse (transformation de la position \
+globale du manipulateur en param\[EGrave]tres des liens necesaires). La cin\
+\[EAcute]matique directe est le processus de cha\[IHat]nage de transforme \
+homog\[EGrave]ne afin de repr\[EAcute]senter les articulations du \
+m\[EAcute]canisme ou les tranformations fixes entre deux corps qui sont \
+connus en termes en termess de param\[EGrave]tres lin\[EAcute]aires et \
+rotations.\
+\>", "ItemParagraph",
+ CellChangeTimes->{{3.5009194876706467`*^9, 3.5009194887677093`*^9}, {
+   3.500919556700595*^9, 3.500919564972068*^9}, {3.5009197221870604`*^9, 
+   3.500919743653288*^9}, {3.500922377373928*^9, 3.5009223831152563`*^9}, {
+   3.500922446879904*^9, 3.5009224625057974`*^9}, {3.500922708602873*^9, 
+   3.500922731348174*^9}, {3.5009228511910286`*^9, 3.5009228516700563`*^9}, {
+   3.5009231324911184`*^9, 3.5009231869882355`*^9}, {3.5009232294386635`*^9, 
+   3.500923304927981*^9}, 3.5009257680338626`*^9, {3.500926903503808*^9, 
+   3.5009269048268833`*^9}, {3.5011607249124393`*^9, 
+   3.5011607346156397`*^9}, {3.5011607821020393`*^9, 3.50116081219444*^9}, {
+   3.5011610021244397`*^9, 3.50116105906444*^9}}],
+
+Cell["\<\
+L'analysis cin\[EAcute]matique directe du robot calcule la position, la \
+vitesse et acceleration des liens sans prendre en consid\[EAcute]ration les \
+forces qui provoquent le mouvement. Concernant ce derni\[EGrave]re, il est d\
+\[EAcute]v\[EAcute]lopp\[EAcute] dans ce document quelques fonctions \
+accompagn\[EAcute]es d'une interface graphiques permettant de \
+r\[EAcute]presenter d'une fa\[CCedilla]on didactique le mouvement d'un m\
+\[EAcute]canisme robotique consistant \[AGrave] plusieurs linkages de type \
+rotationel (R) o\[UGrave] prismatique (P), en temps que les correspondantes \
+matrices de transformation sont illustr\[EAcute]es.\
+\>", "Text",
+ CellChangeTimes->{{3.4983788785126925`*^9, 3.498378881163844*^9}, {
+   3.4983789333748302`*^9, 3.4983790492494583`*^9}, {3.49837908721663*^9, 
+   3.498379182341071*^9}, {3.498379216310014*^9, 3.49837921659303*^9}, {
+   3.4983792600065126`*^9, 3.4983793085362883`*^9}, {3.498393953337488*^9, 
+   3.4983940894084883`*^9}, {3.4983941275134883`*^9, 3.498394239297488*^9}, {
+   3.498395521997488*^9, 3.498395522791488*^9}, {3.498395873857488*^9, 
+   3.498395933716488*^9}, 3.5009134600728874`*^9, {3.5011610895936394`*^9, 
+   3.5011611294672394`*^9}}],
+
+Cell["\<\
+Le proc\[EAcute]d\[EAcute] inverse de la cin\[EAcute]matique directe est la \
+cin\[EAcute]matique inverse, dont on se sert pour positionner les differents \
+liens du manipulateur afin d'ammener \[AGrave] une position d\[EAcute]sir\
+\[EAcute]e tout l'effecteur, dans ce document sera illustr\[EAcute] \
+principalement la r\[EAcute]solution du probl\[EGrave]me de \
+cin\[EAcute]matique inverse.\
+\>", "Text",
+ CellChangeTimes->{
+  3.4983773479361486`*^9, 3.498377691353791*^9, {3.4983781190102515`*^9, 
+   3.4983781455957727`*^9}, {3.4983781789646807`*^9, 3.498378252113865*^9}, {
+   3.4983959387104883`*^9, 3.498396043669488*^9}, {3.4983960958214884`*^9, 
+   3.4983961065434885`*^9}, {3.4983961521284885`*^9, 
+   3.4983961553784885`*^9}, {3.5011611635376396`*^9, 3.5011612157352395`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ 
+ CounterBox["Section"],
+ "\[NonBreakingSpace] Etude pr\[EAcute]liminaire"
+}], "Section",
+ CellChangeTimes->{{3.4982090964246664`*^9, 3.498209119509987*^9}, {
+  3.4982092869945664`*^9, 3.4982093240716867`*^9}, {3.498240219205823*^9, 
+  3.4982402298793135`*^9}, {3.4982402616787424`*^9, 3.498240292240257*^9}, {
+  3.498242394623845*^9, 3.4982423989490795`*^9}, {3.4982945358728695`*^9, 
+  3.4982945468428698`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "2.",
+ 
+ CounterBox["Subsection"],
+ "\[NonBreakingSpace] Coordonn\[EAcute]es homog\[EGrave]nes"
+}], "Subsection",
+ CellChangeTimes->{{3.4982095366648464`*^9, 3.4982095370618696`*^9}, {
+  3.498209578763254*^9, 3.4982096040877028`*^9}, {3.498242545031238*^9, 
+  3.4982425550707893`*^9}, {3.4983182382631226`*^9, 3.498318247425647*^9}}],
+
+Cell["\<\
+Les syst\[EGrave]mes de coordon\[EAcute]es homogenes est utilis\[EAcute]e \
+dans le d\[EAcute]veloppement de la matrice de transformation qui inclut la \
+rotation, translation, mise \[AGrave] l' \[EAcute]chelle, et transformation \
+de l' espace.\
+\>", "Text",
+ CellChangeTimes->{
+  3.498396307864488*^9, {3.5011643926210394`*^9, 3.5011644209818397`*^9}}],
+
+Cell["\<\
+Un  vecteur N - dimensionnel devient un vecteur de dimension N+1 dans un syst\
+\[EGrave]me de coordonn\[EAcute]es homog\[EGrave]nes, o\[UGrave] le coordonn\
+\[EAcute]e suppl\[EAcute]mentaire est un facteur d'\[EAcute]chelle non-zero.\
+\>", "Text",
+ CellChangeTimes->{{3.498380426819251*^9, 3.4983805297791395`*^9}, {
+  3.498396205450488*^9, 3.4983962918364882`*^9}}],
+
+Cell["\<\
+Dans la robotique, on utilise le facteur d'\[EAcute]chelle de 1. Lorsque la \
+matrice de la transformation homog\[EGrave]ne est une matrice de 4x4, dont la \
+sous-matrice sup\[EAcute]rieure de 3x3 indice l'orientation du cadre mobile.\
+\>", "Text",
+ CellChangeTimes->{{3.498380549692279*^9, 3.4983806642728324`*^9}, {
+  3.498396691935488*^9, 3.498396700405488*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  SubsuperscriptBox["T", "B", "A"], "=", 
+  RowBox[{"(", GridBox[{
+     {
+      RowBox[{
+       SubsuperscriptBox["R", "B", "A"], 
+       RowBox[{"(", 
+        RowBox[{"3", "\[Times]", "3"}], ")"}]}], "\[VerticalEllipsis]", 
+      RowBox[{
+       SuperscriptBox["q", "A"], 
+       RowBox[{"(", 
+        RowBox[{"3", "\[Times]", "1"}], ")"}]}]},
+     {"\[Ellipsis]", "\[VerticalEllipsis]", "\[Ellipsis]"},
+     {
+      RowBox[{"\[Gamma]", 
+       RowBox[{"(", 
+        RowBox[{"1", "\[Times]", "3"}], ")"}]}], "\[VerticalEllipsis]", 
+      RowBox[{"\[Rho]", 
+       RowBox[{"(", 
+        RowBox[{"1", "\[Times]", "1"}], ")"}]}]}
+    }], ")"}]}]], "Code",
+ CellChangeTimes->{{3.500926195251298*^9, 3.5009263239006567`*^9}, {
+  3.500926354001378*^9, 3.500926505731056*^9}}],
+
+Cell[TextData[{
+ "En ce cas l\[AGrave] ",
+ Cell[BoxData[
+  FormBox[
+   SubsuperscriptBox["R", "B", "A"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " r\[EAcute]presente la rotation selon un axe, ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["q", "A"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " r\[EAcute]presente un vecteur qui s'ajoute au vecteur initial de fa\
+\[CCedilla]on a permettre la translation. ",
+ Cell[BoxData[
+  FormBox["\[Gamma]", TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " r\[EAcute]presente un changement de perspective (ne pas utilis\[EAcute] en \
+ce contexte)  et \[Rho] r\[EAcute]presente un changement d'\[EAcute]chelle en \
+la transformation."
+}], "Text",
+ CellChangeTimes->{{3.498380549692279*^9, 3.4983806642728324`*^9}, {
+  3.498396691935488*^9, 3.498396700405488*^9}, {3.5011619015580397`*^9, 
+  3.50116191233764*^9}, {3.50116194494164*^9, 3.5011619691528397`*^9}, {
+  3.5011622092212396`*^9, 3.5011622613876395`*^9}, {3.5011625300976396`*^9, 
+  3.5011627504632397`*^9}, {3.5011643645254393`*^9, 3.5011643779258394`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", "\[IndentingNewLine]"}]], "Input",
+ CellChangeTimes->{{3.5011618838364396`*^9, 3.5011618919484396`*^9}}],
+
+Cell["\<\
+
+Un example de cr\[EAcute]ation des matrices de transformation selon les axes \
+coordon\[EAcute]s est pr\[EAcute]sent\[EAcute] ci-dessous:\
+\>", "Text",
+ CellChangeTimes->{{3.4983806898512955`*^9, 3.4983806924914465`*^9}, {
+   3.4983814390421467`*^9, 3.4983815581799607`*^9}, {3.498396333685488*^9, 
+   3.4983963555834885`*^9}, {3.4983963891894884`*^9, 3.4983963893524885`*^9}, 
+   3.498396559778488*^9, 3.498396690096488*^9, {3.498396764933488*^9, 
+   3.498396798114488*^9}, {3.5009260357431746`*^9, 3.500926063723775*^9}, {
+   3.5009265221609964`*^9, 3.500926534363694*^9}, {3.5011627613364396`*^9, 
+   3.5011627882152395`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"RotZ", "[", 
+    RowBox[{"\[CurlyPhi]_", ",", " ", "d_"}], "]"}], ":=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Cos", "[", "\[CurlyPhi]", "]"}], ",", 
+       RowBox[{"-", 
+        RowBox[{"Sin", "[", "\[CurlyPhi]", "]"}]}], ",", "0", ",", "0"}], 
+      "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Sin", "[", "\[CurlyPhi]", "]"}], ",", 
+       RowBox[{"Cos", "[", "\[CurlyPhi]", "]"}], ",", "0", ",", "0"}], "}"}], 
+     ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0", ",", "1", ",", "d"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0", ",", "0", ",", "1"}], "}"}]}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"RotX", "[", 
+    RowBox[{"\[CurlyPhi]_", ",", " ", "d_"}], "]"}], ":=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"1", ",", "0", ",", "0", ",", "d"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", 
+       RowBox[{"Cos", "[", "\[CurlyPhi]", "]"}], ",", 
+       RowBox[{"-", 
+        RowBox[{"Sin", "[", "\[CurlyPhi]", "]"}]}], ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", 
+       RowBox[{"Sin", "[", "\[CurlyPhi]", "]"}], ",", 
+       RowBox[{"Cos", "[", "\[CurlyPhi]", "]"}], ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0", ",", "0", ",", "1"}], "}"}]}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"RotY", "[", 
+    RowBox[{"\[CurlyPhi]_", ",", " ", "d_"}], "]"}], ":=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Cos", "[", "\[CurlyPhi]", "]"}], ",", "0", ",", 
+       RowBox[{"-", 
+        RowBox[{"Sin", "[", "\[CurlyPhi]", "]"}]}], ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0", ",", "1", ",", "d"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Sin", "[", "\[CurlyPhi]", "]"}], ",", "0", ",", 
+       RowBox[{"Cos", "[", "ang", "]"}], ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0", ",", "0", ",", "1"}], "}"}]}], "}"}]}], 
+  ";"}]}], "Code",
+ CellChangeTimes->{3.4994149486784*^9}],
+
+Cell["\<\
+MatrixForm[RotZ[\[CurlyPhi], d]]
+MatrixForm[RotX[\[CurlyPhi], d]]
+MatrixForm[RotY[\[CurlyPhi], d]]\
+\>", "Text",
+ CellChangeTimes->{
+  3.4983793902659636`*^9, {3.4983794603069696`*^9, 3.498379475017811*^9}, {
+   3.498379511096874*^9, 3.4983795992339153`*^9}, 3.498396809015488*^9, {
+   3.4994149580564003`*^9, 3.4994149688564005`*^9}, 3.500926802395025*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"RotZ", "[", 
+    RowBox[{"\[CurlyPhi]_", ",", " ", "d_"}], "]"}], ":=", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", GridBox[{
+       {
+        RowBox[{"Cos", "[", "\[CurlyPhi]", "]"}], 
+        RowBox[{"-", 
+         RowBox[{"Sin", "[", "\[CurlyPhi]", "]"}]}], "0", "0"},
+       {
+        RowBox[{"Sin", "[", "\[CurlyPhi]", "]"}], 
+        RowBox[{"Cos", "[", "\[CurlyPhi]", "]"}], "0", "0"},
+       {"0", "0", "1", "d"},
+       {"0", "0", "0", "1"}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+        "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.7]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.4]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]}], ";"}]], "Text", "Input",
+ CellChangeTimes->{{3.50092654810448*^9, 3.50092655422383*^9}, {
+  3.5009310148009605`*^9, 3.500931018743186*^9}, {3.500931057663412*^9, 
+  3.500931083908913*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"RotX", "[", 
+    RowBox[{"\[CurlyPhi]_", ",", " ", "d_"}], "]"}], ":=", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", GridBox[{
+       {"1", "0", "0", "d"},
+       {"0", 
+        RowBox[{"Cos", "[", "\[CurlyPhi]", "]"}], 
+        RowBox[{"-", 
+         RowBox[{"Sin", "[", "\[CurlyPhi]", "]"}]}], "0"},
+       {"0", 
+        RowBox[{"Sin", "[", "\[CurlyPhi]", "]"}], 
+        RowBox[{"Cos", "[", "\[CurlyPhi]", "]"}], "0"},
+       {"0", "0", "0", "1"}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+        "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.7]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.4]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]}], ";"}]], "Text", "Input",
+ CellChangeTimes->{{3.5009265964352446`*^9, 3.5009266018315535`*^9}, 
+   3.5009310215963492`*^9, {3.5009310605025744`*^9, 3.50093107877762*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  TagBox[
+   RowBox[{
+    RowBox[{"RotY", "[", 
+     RowBox[{"\[CurlyPhi]_", ",", " ", "d_"}], "]"}], ":=", 
+    RowBox[{"(", "\[NoBreak]", GridBox[{
+       {
+        RowBox[{"Cos", "[", "\[CurlyPhi]", "]"}], "0", 
+        RowBox[{"-", 
+         RowBox[{"Sin", "[", "\[CurlyPhi]", "]"}]}], "0"},
+       {"0", "0", "1", "d"},
+       {
+        RowBox[{"Sin", "[", "\[CurlyPhi]", "]"}], "0", 
+        RowBox[{"Cos", "[", "ang", "]"}], "0"},
+       {"0", "0", "0", "1"}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+        "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.7]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.4]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}]}],
+   Function[BoxForm`e$, 
+    MatrixForm[BoxForm`e$]]], ";"}]], "Text", "Input",
+ CellChangeTimes->{{3.500926609782008*^9, 3.5009266150903115`*^9}, 
+   3.500931025051547*^9, {3.5009310712471895`*^9, 3.5009310748743963`*^9}}],
+
+Cell["\<\
+\"ang\" est l'angle de mouvement par rapport \[AGrave] l'axe et \"d\" est la \
+longueur du d\[EAcute]placement dans chaque axe.\
+\>", "Text",
+ CellChangeTimes->{{3.4983771819156528`*^9, 3.4983772513186226`*^9}, 
+   3.4983793367389016`*^9, {3.498396820801488*^9, 3.4983968210524883`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "2.",
+ 
+ CounterBox["Subsection"],
+ "\[NonBreakingSpace] La transformation de coordonn\[EAcute]es"
+}], "Subsection",
+ CellChangeTimes->{{3.4982095366648464`*^9, 3.4982095370618696`*^9}, {
+   3.498209578763254*^9, 3.4982096040877028`*^9}, {3.498242545031238*^9, 
+   3.4982425804631777`*^9}, {3.49838167268151*^9, 3.4983816822100554`*^9}, {
+   3.498381791360298*^9, 3.498381794484477*^9}, 3.498396836690488*^9}],
+
+Cell["\<\
+Une transformation de coordonn\[EAcute]es est une op\[EAcute]ration effectu\
+\[EAcute] sur un syst\[EGrave]me de coordon\[EAcute]es \[AGrave] fin de cr\
+\[EAcute]er un autre pour d\[EAcute]crire le m\[EHat]me espace.\
+\>", "Text",
+ CellChangeTimes->{{3.4983818678036704`*^9, 3.4983818722309237`*^9}, {
+  3.4983968482864885`*^9, 3.498396906506488*^9}}],
+
+Cell["\<\
+Les coordonn\[EAcute]es peuvent \[EHat]tre repr\[EAcute]sent\[EAcute]es des \
+fa\[CCedilla]ones suivantes:\
+\>", "Text",
+ CellChangeTimes->{{3.4982094654397726`*^9, 3.498209477332453*^9}, {
+  3.4983815691545887`*^9, 3.498381665141079*^9}, {3.4983822224729567`*^9, 
+  3.4983822228949804`*^9}, {3.4983969163924885`*^9, 3.4983969245724883`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ 
+ CounterBox["Section"],
+ ".",
+ 
+ CounterBox["Subsection"],
+ ".",
+ 
+ CounterBox["Subsubsection"],
+ "\[NonBreakingSpace] Cosines Directeurs: "
+}], "Subsubsection",
+ CellChangeTimes->{{3.4982427182587695`*^9, 3.4982427318315125`*^9}, {
+  3.498397917117488*^9, 3.498397984068488*^9}}],
+
+Cell["\<\
+Utilisent neuf parametres pour representer une transformation de coordon\
+\[EAcute]es. Informations additionnelles peuvent \[EHat]tre consult\[EAcute]s \
+en la bibliographie.\
+\>", "Text",
+ CellChangeTimes->{{3.4982094654397726`*^9, 3.498209477332453*^9}, {
+   3.4983815691545887`*^9, 3.498381665141079*^9}, {3.4983822224729567`*^9, 
+   3.4983822228949804`*^9}, {3.4983969163924885`*^9, 
+   3.4983969245724883`*^9}, {3.4983979862084885`*^9, 
+   3.4983979903284883`*^9}, {3.5011632772522397`*^9, 3.5011632835390396`*^9}, 
+   3.5011633176562395`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ 
+ CounterBox["Section"],
+ ".",
+ 
+ CounterBox["Subsection"],
+ ".",
+ 
+ CounterBox["Subsubsection"],
+ "\[NonBreakingSpace] Screw : "
+}], "Subsubsection",
+ CellChangeTimes->{{3.4982427182587695`*^9, 3.4982427451242414`*^9}, 
+   3.498398014856488*^9}],
+
+Cell["\<\
+Utilisent quatre parametres. Informations additionnelles peuvent \[EHat]tre \
+consult\[EAcute]s en la bibliographie.\
+\>", "Text",
+ CellChangeTimes->{{3.4982094654397726`*^9, 3.498209477332453*^9}, {
+  3.4983815691545887`*^9, 3.498381665141079*^9}, {3.4983822224729567`*^9, 
+  3.4983822228949804`*^9}, {3.4983969163924885`*^9, 3.4983969245724883`*^9}, {
+  3.4983979862084885`*^9, 3.498398046497488*^9}, {3.50116332466064*^9, 
+  3.5011633248322396`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ 
+ CounterBox["Section"],
+ ".",
+ 
+ CounterBox["Subsection"],
+ ".",
+ 
+ CounterBox["Subsubsection"],
+ "\[NonBreakingSpace] Euler Angles : "
+}], "Subsubsection",
+ CellChangeTimes->{{3.4982427182587695`*^9, 3.4982427573159204`*^9}, 
+   3.4983980255764885`*^9}],
+
+Cell["\<\
+Utilisent trois parametres. Informations additionnelles peuvent \[EHat]tre \
+consult\[EAcute]s en la bibliographie.\
+\>", "Text",
+ CellChangeTimes->{{3.4982094654397726`*^9, 3.498209477332453*^9}, {
+  3.4983815691545887`*^9, 3.498381665141079*^9}, {3.4983822224729567`*^9, 
+  3.4983822228949804`*^9}, {3.4983969163924885`*^9, 3.4983969245724883`*^9}, {
+  3.4983979862084885`*^9, 3.4983979903284883`*^9}, {3.498398027957488*^9, 
+  3.498398047551488*^9}, {3.5011633263610396`*^9, 3.5011633291534395`*^9}}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "2.",
+ 
+ CounterBox["Subsection"],
+ "\[NonBreakingSpace] Representation Minime des Lignes"
+}], "Subsection",
+ CellChangeTimes->{{3.4982095366648464`*^9, 3.4982095370618696`*^9}, {
+  3.498209578763254*^9, 3.4982096040877028`*^9}, {3.498242545031238*^9, 
+  3.4982425804631777`*^9}, {3.498242781057232*^9, 3.4982427855204787`*^9}, {
+  3.498397026591488*^9, 3.498397088124488*^9}, {3.5011633387006397`*^9, 
+  3.50116334678144*^9}}],
+
+Cell["\<\
+Une repr\[EAcute]sentation en ligne est minime si elle utilise quatre param\
+\[EGrave]tres, qui sont le minimum n\[EAcute]cessaire pour \
+repr\[EAcute]senter toutes les lignes possibles dans l'espace euclidien.
+Il existent deux principaux r\[EAcute]presentations minimes:\
+\>", "Text",
+ CellChangeTimes->{{3.4982091143296905`*^9, 3.498209116964841*^9}, {
+   3.498209173020047*^9, 3.4982091769932747`*^9}, {3.4982350640866327`*^9, 
+   3.498235067926852*^9}, 3.498235858526434*^9, {3.498396973907488*^9, 
+   3.4983969741874886`*^9}, {3.498397376409488*^9, 3.498397411327488*^9}, {
+   3.498397482621488*^9, 3.4983974947084885`*^9}, {3.498397534923488*^9, 
+   3.498397582589488*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "2.",
+ 
+ CounterBox["Subsection"],
+ ".",
+ 
+ CounterBox["Subsubsection"],
+ "\[NonBreakingSpace] Repr\[EAcute]sentation minime de Hayati-Roberts"
+}], "Subsubsection",
+ CellChangeTimes->{{3.4982427182587695`*^9, 3.4982427318315125`*^9}, {
+  3.4982428289018774`*^9, 3.4982428372713537`*^9}, {3.498397588195488*^9, 
+  3.4983976057114882`*^9}}],
+
+Cell["\<\
+Not\[EAcute] par Lhr (ex, ey, lx, ly), utilise comme param\[EGrave]tres : \
+\>", "Text",
+ CellChangeTimes->{{3.4982358801706715`*^9, 3.498235942670218*^9}, {
+   3.498236013590065*^9, 3.498236030975051*^9}, 3.4983976255464883`*^9, {
+   3.498397656294488*^9, 3.4983976793024883`*^9}, {3.5011628660674396`*^9, 
+   3.5011628691718397`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+ex et ey qui sont les composant X et Y d'un vecteur e sur la ligne.\
+\>", "Item",
+ CellChangeTimes->{{3.4982360709982896`*^9, 3.498236071238303*^9}, {
+  3.4982362329674597`*^9, 3.498236237817735*^9}, {3.498397686681488*^9, 
+  3.4983977157294884`*^9}, {3.5011628558494396`*^9, 3.5011628580022397`*^9}}],
+
+Cell["\<\
+lx and ly qui sont les coordon\[EAcute]s du point d'intersection de la ligne \
+avec le plan \[AGrave] travers l'origin du syst\[EGrave]me cartesien de r\
+\[EAcute]ference.\
+\>", "Item",
+ CellChangeTimes->{{3.5011629784342394`*^9, 3.5011629789178395`*^9}}]
+}, Open  ]],
+
+Cell["\<\
+Cet approche ne sera pas abord\[EAcute] en ce document donc les informations \
+additionelles peuvent \[EHat]tre consult\[EAcute]s en la bibliographie.\
+\>", "Text",
+ CellChangeTimes->{{3.4982358801706715`*^9, 3.498235942670218*^9}, {
+   3.498236013590065*^9, 3.498236030975051*^9}, 3.4983976255464883`*^9, {
+   3.498397656294488*^9, 3.4983976793024883`*^9}, {3.5011628660674396`*^9, 
+   3.5011628691718397`*^9}, {3.50116300546904*^9, 3.5011630759498396`*^9}, 
+   3.50116326442904*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ 
+ CounterBox["Section"],
+ ".",
+ 
+ CounterBox["Subsection"],
+ ".",
+ 
+ CounterBox["Subsubsection"],
+ "\[NonBreakingSpace] Repr\[EAcute]sentation minime de Denavit-Hartemberg"
+}], "Subsubsection",
+ CellChangeTimes->{{3.4982427182587695`*^9, 3.4982427451242414`*^9}, {
+  3.4982428603646235`*^9, 3.4982428674190135`*^9}, {3.498242953587758*^9, 
+  3.4982429610251637`*^9}, {3.498398082117488*^9, 3.4983980965464883`*^9}}],
+
+Cell["\<\
+Dans cette convention, chaque articulation est assign\[EAcute] comme un cadre \
+mobile. En utilisant la notation Denavit-Hartemberg, on a besoin de quatre \
+param\[EGrave]tres pour decrire les liaisons entre un corps avec le corps pr\
+\[EAcute]c\[EAcute]dent. Ils sont: \[Alpha], a, d, \[Theta].\
+\>", "Text",
+ CellChangeTimes->{{3.4983881968366704`*^9, 3.498388291118063*^9}, {
+  3.4983884020954103`*^9, 3.4983885376971664`*^9}, {3.4983885803186045`*^9, 
+  3.4983887229337616`*^9}, {3.4983982897154884`*^9, 3.498398296223488*^9}, {
+  3.498398408676488*^9, 3.498398430166488*^9}, {3.5011630910818396`*^9, 
+  3.5011631200042396`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+a signifie le longeur perpendiculaire entre les axes des articulations.\
+\>", "Item",
+ CellChangeTimes->{{3.49838846362493*^9, 3.4983884685852137`*^9}, {
+  3.498388758195778*^9, 3.4983888166591225`*^9}, {3.4983888506240644`*^9, 
+  3.4983888507240705`*^9}, {3.4983984728524885`*^9, 3.4983984769604883`*^9}}],
+
+Cell["\<\
+\[Alpha] signifie le montant de rotation autour de la perpendiculaire commune \
+de sorte que les axes d'articulation soient parall\[EGrave]les.\
+\>", "Item",
+ CellChangeTimes->{{3.49838846362493*^9, 3.4983884685852137`*^9}, {
+   3.498388758195778*^9, 3.4983888388533916`*^9}, {3.4983888830179176`*^9, 
+   3.498388919091981*^9}, 3.4983984857814884`*^9, {3.5011631315950394`*^9, 
+   3.5011631319070396`*^9}}],
+
+Cell["\<\
+d signifie le d\[EAcute]placement n\[EAcute]cessaire sur l'axe Z pour aligner \
+la perpendiculaire commune a (i-1) \[AGrave] l'une perpendiculaire commune a \
+i.\
+\>", "Item",
+ CellChangeTimes->{{3.4983889361659575`*^9, 3.4983889399291725`*^9}, {
+  3.4983889758522277`*^9, 3.498389048013355*^9}}],
+
+Cell["\<\
+\[Theta] signifie le montant de la rotation autour de la axes Z pour aligner \
+l'axe Xi-1 avec l'axe Xi. \
+\>", "Item",
+ CellChangeTimes->{{3.4983890571668787`*^9, 3.4983891117369995`*^9}}]
+}, Open  ]],
+
+Cell["\<\
+En tant qu'une matrice homog\[EGrave]ne, en utilisant l'approche \
+Denavit-Hartemberg on obtient une matrice de transformation d'un \
+syst\[EGrave]me coordonn\[EAcute] au syst\[EGrave]me coordonn\[EAcute] \
+suivant. En multipliant ces matrices l\[AGrave] on peut obtenir la matrice de \
+transformation d'un cadre vers le cadre de r\[EAcute]ference globale.\
+\>", "Text",
+ CellChangeTimes->{{3.49838914618297*^9, 3.4983893134945393`*^9}, {
+  3.4994145964134*^9, 3.4994145973074*^9}, {3.5009289730101767`*^9, 
+  3.5009289819506884`*^9}, {3.5009296173660316`*^9, 3.500929621410263*^9}, {
+  3.5011631441062393`*^9, 3.50116321349504*^9}, {3.50116337487704*^9, 
+  3.5011634459506397`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"ConstructDH", "[", 
+    RowBox[{"{", 
+     RowBox[{"a_", ",", "\[Alpha]_", ",", "d_", ",", "\[Theta]_"}], "}"}], 
+    "]"}], ":=", " ", 
+   RowBox[{
+    RowBox[{"RotZ", "[", 
+     RowBox[{"\[Theta]", ",", "d"}], "]"}], ".", 
+    RowBox[{"RotX", "[", 
+     RowBox[{"\[Alpha]", ",", "a"}], "]"}]}]}], ";"}], "\n", 
+ RowBox[{"MatrixForm", "[", 
+  RowBox[{"ConstructDH", "[", 
+   RowBox[{"{", 
+    RowBox[{"a", ",", "\[Alpha]", ",", "d", ",", "\[Theta]"}], "}"}], "]"}], 
+  "]"}]}], "Code",
+ CellChangeTimes->{
+  3.4983828328618684`*^9, 3.498398644023488*^9, {3.498398961532488*^9, 
+   3.498399004023488*^9}, {3.4994146095864*^9, 3.4994146173434*^9}, {
+   3.4994149192824*^9, 3.4994149243344*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {
+      RowBox[{"Cos", "[", "\[Theta]", "]"}], 
+      RowBox[{
+       RowBox[{"-", 
+        RowBox[{"Cos", "[", "\[Alpha]", "]"}]}], " ", 
+       RowBox[{"Sin", "[", "\[Theta]", "]"}]}], 
+      RowBox[{
+       RowBox[{"Sin", "[", "\[Alpha]", "]"}], " ", 
+       RowBox[{"Sin", "[", "\[Theta]", "]"}]}], 
+      RowBox[{"a", " ", 
+       RowBox[{"Cos", "[", "\[Theta]", "]"}]}]},
+     {
+      RowBox[{"Sin", "[", "\[Theta]", "]"}], 
+      RowBox[{
+       RowBox[{"Cos", "[", "\[Alpha]", "]"}], " ", 
+       RowBox[{"Cos", "[", "\[Theta]", "]"}]}], 
+      RowBox[{
+       RowBox[{"-", 
+        RowBox[{"Cos", "[", "\[Theta]", "]"}]}], " ", 
+       RowBox[{"Sin", "[", "\[Alpha]", "]"}]}], 
+      RowBox[{"a", " ", 
+       RowBox[{"Sin", "[", "\[Theta]", "]"}]}]},
+     {"0", 
+      RowBox[{"Sin", "[", "\[Alpha]", "]"}], 
+      RowBox[{"Cos", "[", "\[Alpha]", "]"}], "d"},
+     {"0", "0", "0", "1"}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+  Function[BoxForm`e$, 
+   MatrixForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{3.5010850950224915`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"MatrixForm", "[", 
+  RowBox[{"ConstructDH", "[", 
+   RowBox[{"{", 
+    RowBox[{"a", ",", "\[Alpha]", ",", "d", ",", "\[Theta]"}], " ", "}"}], 
+   "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.5009298257099485`*^9, 3.500929883378247*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {
+      RowBox[{"Cos", "[", "\[Theta]", "]"}], 
+      RowBox[{
+       RowBox[{"-", 
+        RowBox[{"Cos", "[", "\[Alpha]", "]"}]}], " ", 
+       RowBox[{"Sin", "[", "\[Theta]", "]"}]}], 
+      RowBox[{
+       RowBox[{"Sin", "[", "\[Alpha]", "]"}], " ", 
+       RowBox[{"Sin", "[", "\[Theta]", "]"}]}], 
+      RowBox[{"a", " ", 
+       RowBox[{"Cos", "[", "\[Theta]", "]"}]}]},
+     {
+      RowBox[{"Sin", "[", "\[Theta]", "]"}], 
+      RowBox[{
+       RowBox[{"Cos", "[", "\[Alpha]", "]"}], " ", 
+       RowBox[{"Cos", "[", "\[Theta]", "]"}]}], 
+      RowBox[{
+       RowBox[{"-", 
+        RowBox[{"Cos", "[", "\[Theta]", "]"}]}], " ", 
+       RowBox[{"Sin", "[", "\[Alpha]", "]"}]}], 
+      RowBox[{"a", " ", 
+       RowBox[{"Sin", "[", "\[Theta]", "]"}]}]},
+     {"0", 
+      RowBox[{"Sin", "[", "\[Alpha]", "]"}], 
+      RowBox[{"Cos", "[", "\[Alpha]", "]"}], "d"},
+     {"0", "0", "0", "1"}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+  Function[BoxForm`e$, 
+   MatrixForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{
+  3.498399007777488*^9, 3.4983996003594885`*^9, 3.498399655350488*^9, 
+   3.498399717989488*^9, 3.498399791775488*^9, {3.4994149290594*^9, 
+   3.4994149292224*^9}, 3.4994150039074*^9, 3.4994411660712013`*^9, {
+   3.500926946991295*^9, 3.500926948717394*^9}, {3.500929857645775*^9, 
+   3.5009298857683835`*^9}}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ 
+ CounterBox["Section"],
+ "\[NonBreakingSpace] Analise et D\[EAcute]veloppement du programme "
+}], "Section",
+ CellChangeTimes->{{3.4982090964246664`*^9, 3.498209119509987*^9}, {
+   3.4982092869945664`*^9, 3.4982093240716867`*^9}, {3.498240219205823*^9, 
+   3.4982402298793135`*^9}, {3.4982402616787424`*^9, 3.498240292240257*^9}, {
+   3.498242394623845*^9, 3.4982423989490795`*^9}, {3.4982426641387844`*^9, 
+   3.498242665115838*^9}, {3.49829460242787*^9, 3.4982946312928696`*^9}, {
+   3.4982946619898696`*^9, 3.4982946688578696`*^9}, {3.4982948222448697`*^9, 
+   3.4982948578088694`*^9}, 3.4982949227778697`*^9, {3.4982951051418695`*^9, 
+   3.4982951305138693`*^9}, 3.4994145636414003`*^9}],
+
+Cell["\<\
+Le projet couvres la construction des matrices des transformations \[AGrave] \
+partir des param\[EGrave]tres Denavit-Hartemberg de chaque lien. La \
+positionnement de chaque segment du robot est visualiser \[AGrave] l'aide de \
+\"Graphics3D\".\
+\>", "Text",
+ CellChangeTimes->{{3.500929654952182*^9, 3.500929686016958*^9}, {
+  3.500930104879916*^9, 3.5009301080840993`*^9}, {3.500930302097196*^9, 
+  3.500930307995534*^9}, {3.5011643494246397`*^9, 3.50116435249784*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Clear", "[", "\"\<Global`*\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.4993559020186*^9, 3.4993559177986*^9}, 
+   3.4993559499406*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"...", "..."}], "..."}], "."}]], "Input",
+ CellChangeTimes->{{3.50116349718104*^9, 3.5011634979766397`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ 
+ CounterBox["Section"],
+ "\[NonBreakingSpace]  Discusion et Conclusion"
+}], "Section",
+ CellChangeTimes->{{3.4982090964246664`*^9, 3.498209119509987*^9}, {
+   3.4982092869945664`*^9, 3.4982093240716867`*^9}, {3.498240219205823*^9, 
+   3.4982402298793135`*^9}, {3.4982403594763546`*^9, 
+   3.4982403646655903`*^9}, {3.4982432979578557`*^9, 3.4982433220771723`*^9}, 
+   3.49829492037387*^9, {3.4982949510008698`*^9, 3.4982949580228696`*^9}, {
+   3.5011637534266396`*^9, 3.5011637757970395`*^9}}],
+
+Cell["\<\
+En utilisant cette interface graphique d\[EAcute]velopp\[EAcute] pour \
+illustrer le mouvement d'un manipulateur d'architecture serielle, \
+l'utilisateur peut corroborer le fonctionnement correct du approche \
+\[EAcute]tudi\[EAcute] en ce document, en m\[EHat]me temps que celui lui \
+permet d'acquerir une connaissance approfondie de la fa\[CCedilla]on comme \
+les different composants d'un manipulateur interagissent afin de mener \
+\[AGrave] bien un mouvement pr\[EAcute]alablement con\[CCedilla]u. Aussi, ce \
+document sert comme un premi\[EGrave]re approche \[AGrave] l'etude de la cin\
+\[EAcute]matique inverse des manipulateurs, dont l'analyse de la \
+cin\[EAcute]matique directe ici pr\[EAcute]sent\[EAcute] fait partie int\
+\[EAcute]grale.\
+\>", "Text",
+ CellChangeTimes->{{3.4983881968366704`*^9, 3.498388291118063*^9}, {
+  3.4983884020954103`*^9, 3.4983885376971664`*^9}, {3.4983885803186045`*^9, 
+  3.4983887229337616`*^9}, {3.4983982897154884`*^9, 3.498398296223488*^9}, {
+  3.498398408676488*^9, 3.498398430166488*^9}, {3.5011630910818396`*^9, 
+  3.5011631200042396`*^9}, {3.5011637830822396`*^9, 3.5011638051562395`*^9}, {
+  3.5011638443902397`*^9, 3.5011643275534396`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ 
+ CounterBox["Section"],
+ "\[NonBreakingSpace]  Bibliographie"
+}], "Section",
+ CellChangeTimes->{{3.4982090964246664`*^9, 3.498209119509987*^9}, {
+   3.4982092869945664`*^9, 3.4982093240716867`*^9}, {3.498240219205823*^9, 
+   3.4982402298793135`*^9}, {3.4982403594763546`*^9, 
+   3.4982403646655903`*^9}, {3.4982432979578557`*^9, 3.4982433220771723`*^9}, 
+   3.49829492037387*^9, {3.4982949510008698`*^9, 3.4982949580228696`*^9}, {
+   3.4982950789548693`*^9, 3.4982950827048693`*^9}}],
+
+Cell["\<\
+Wolfram M athematica \[RegisteredTrademark] Tutorial Collection CORE LANGUAGE
+Lung-Wen Tsai   \"Robot Analysis: The Mechanics of Serial and Parallel \
+Manipulators\"
+http://en.wikipedia.org/wiki/Screw_theory
+http://en.wikipedia.org/wiki/Euler_angles
+http://en.wikipedia.org/wiki/Forward_kinematics
+http://en.wikipedia.org/wiki/Denavit-Hartenberg_Parameters
+\
+\>", "Text",
+ CellChangeTimes->{{3.4982439802458563`*^9, 3.4982439838200493`*^9}, 
+   3.49829501233387*^9, 3.4982950861128693`*^9, {3.498382277982131*^9, 
+   3.4983822791661987`*^9}, {3.4983826553487153`*^9, 3.498382657915862*^9}, {
+   3.4983826903547173`*^9, 3.4983826993622327`*^9}, 3.4983827725494184`*^9, {
+   3.4983995771714883`*^9, 3.498399578374488*^9}, 3.5009269861115327`*^9, {
+   3.50116353596264*^9, 3.5011636705282393`*^9}}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+AutoGeneratedPackage->Automatic,
+ScreenStyleEnvironment->"Working",
+PrintingStyleEnvironment->"Printout",
+WindowToolbars->"EditBar",
+WindowSize->{1264, 679},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+PrintingCopies->1,
+PrintingPageRange->{Automatic, Automatic},
+ShowSelection->True,
+Magnification->1.399999976158142,
+FrontEndVersion->"7.0 for Microsoft Windows (32-bit) (November 10, 2008)",
+StyleDefinitions->FrontEnd`FileName[{"ENSMM-maths"}, "Micro-projet.nb", 
+  CharacterEncoding -> "WindowsANSI"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 304, 4, 114, "Title"],
+Cell[874, 28, 486, 11, 112, "Author(s)"],
+Cell[1363, 41, 1777, 29, 153, "Abstract"],
+Cell[3143, 72, 1226, 20, 112, "Abstract"],
+Cell[CellGroupData[{
+Cell[4394, 96, 116, 2, 69, "Subtitle"],
+Cell[CellGroupData[{
+Cell[4535, 102, 367, 8, 102, "Section"],
+Cell[4905, 112, 906, 13, 85, "Text"],
+Cell[5814, 127, 1490, 22, 87, "ItemParagraph"],
+Cell[7307, 151, 1217, 18, 108, "Text"],
+Cell[8527, 171, 797, 13, 62, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9361, 189, 430, 9, 102, "Section"],
+Cell[CellGroupData[{
+Cell[9816, 202, 350, 8, 53, "Subsection"],
+Cell[10169, 212, 364, 7, 62, "Text"],
+Cell[10536, 221, 376, 6, 62, "Text"],
+Cell[10915, 229, 375, 6, 62, "Text"],
+Cell[11293, 237, 794, 23, 113, "Code"],
+Cell[12090, 262, 1085, 24, 66, "Text"],
+Cell[13178, 288, 150, 2, 91, "Input"],
+Cell[13331, 292, 640, 11, 62, "Text"],
+Cell[13974, 305, 2193, 63, 114, "Code"],
+Cell[16170, 370, 367, 8, 85, "Text"],
+Cell[16540, 380, 1192, 31, 99, "Text"],
+Cell[17735, 413, 1173, 30, 99, "Text"],
+Cell[18911, 445, 1164, 30, 99, "Text"],
+Cell[20078, 477, 297, 5, 38, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[20412, 487, 426, 9, 53, "Subsection"],
+Cell[20841, 498, 361, 6, 38, "Text"],
+Cell[21205, 506, 352, 6, 38, "Text"],
+Cell[CellGroupData[{
+Cell[21582, 516, 298, 12, 37, "Subsubsection"],
+Cell[21883, 530, 558, 10, 38, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[22478, 545, 263, 12, 37, "Subsubsection"],
+Cell[22744, 559, 463, 8, 38, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[23244, 572, 272, 12, 37, "Subsubsection"],
+Cell[23519, 586, 513, 8, 38, "Text"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[24081, 600, 444, 10, 53, "Subsection"],
+Cell[24528, 612, 689, 11, 85, "Text"],
+Cell[CellGroupData[{
+Cell[25242, 627, 355, 11, 37, "Subsubsection"],
+Cell[25600, 640, 346, 6, 38, "Text"],
+Cell[CellGroupData[{
+Cell[25971, 650, 311, 5, 30, "Item"],
+Cell[26285, 657, 265, 5, 30, "Item"]
+}, Open  ]],
+Cell[26565, 665, 494, 8, 38, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[27096, 678, 432, 13, 37, "Subsubsection"],
+Cell[27531, 693, 643, 10, 62, "Text"],
+Cell[CellGroupData[{
+Cell[28199, 707, 316, 5, 30, "Item"],
+Cell[28518, 714, 416, 7, 30, "Item"],
+Cell[28937, 723, 306, 6, 30, "Item"],
+Cell[29246, 731, 199, 4, 30, "Item"]
+}, Open  ]],
+Cell[29460, 738, 693, 11, 62, "Text"],
+Cell[CellGroupData[{
+Cell[30178, 753, 741, 20, 89, "Code"],
+Cell[30922, 775, 1497, 42, 102, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[32456, 822, 261, 6, 40, "Input"],
+Cell[32720, 830, 1784, 47, 102, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[34577, 885, 709, 12, 102, "Section"],
+Cell[35289, 899, 480, 8, 62, "Text"],
+Cell[35772, 909, 159, 3, 40, "Input"],
+Cell[35934, 914, 154, 4, 40, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[36125, 923, 511, 10, 102, "Section"],
+Cell[36639, 935, 1199, 18, 108, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[37875, 958, 501, 10, 102, "Section"],
+Cell[38379, 970, 805, 15, 178, "Text"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
