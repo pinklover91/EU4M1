@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       145,          7]
-NotebookDataLength[     55483,       1111]
-NotebookOptionsPosition[     54832,       1087]
-NotebookOutlinePosition[     55176,       1102]
-CellTagsIndexPosition[     55133,       1099]
+NotebookDataLength[     69569,       1439]
+NotebookOptionsPosition[     68177,       1394]
+NotebookOutlinePosition[     68521,       1409]
+CellTagsIndexPosition[     68478,       1406]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -424,9 +424,28 @@ Cell[BoxData[
                     RowBox[{
                     RowBox[{
                     RowBox[{"{", 
-                    RowBox[{"ToString", "[", "#", "]"}], "}"}], "&"}], ",", 
-                    RowBox[{"Last", "[", "rb", "]"}]}], "]"}]}], 
-                   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"ToString", "[", "#", "]"}], ",", "#", ",", 
+                    RowBox[{"MatrixForm", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"Rest", "[", 
+                    RowBox[{"FoldList", "[", 
+                    RowBox[{"Dot", ",", 
+                    RowBox[{"IdentityMatrix", "[", "4", "]"}], ",", 
+                    RowBox[{"Apply", "[", 
+                    RowBox[{"ConDH", ",", "rb", ",", "1"}], "]"}]}], "]"}], 
+                    "]"}], "[", 
+                    RowBox[{"[", 
+                    RowBox[{"ToExpression", "[", 
+                    RowBox[{"StringCases", "[", 
+                    RowBox[{
+                    RowBox[{"ToString", "[", "#", "]"}], ",", 
+                    RowBox[{"DigitCharacter", ".."}]}], "]"}], "]"}], "]"}], 
+                    "]"}], "//", "N"}], "]"}]}], "}"}], "&"}], ",", 
+                    RowBox[{"Map", "[", 
+                    RowBox[{"Last", ",", "rb"}], "]"}]}], "]"}]}], 
+                   "\[IndentingNewLine]", 
                    RowBox[{"(*", 
                     RowBox[{
                     RowBox[{"{", 
@@ -506,7 +525,14 @@ Cell[BoxData[
    3.5030673104804616`*^9, {3.5034016163157063`*^9, 3.503401633677699*^9}, {
    3.5034017601679335`*^9, 3.5034017719296064`*^9}, {3.503401815645107*^9, 
    3.5034018469308963`*^9}, {3.503401913660713*^9, 3.503401913849724*^9}, {
-   3.5034019986245728`*^9, 3.503402048697437*^9}}],
+   3.5034019986245728`*^9, 3.503402048697437*^9}, {3.5034050154851274`*^9, 
+   3.503405018925324*^9}, {3.503405216839644*^9, 3.5034052535627446`*^9}, {
+   3.5034053943247957`*^9, 3.5034054363622*^9}, {3.503405489561243*^9, 
+   3.503405505717167*^9}, {3.503405544563389*^9, 3.5034055819865294`*^9}, {
+   3.503405873324193*^9, 3.5034058820896945`*^9}, {3.5034059787042203`*^9, 
+   3.503405981214364*^9}, {3.5034060262439394`*^9, 3.503406046286086*^9}, {
+   3.503406260480337*^9, 3.5034062607163506`*^9}, 3.5034067110041056`*^9, 
+   3.503406753137515*^9}],
 
 Cell[CellGroupData[{
 
@@ -518,9 +544,9 @@ Cell[BoxData[
 Cell[BoxData[
  TagBox[
   StyleBox[
-   DynamicModuleBox[{$CellContext`T1$$ = Rational[1, 4] 
-    Pi, $CellContext`T2$$ = Rational[1, 32] Pi, $CellContext`T3$$ = 
-    Rational[19, 16] Pi, $CellContext`T4$$ = Rational[1, 2] 
+   DynamicModuleBox[{$CellContext`T1$$ = Rational[3, 16] 
+    Pi, $CellContext`T2$$ = Rational[45, 32] Pi, $CellContext`T3$$ = 
+    Rational[1, 2] Pi, $CellContext`T4$$ = Rational[1, 2] 
     Pi, $CellContext`T5$$ = Rational[1, 2] Pi, $CellContext`T6$$ = 
     Rational[1, 2] Pi, Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
     Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
@@ -538,9 +564,9 @@ Cell[BoxData[
        Hold[$CellContext`T6$$], Rational[1, 2] Pi, "T6"}, 0, 2 Pi, 
       Rational[1, 32] Pi}}, Typeset`size$$ = {575., {185., 190.}}, 
     Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
-    False, $CellContext`T1$1798$$ = 0, $CellContext`T2$1799$$ = 
-    0, $CellContext`T3$1800$$ = 0, $CellContext`T4$1801$$ = 
-    0, $CellContext`T5$1802$$ = 0, $CellContext`T6$1803$$ = 0}, 
+    False, $CellContext`T1$2437$$ = 0, $CellContext`T2$2438$$ = 
+    0, $CellContext`T3$2439$$ = 0, $CellContext`T4$2440$$ = 
+    0, $CellContext`T5$2441$$ = 0, $CellContext`T6$2442$$ = 0}, 
     DynamicBox[Manipulate`ManipulateBoxes[
      1, StandardForm, 
       "Variables" :> {$CellContext`T1$$ = 
@@ -550,12 +576,12 @@ Cell[BoxData[
         Rational[1, 2] Pi, $CellContext`T5$$ = 
         Rational[1, 2] Pi, $CellContext`T6$$ = Rational[1, 2] Pi}, 
       "ControllerVariables" :> {
-        Hold[$CellContext`T1$$, $CellContext`T1$1798$$, 0], 
-        Hold[$CellContext`T2$$, $CellContext`T2$1799$$, 0], 
-        Hold[$CellContext`T3$$, $CellContext`T3$1800$$, 0], 
-        Hold[$CellContext`T4$$, $CellContext`T4$1801$$, 0], 
-        Hold[$CellContext`T5$$, $CellContext`T5$1802$$, 0], 
-        Hold[$CellContext`T6$$, $CellContext`T6$1803$$, 0]}, 
+        Hold[$CellContext`T1$$, $CellContext`T1$2437$$, 0], 
+        Hold[$CellContext`T2$$, $CellContext`T2$2438$$, 0], 
+        Hold[$CellContext`T3$$, $CellContext`T3$2439$$, 0], 
+        Hold[$CellContext`T4$$, $CellContext`T4$2440$$, 0], 
+        Hold[$CellContext`T5$$, $CellContext`T5$2441$$, 0], 
+        Hold[$CellContext`T6$$, $CellContext`T6$2442$$, 0]}, 
       "OtherVariables" :> {
        Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
         Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
@@ -1029,9 +1055,27 @@ Cell[BoxData[
             Style[
              Grid[{{"  ", "local rotation matrix"}, 
                Map[{
-                 ToString[#]}& , 
-                
-                Last[{{0, Rational[1, 2] Pi, 0, $CellContext`T1$$}, {
+                 ToString[#], #, 
+                 MatrixForm[
+                  N[
+                   Part[
+                    Rest[
+                    FoldList[Dot, 
+                    IdentityMatrix[4], 
+                    
+                    Apply[$CellContext`ConDH, {{
+                    0, Rational[1, 2] Pi, 0, $CellContext`T1$$}, {
+                    8, 0, 0, $CellContext`T2$$}, {
+                    5, Rational[1, 2] Pi, 0, $CellContext`T3$$}, {
+                    3, 0, 0, $CellContext`T4$$}, {
+                    5, Rational[1, 2] Pi, 0, $CellContext`T5$$}, {
+                    3, 0, 0, $CellContext`T6$$}}, 1]]], 
+                    ToExpression[
+                    StringCases[
+                    ToString[#], 
+                    Repeated[DigitCharacter]]]]]]}& , 
+                Map[
+                Last, {{0, Rational[1, 2] Pi, 0, $CellContext`T1$$}, {
                   8, 0, 0, $CellContext`T2$$}, {
                   5, Rational[1, 2] Pi, 0, $CellContext`T3$$}, {
                   3, 0, 0, $CellContext`T4$$}, {
@@ -1074,15 +1118,278 @@ Cell[BoxData[
        RGBColor[0.25, 0.43, 0.82, 1], $CellContext`ColorLink = 
        RGBColor[1, 0, 0, 0.8], $CellContext`W = 575, $CellContext`H = 
        375, $CellContext`Plr = PlotRange -> {{-15, 15}, {-15, 15}, {0, 15}}, 
-       Attributes[PlotRange] = {ReadProtected}}; Typeset`initDone$$ = True),
+       Attributes[PlotRange] = {ReadProtected}, $CellContext`ConDH[
+         Pattern[$CellContext`a, 
+          Blank[]], 
+         Pattern[$CellContext`\[Alpha], 
+          Blank[]], 
+         Pattern[$CellContext`d, 
+          Blank[]], 
+         Pattern[$CellContext`\[Theta], 
+          Blank[]]] := Dot[
+         $CellContext`RotZ[$CellContext`\[Theta], $CellContext`d], 
+         $CellContext`RotX[$CellContext`\[Alpha], $CellContext`a]], \
+$CellContext`RotZ[
+         Pattern[$CellContext`\[CurlyPhi], 
+          Blank[]], 
+         Pattern[$CellContext`d, 
+          Blank[]]] := {{
+          Cos[$CellContext`\[CurlyPhi]], -Sin[$CellContext`\[CurlyPhi]], 0, 
+          0}, {
+          Sin[$CellContext`\[CurlyPhi]], 
+          Cos[$CellContext`\[CurlyPhi]], 0, 0}, {0, 0, 1, $CellContext`d}, {0,
+          0, 0, 1}}, $CellContext`RotX[
+         Pattern[$CellContext`\[CurlyPhi], 
+          Blank[]], 
+         Pattern[$CellContext`d, 
+          Blank[]]] := {{1, 0, 0, $CellContext`d}, {0, 
+          Cos[$CellContext`\[CurlyPhi]], -Sin[$CellContext`\[CurlyPhi]], 0}, {
+         0, 
+          Sin[$CellContext`\[CurlyPhi]], 
+          Cos[$CellContext`\[CurlyPhi]], 0}, {0, 0, 0, 1}}}; 
+     Typeset`initDone$$ = True),
     SynchronousInitialization->True,
     UnsavedVariables:>{Typeset`initDone$$},
     UntrackedVariables:>{Typeset`size$$}], "Manipulate",
    Deployed->True,
    StripOnInput->False],
   Manipulate`InterpretManipulate[1]]], "Output",
- CellChangeTimes->{3.5034016489705734`*^9, 3.503401855606393*^9, 
-  3.5034019209941325`*^9, 3.503402052810672*^9}]
+ CellChangeTimes->{3.5034067166994314`*^9, 3.5034067621440306`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Part", "::", "\<\"partw\"\>"}], 
+  RowBox[{
+  ":", " "}], "\<\"\\!\\(\\*StyleBox[\\\"\\\\\\\"Part \\\\\\\"\\\", \
+\\\"MT\\\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\!\\({45, 32}\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" of \\\\\\\"\\\", \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\!\\({\\(\\({\\(\\({0, 0, 1, 0}\\)\\), \\(\\({1, \
+0, 0, 0}\\)\\), \\(\\({0, 1, 0, 0}\\)\\), \\(\\({0, 0, 0, 1}\\)\\)}\\)\\), \
+\\(\\(\[LeftSkeleton] 4 \[RightSkeleton]\\)\\), \\(\\({\\(\\({0, 0, 1, \
+3}\\)\\), \\(\\({\\(\\(-\\(\\(Sin[\\(\\(\\(3\\\\ \
+\[Pi]\\)\\/32\\)\\)]\\)\\)\\)\\), \\(\\(Cos[\\(\\(\\(3\\\\ \
+\[Pi]\\)\\/32\\)\\)]\\)\\), 0, \\(\\(\\(\\(-11\\)\\)\\\\ \\(\\(Sin[\\(\\(\\(3\
+\\\\ \[Pi]\\)\\/32\\)\\)]\\)\\)\\)\\)}\\)\\), \
+\\(\\({\\(\\(-\\(\\(Cos[\\(\\(\\(3\\\\ \[Pi]\\)\\/32\\)\\)]\\)\\)\\)\\), \
+\\(\\(-\\(\\(Sin[\\(\\(\\(3\\\\ \[Pi]\\)\\/32\\)\\)]\\)\\)\\)\\), 0, \
+\\(\\(\\(\\(-11\\)\\)\\\\ \\(\\(Cos[\\(\\(\\(3\\\\ \[Pi]\\)\\/32\\)\\)]\\)\\)\
+\\)\\)}\\)\\), \\(\\({0, 0, 0, 1}\\)\\)}\\)\\)}\\), \
+\\\"MT\\\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" does not \
+exist.\\\\\\\"\\\", \\\"MT\\\"]\\) \
+\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
+ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/General/partw\\\", \
+ButtonNote -> \\\"Part::partw\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.50340677053051*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Part", "::", "\<\"partw\"\>"}], 
+  RowBox[{
+  ":", " "}], "\<\"\\!\\(\\*StyleBox[\\\"\\\\\\\"Part \\\\\\\"\\\", \
+\\\"MT\\\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\!\\({45, 32}\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" of \\\\\\\"\\\", \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\!\\({\\(\\({\\(\\({0.`, 0.`, 1.`, 0.`}\\)\\), \
+\\(\\({1.`, 0.`, 0.`, 0.`}\\)\\), \\(\\({0.`, 1.`, 0.`, 0.`}\\)\\), \
+\\(\\({0.`, 0.`, 0.`, 1.`}\\)\\)}\\)\\), \\(\\(\[LeftSkeleton] 4 \
+\[RightSkeleton]\\)\\), \\(\\({\\(\\({0.`, 0.`, 1.`, 3.`}\\)\\), \
+\\(\\({\\(\\(-0.29028467725446233`\\)\\), 0.9569403357322088`, 0.`, \
+\\(\\(-3.1931314497990857`\\)\\)}\\)\\), \\(\\(\[LeftSkeleton] 1 \
+\[RightSkeleton]\\)\\), \\(\\({0.`, 0.`, 0.`, 1.`}\\)\\)}\\)\\)}\\), \\\"MT\\\
+\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" does not exist.\\\\\\\"\\\", \
+\\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/partw\\\", ButtonNote -> \
+\\\"Part::partw\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.503406770786525*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Part", "::", "\<\"partw\"\>"}], 
+  RowBox[{
+  ":", " "}], "\<\"\\!\\(\\*StyleBox[\\\"\\\\\\\"Part \\\\\\\"\\\", \
+\\\"MT\\\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\!\\({3, 16}\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" of \\\\\\\"\\\", \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\!\\({\\(\[LeftSkeleton] 1 \
+\[RightSkeleton]\\)}\\), \\\"MT\\\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\
+\" does not exist.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/partw\\\", ButtonNote -> \
+\\\"Part::partw\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.503406776601857*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Part", "::", "\<\"partw\"\>"}], 
+  RowBox[{
+  ":", " "}], "\<\"\\!\\(\\*StyleBox[\\\"\\\\\\\"Part \\\\\\\"\\\", \
+\\\"MT\\\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\!\\({3, 16}\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" of \\\\\\\"\\\", \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\!\\({\\(\\({\\(\\({0.8314696123025452`, 0.`, \
+0.5555702330196022`, 0.`}\\)\\), \\(\\({0.5555702330196022`, 0.`, \
+\\(\\(-0.8314696123025452`\\)\\), 0.`}\\)\\), \\(\\({0.`, 1.`, 0.`, \
+0.`}\\)\\), \\(\\({0.`, 0.`, 0.`, 1.`}\\)\\)}\\)\\), \\(\\(\[LeftSkeleton] 4 \
+\[RightSkeleton]\\)\\), \\(\\({\\(\\({\\(\\(-0.24136288805413728`\\)\\), \
+\\(\\(\[LeftSkeleton] 19 \[RightSkeleton]\\)\\), \\(\\(\[LeftSkeleton] 19 \
+\[RightSkeleton]\\)\\), \\(\\(-\\(\\(\[LeftSkeleton] 19 \
+\[RightSkeleton]\\)\\)\\)\\)}\\)\\), \\(\\(\[LeftSkeleton] 3 \[RightSkeleton]\
+\\)\\)}\\)\\)}\\), \\\"MT\\\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" \
+does not exist.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/partw\\\", ButtonNote -> \
+\\\"Part::partw\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.5034067766168585`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Part", "::", "\<\"partw\"\>"}], 
+  RowBox[{
+  ":", " "}], "\<\"\\!\\(\\*StyleBox[\\\"\\\\\\\"Part \\\\\\\"\\\", \
+\\\"MT\\\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\!\\({45, 32}\\), \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" of \\\\\\\"\\\", \\\"MT\\\"]\\)\
+\[NoBreak]\\!\\(\\*StyleBox[\\!\\({\\(\[LeftSkeleton] 1 \
+\[RightSkeleton]\\)}\\), \\\"MT\\\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\
+\" does not exist.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/partw\\\", ButtonNote -> \
+\\\"Part::partw\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.50340677682187*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"General", "::", "\<\"stop\"\>"}], 
+  RowBox[{
+  ":", " "}], "\<\"\\!\\(\\*StyleBox[\\\"\\\\\\\"Further output of \\\\\\\"\\\
+\", \\\"MT\\\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\!\\(Part :: \\\"partw\\\"\\), \
+\\\"MT\\\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" will be suppressed \
+during this calculation.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/stop\\\", ButtonNote -> \
+\\\"General::stop\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.503406776834871*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"TableForm", "[", 
+  RowBox[{"ToExpression", "[", 
+   RowBox[{"StringCases", "[", 
+    RowBox[{
+     RowBox[{"ToString", "[", "#", "]"}], ",", 
+     RowBox[{"DigitCharacter", ".."}]}], "]"}], "]"}], "]"}]], "Input"],
+
+Cell[BoxData[
+ TagBox[
+  TagBox[GridBox[{
+     {"1"}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.5599999999999999]}, 
+        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}, "RowsIndexed" -> {}}],
+   Column],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Input",
+ CellChangeTimes->{3.5034064131820707`*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ArDH", "[", 
+  RowBox[{"[", 
+   RowBox[{"TableForm", "[", 
+    RowBox[{"ToExpression", "[", 
+     RowBox[{"StringCases", "[", 
+      RowBox[{
+       RowBox[{"ToString", "[", "#", "]"}], ",", 
+       RowBox[{"DigitCharacter", ".."}]}], "]"}], "]"}], "]"}], "]"}], 
+  "]"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Part", "::", "\<\"pspec\"\>"}], 
+  RowBox[{
+  ":", " "}], "\<\"\\!\\(\\*StyleBox[\\\"\\\\\\\"Part specification \
+\\\\\\\"\\\", \
+\\\"MT\\\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\!\\(\\*TagBox[TagBox[GridBox[{{\\\
+\"1\\\"}}, ColumnAlignments -> Left, RowSpacings -> 1, ColumnAlignments -> \
+Left], Column], Function[BoxForm`e$, TableForm[BoxForm`e$]]]\\), \
+\\\"MT\\\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is neither an integer \
+nor a list of integers.\\\\\\\"\\\", \\\"MT\\\"]\\) \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/pspec\\\", ButtonNote -> \
+\\\"Part::pspec\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.503406418432371*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ArDH", "[", 
+  RowBox[{"[", "1", "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.5034064506442137`*^9, 3.5034064546134405`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Part", "::", "\<\"partd\"\>"}], 
+  RowBox[{
+  ":", " "}], "\<\"\\!\\(\\*StyleBox[\\\"\\\\\\\"Part specification \
+\\\\\\\"\\\", \\\"MT\\\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\!\\(ArDH \
+\[LeftDoubleBracket] 1 \[RightDoubleBracket]\\), \
+\\\"MT\\\"]\\)\[NoBreak]\\!\\(\\*StyleBox[\\\"\\\\\\\" is longer than depth \
+of object.\\\\\\\"\\\", \\\"MT\\\"]\\) \
+\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
+ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/General/partd\\\", \
+ButtonNote -> \\\"Part::partd\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.5034064551194696`*^9}],
+
+Cell[BoxData[
+ RowBox[{"ArDH", "\[LeftDoubleBracket]", "1", 
+  "\[RightDoubleBracket]"}]], "Output",
+ CellChangeTimes->{3.5034064551244698`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Rest", "[", 
+   RowBox[{"FoldList", "[", 
+    RowBox[{"Dot", ",", 
+     RowBox[{"IdentityMatrix", "[", "4", "]"}], ",", 
+     RowBox[{"Apply", "[", 
+      RowBox[{"ConDH", ",", "rb", ",", "1"}], "]"}]}], "]"}], "]"}], "[", 
+  RowBox[{"[", 
+   RowBox[{"ToExpression", "[", 
+    RowBox[{"StringCases", "[", 
+     RowBox[{
+      RowBox[{"ToString", "[", "#", "]"}], ",", 
+      RowBox[{"DigitCharacter", ".."}]}], "]"}], "]"}], "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.503406647219457*^9, 3.503406688635826*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Cos", "[", "T1", "]"}], ",", "0", ",", 
+      RowBox[{"Sin", "[", "T1", "]"}], ",", "0"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Sin", "[", "T1", "]"}], ",", "0", ",", 
+      RowBox[{"-", 
+       RowBox[{"Cos", "[", "T1", "]"}]}], ",", "0"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "1", ",", "0", ",", "0"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "0", ",", "0", ",", "1"}], "}"}]}], "}"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.503406635765802*^9, 3.503406689195858*^9}}]
 }, Open  ]]
 },
 WindowSize->{1008, 465},
@@ -1108,10 +1415,31 @@ Cell[4806, 138, 1350, 32, 52, "Input"],
 Cell[6159, 172, 3524, 76, 152, "Input"],
 Cell[9686, 250, 3429, 83, 292, "Input"],
 Cell[13118, 335, 279, 7, 31, "Input"],
-Cell[13400, 344, 7950, 164, 632, "Input"],
+Cell[13400, 344, 9326, 190, 632, "Input"],
 Cell[CellGroupData[{
-Cell[21375, 512, 190, 3, 31, "Input"],
-Cell[21568, 517, 33248, 567, 454, "Output"]
+Cell[22751, 538, 190, 3, 31, "Input"],
+Cell[22944, 543, 35120, 613, 454, "Output"],
+Cell[58067, 1158, 1405, 23, 99, "Message"],
+Cell[59475, 1183, 1148, 19, 39, "Message"],
+Cell[60626, 1204, 740, 13, 21, "Message"],
+Cell[61369, 1219, 1260, 20, 39, "Message"],
+Cell[62632, 1241, 740, 13, 21, "Message"],
+Cell[63375, 1256, 627, 11, 21, "Message"]
+}, Open  ]],
+Cell[64017, 1270, 238, 6, 31, "Input"],
+Cell[64258, 1278, 589, 18, 31, InheritFromParent],
+Cell[CellGroupData[{
+Cell[64872, 1300, 306, 9, 31, "Input"],
+Cell[65181, 1311, 776, 14, 23, "Message"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[65994, 1330, 150, 3, 31, "Input"],
+Cell[66147, 1335, 645, 12, 21, "Message"],
+Cell[66795, 1349, 144, 3, 30, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[66976, 1357, 549, 14, 31, "Input"],
+Cell[67528, 1373, 633, 18, 30, "Output"]
 }, Open  ]]
 }
 ]
