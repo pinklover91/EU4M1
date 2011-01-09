@@ -1,4 +1,4 @@
-#include "GrandsEntiers.h"
+#include "bint.h"
 
 bint bint_creerVide(){
 	const int origSize=1;
@@ -8,6 +8,12 @@ bint bint_creerVide(){
 	n.internal_nb=origSize;
 	for(int i=0 ; i<n.internal_nb ; i++) n.b[i]=0; // init valeurs
 	return n;
+}
+
+bint bint_creer(unsigned long long valeur){
+	bint b = bint_creerVide();
+	bint_ajouter(b, valeur);
+	return b;
 }
 
 bint bint_copier(const bint &a){
@@ -32,11 +38,13 @@ void bint_info(bint &b){
 	}
 	cout << endl;
 	for(int i=b.internal_nb-1 ; i>=0 ; i--) cout << "b[" << i << "] = " << b.b[i] << endl;
+	cout << "Bits : " << bint_compterBits(b) << endl;
+	cout << "Valeur environ : " << bint_valEnviron(b) << endl;
 	cout << "Valeur binaire : " << endl << bint_getBin(b) << endl;
 	cout << endl;
 }
 
-// bint b = bint_assigner(5);
+// bint b=5 [invalid] === bint_assigner(b, 5) [valid]
 void bint_assigner(bint &b, unsigned long long n){
 	//don't change its current size. Leave it like it is
 	b.b[0]=n;
@@ -136,6 +144,11 @@ void bint_pow(bint &base, const bint &exp){
 	}
 }
 
+bool bint_estVide(const bint &a){
+	if(a.nb==0 || (a.nb==1 && a.b[0]==0)) return true;
+	else return false;
+}
+
 bool bint_plusGrandQue(const bint &a, unsigned long long b){
 	bint c = bint_creerVide();
 	bint_assigner(c, b);
@@ -159,7 +172,6 @@ bool bint_egal(const bint &a, unsigned long long b){
 }
 
 
-// changer la longeur interieure de bint
 void bint_setLongInter(bint &a, unsigned int L){
 	unsigned long long *antArray = a.b;
 	unsigned long long *nouvArray = new unsigned long long[L];
@@ -174,23 +186,33 @@ void bint_setLongInter(bint &a, unsigned int L){
 	a.b=nouvArray;
 }
 
-bool uint64GetBit(unsigned long long N, unsigned char bit){
-	return (N>>bit)&1 == 1;
-}
-
-string uint64ToBinStr(unsigned long long n){
-	string s = "";
-	for(int i=63; i >=0; i--) {
-		if(uint64GetBit(n, i)) s+="1";
-		else s+="0";
-	}
-	return s;
-}
-
 string bint_getBin(bint &b){
 	string s = "";
 	for(long i=b.nb-1; i>=0; i--) {
 		s+=uint64ToBinStr(b.b[i]);
 	}
+	return s;
+}
+
+unsigned long long bint_compterBits(bint &b){
+	unsigned long long bits = b.nb * sizeof(unsigned long long) * 8;
+	for(int i=sizeof(unsigned long long) * 8 - 1 ; i>=0 ; i--){
+		if(uint64GetBit(b.b[b.nb-1], i) == false) bits--;
+		else break;
+	}
+	return bits;
+}
+
+string bint_valEnviron(bint &b){
+	unsigned long long bits = bint_compterBits(b);
+	string s = "entre 2^"+uint64ToDecimal(bits-1)+" et (2^"+uint64ToDecimal(bits)+")-1";
+	return s;
+}
+
+string bint_toString(bint &b){
+	string s="";
+	if(b.nb==0) s="0";
+	else if(b.nb==1) s=uint64ToDecimal(b.b[0]);
+	else s=bint_valEnviron(b);
 	return s;
 }

@@ -162,15 +162,27 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\bint.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\etoile.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\galaxie.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\globals.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\GrandsEntiers.cpp"
+				RelativePath=".\main.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\main.cpp"
+				RelativePath=".\uint64util.cpp"
 				>
 			</File>
 		</Filter>
@@ -180,11 +192,23 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\bint.h"
+				>
+			</File>
+			<File
+				RelativePath=".\etoile.h"
+				>
+			</File>
+			<File
+				RelativePath=".\galaxie.h"
+				>
+			</File>
+			<File
 				RelativePath=".\globals.h"
 				>
 			</File>
 			<File
-				RelativePath=".\GrandsEntiers.h"
+				RelativePath=".\uint64util.h"
 				>
 			</File>
 		</Filter>
