@@ -109,7 +109,7 @@ int main(){
 				effacerEcran();
 				if(q>=0 && q<collEtoiles_quantiteEtoiles(plusProcheEtoile)){
 					collEtoiles_afficherQuantEtoiles(plusProcheEtoile);
-					cout << "Eliminant etoile #" << q << "..." << endl;
+					cout << "En train d'eliminer l'etoile #" << q << "..." << endl;
 					collEtoiles_supprimerEtoile(plusProcheEtoile, q);
 					collEtoiles_afficherQuantEtoiles(plusProcheEtoile);
 					attendeEcran();

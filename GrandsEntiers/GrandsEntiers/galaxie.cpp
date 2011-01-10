@@ -92,8 +92,8 @@ etoile collEtoiles_plusGrandEtoile(collEtoiles &c){
 
 bint collEtoiles_volumeTotal(collEtoiles &c){
 	bint vol = bint_creerVide();
-	collEtoiles suiv = c;
-	while(suiv->suivNodeEtoile!=null) {
+	collEtoiles suiv = c; 
+	while(suiv!=null) {
 		bint_ajouter(vol, suiv->etoile.volume);
 		suiv=suiv->suivNodeEtoile;
 	}

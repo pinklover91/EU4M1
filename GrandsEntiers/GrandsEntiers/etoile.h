@@ -21,17 +21,22 @@ typedef struct etoile {
 
 	// volume de l'etoile (10^3 km^3)
 	bint volume;
-
-	// atomes de l'etoile
-	//bint atomes;
-} etoile;
+};
 
 
 
 // fonctions basiques
+
+// creer une etoile a partir de la distance au centre du galaxie et son rayon
 etoile etoile_creer(unsigned long long distanceCentreGalaxie, unsigned long long rayon);
+
+// creer une etoile a partir de la distance au centre du galaxie et son rayon
 etoile etoile_creer(bint distanceCentreGalaxie, bint rayon);
+
+// creer une etoile a partir de la distance au centre du galaxie, son rayon et volume
 etoile etoile_creer(bint distanceCentreGalaxie, bint rayon, bint volume);
+
+// creer une etoile de distance au centre du galaxie et rayon aleatorires, et calculer le volume a partir du rayon
 etoile etoile_creerRnd();
 
 
@@ -39,7 +44,9 @@ etoile etoile_creerRnd();
 
 
 
-// obtenir etoile
+
+
+// obtenir etoile sur le clavier (demander distance au centre du galaxie et rayon. Calculer volume a partir du rayon)
 etoile etoile_demander();
 
 
@@ -52,7 +59,7 @@ etoile etoile_demander();
 
 // fonctions d'affichage
 
-// information generale: DEBUG
+// information generale de l'etoile: DEBUG
 void etoile_info(etoile &e, string teteCout = "");
 
 #endif

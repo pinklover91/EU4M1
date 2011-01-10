@@ -10,6 +10,7 @@ etoile etoile_demander(){
 	cout << "Rayon en 10^3 km (ex. Soleil est 1392) : ";
 	cin >> rayon;
 	e=etoile_creer(dist, rayon);
+	cout << "Volume calculee : " << bint_toString(e.volume) << " x 10^3 km^3" << endl;
 	return e;
 }
 
@@ -22,9 +23,11 @@ etoile etoile_creer(bint distanceCentreGalaxie, bint rayon){
 	e.distCentGal=distanceCentreGalaxie;
 	e.rayon=rayon;
 	//v=4/3*pi*r^3 -> aprox v=4*r^3
+	/*e.volume=bint_copier(rayon);
+	bint_multiplier(e.volume, rayon);
+	bint_multiplier(e.volume, rayon);*/
 	e.volume=bint_copier(rayon);
-	bint_multiplier(e.volume, rayon);
-	bint_multiplier(e.volume, rayon);
+	bint_pow(e.volume, 3);
 	bint_multiplier(e.volume, 4);
 	return e;
 }

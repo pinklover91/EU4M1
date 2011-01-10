@@ -12,8 +12,13 @@
 
 using namespace std;
 
+// Effacer ecran
 void effacerEcran();
+
+// Atendre a ce que l'utilisateur compose une touche
 void attendeEcran();
+
+// Afficher le menu principale
 void afficherMenu();
 
 #endif

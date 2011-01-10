@@ -11,7 +11,7 @@
 
 using namespace std;
 
-// Grand Entier
+// Entier positive de longueur quelconque (longueur interne dinamique)
 typedef struct bint {
 	// bloques (array)
 	unsigned long long *b;
@@ -21,7 +21,7 @@ typedef struct bint {
 
 	// longeur reel. Longeur d'array
 	unsigned int internal_nb;
-} bint;
+};
 
 
 
@@ -32,9 +32,17 @@ typedef struct bint {
 
 
 // fonctions basiques
+
+// creer bint vide
 bint bint_creerVide();
+
+// creer bint a partir d'un uint64
 bint bint_creer(unsigned long long valeur);
+
+// assigner un uint64 a le bint
 void bint_assigner(bint &b, unsigned long long n);
+
+// copier un bint
 bint bint_copier(const bint &a);
 
 
@@ -58,6 +66,7 @@ unsigned long long bint_compterBits(bint &b);
 // valeur environ (approximate value)
 string bint_valEnviron(bint &b);
 
+// convertir bint a string
 string bint_toString(bint &b);
 
 
@@ -116,7 +125,6 @@ bool bint_plusPetitQue(const bint &a, unsigned long long  b);
 bool bint_plusPetitQue(const bint &a, const bint &b);
 
 // TRUE si a==b
-
 bool bint_egal(const bint &a, unsigned long long b);
 bool bint_egal(const bint &a, const bint &b);
 
