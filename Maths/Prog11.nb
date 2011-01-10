@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       145,          7]
-NotebookDataLength[     88772,       1667]
-NotebookOptionsPosition[     88074,       1642]
-NotebookOutlinePosition[     88417,       1657]
-CellTagsIndexPosition[     88374,       1654]
+NotebookDataLength[     89634,       1673]
+NotebookOptionsPosition[     88937,       1648]
+NotebookOutlinePosition[     89280,       1663]
+CellTagsIndexPosition[     89237,       1660]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -497,19 +497,6 @@ Cell[BoxData[
                  RowBox[{"\[Pi]", "/", "15"}]}], ",", 
                 RowBox[{"Lighting", "\[Rule]", "\"\<Neutral\>\""}]}], 
                "\[IndentingNewLine]", "]"}], ",", "\[IndentingNewLine]", 
-              RowBox[{"(*", 
-               RowBox[{"\"\<local rotation matrix\>\"", ",", 
-                RowBox[{"TableForm", "[", 
-                 RowBox[{"Transpose", "[", 
-                  RowBox[{"{", "\[IndentingNewLine]", 
-                   RowBox[{"slider", ",", 
-                    RowBox[{"Map", "[", 
-                    RowBox[{"Last", ",", "rb"}], "]"}], ",", 
-                    "\[IndentingNewLine]", 
-                    RowBox[{"Map", "[", 
-                    RowBox[{"MatrixForm", ",", "ArDH"}], "]"}]}], "}"}], 
-                  "\[IndentingNewLine]", "]"}], "]"}], ","}], "*)"}], 
-              "\[IndentingNewLine]", 
               RowBox[{"(*", " ", 
                RowBox[{
                 RowBox[{"l", "'"}], "affichage", " ", "des", " ", "valeurs", 
@@ -518,16 +505,21 @@ Cell[BoxData[
                 "de", " ", "chaque", " ", "solide"}], " ", "*)"}], 
               "\[IndentingNewLine]", 
               RowBox[{"TableForm", "[", 
-               RowBox[{"Transpose", "[", 
-                RowBox[{"{", "\[IndentingNewLine]", 
-                 RowBox[{"slider", ",", 
-                  RowBox[{"Map", "[", 
-                   RowBox[{"Last", ",", "rb"}], "]"}], ",", 
-                  "\[IndentingNewLine]", 
-                  RowBox[{"Map", "[", 
-                   RowBox[{"MatrixForm", ",", "ArDH"}], "]"}]}], "}"}], 
-                "\[IndentingNewLine]", "]"}], "]"}]}], "\[IndentingNewLine]", 
-             "}"}], "}"}], ",", "\[IndentingNewLine]", 
+               RowBox[{"Append", "[", 
+                RowBox[{
+                 RowBox[{"{", "\"\<Matrices des transformations\>\"", "}"}], 
+                 ",", 
+                 RowBox[{"TableForm", "[", 
+                  RowBox[{"Transpose", "[", 
+                   RowBox[{"{", "\[IndentingNewLine]", 
+                    RowBox[{"slider", ",", 
+                    RowBox[{"Map", "[", 
+                    RowBox[{"Last", ",", "rb"}], "]"}], ",", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"Map", "[", 
+                    RowBox[{"MatrixForm", ",", "ArDH"}], "]"}]}], "}"}], 
+                   "\[IndentingNewLine]", "]"}], "]"}]}], "]"}], "]"}]}], 
+             "\[IndentingNewLine]", "}"}], "}"}], ",", "\[IndentingNewLine]", 
            RowBox[{"Frame", "\[Rule]", "All"}]}], "\[IndentingNewLine]", 
           "]"}], ",", 
          RowBox[{"{", 
@@ -609,7 +601,13 @@ Cell[BoxData[
    3.5036389781222425`*^9, 3.503639036963608*^9}, {3.503639091596733*^9, 
    3.503639093421837*^9}, {3.5036391593976107`*^9, 3.5036393015067387`*^9}, {
    3.5036394109850006`*^9, 3.5036394690763235`*^9}, {3.503639513327854*^9, 
-   3.5036396005888453`*^9}, {3.5036396319926414`*^9, 3.503639715973445*^9}}],
+   3.5036396005888453`*^9}, {3.5036396319926414`*^9, 3.503639715973445*^9}, {
+   3.503640223626481*^9, 3.503640474112808*^9}, 3.5036405136860714`*^9, {
+   3.5036405486770725`*^9, 3.5036406334979243`*^9}, {3.5036407399580135`*^9, 
+   3.503640766504532*^9}, {3.50364080354265*^9, 3.5036409238745327`*^9}, {
+   3.503641387242036*^9, 3.503641429109431*^9}, {3.5036415001424932`*^9, 
+   3.503641515057347*^9}, {3.503641554736616*^9, 3.503641560474944*^9}, {
+   3.503641591133698*^9, 3.5036416892973127`*^9}}],
 
 Cell[CellGroupData[{
 
@@ -623,9 +621,9 @@ Cell[BoxData[
   StyleBox[
    DynamicModuleBox[{$CellContext`T1$$ = Rational[1, 2] 
     Pi, $CellContext`T2$$ = Rational[1, 2] Pi, $CellContext`T3$$ = 
-    Rational[1, 2] Pi, $CellContext`T4$$ = Rational[31, 32] 
-    Pi, $CellContext`T5$$ = Rational[29, 32] Pi, $CellContext`T6$$ = 
-    Rational[21, 32] Pi, Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Rational[1, 2] Pi, $CellContext`T4$$ = Rational[1, 2] 
+    Pi, $CellContext`T5$$ = Rational[1, 2] Pi, $CellContext`T6$$ = 
+    Rational[1, 2] Pi, Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
     Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
     1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{{
        Hold[$CellContext`T1$$], Rational[1, 2] Pi, "T1"}, 0, 2 Pi, 
@@ -641,9 +639,9 @@ Cell[BoxData[
        Hold[$CellContext`T6$$], Rational[1, 2] Pi, "T6"}, 0, 2 Pi, 
       Rational[1, 32] Pi}}, Typeset`size$$ = {575., {185., 190.}}, 
     Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
-    False, $CellContext`T1$1713$$ = 0, $CellContext`T2$1714$$ = 
-    0, $CellContext`T3$1715$$ = 0, $CellContext`T4$1716$$ = 
-    0, $CellContext`T5$1717$$ = 0, $CellContext`T6$1718$$ = 0}, 
+    False, $CellContext`T1$3203$$ = 0, $CellContext`T2$3204$$ = 
+    0, $CellContext`T3$3205$$ = 0, $CellContext`T4$3206$$ = 
+    0, $CellContext`T5$3207$$ = 0, $CellContext`T6$3208$$ = 0}, 
     DynamicBox[Manipulate`ManipulateBoxes[
      1, StandardForm, 
       "Variables" :> {$CellContext`T1$$ = 
@@ -653,12 +651,12 @@ Cell[BoxData[
         Rational[1, 2] Pi, $CellContext`T5$$ = 
         Rational[1, 2] Pi, $CellContext`T6$$ = Rational[1, 2] Pi}, 
       "ControllerVariables" :> {
-        Hold[$CellContext`T1$$, $CellContext`T1$1713$$, 0], 
-        Hold[$CellContext`T2$$, $CellContext`T2$1714$$, 0], 
-        Hold[$CellContext`T3$$, $CellContext`T3$1715$$, 0], 
-        Hold[$CellContext`T4$$, $CellContext`T4$1716$$, 0], 
-        Hold[$CellContext`T5$$, $CellContext`T5$1717$$, 0], 
-        Hold[$CellContext`T6$$, $CellContext`T6$1718$$, 0]}, 
+        Hold[$CellContext`T1$$, $CellContext`T1$3203$$, 0], 
+        Hold[$CellContext`T2$$, $CellContext`T2$3204$$, 0], 
+        Hold[$CellContext`T3$$, $CellContext`T3$3205$$, 0], 
+        Hold[$CellContext`T4$$, $CellContext`T4$3206$$, 0], 
+        Hold[$CellContext`T5$$, $CellContext`T5$3207$$, 0], 
+        Hold[$CellContext`T6$$, $CellContext`T6$3208$$, 0]}, 
       "OtherVariables" :> {
        Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
         Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
@@ -1129,124 +1127,127 @@ Cell[BoxData[
               15}, $CellContext`Plr, ViewAngle -> Pi/15, Lighting -> 
             "Neutral"], 
            TableForm[
-            Transpose[{{"T1", "T2", "T3", "T4", "T5", "T6"}, 
-              Map[
-              Last, {{0, Rational[1, 2] Pi, 0, $CellContext`T1$$}, {
-                8, 0, 0, $CellContext`T2$$}, {
-                5, Rational[1, 2] Pi, 0, $CellContext`T3$$}, {
-                3, 0, 0, $CellContext`T4$$}, {
-                5, Rational[1, 2] Pi, 0, $CellContext`T5$$}, {
-                3, 0, 0, $CellContext`T6$$}}], 
-              Map[MatrixForm, {{{
-                  Cos[$CellContext`T1$$], 0, 
-                  Sin[$CellContext`T1$$], 0}, {
-                  Sin[$CellContext`T1$$], 0, -Cos[$CellContext`T1$$], 0}, {0, 
-                 1, 0, 0}, {0, 0, 0, 1}}, {{
-                 Cos[$CellContext`T1$$] Cos[$CellContext`T2$$], -
-                  Cos[$CellContext`T1$$] Sin[$CellContext`T2$$], 
-                  Sin[$CellContext`T1$$], 8 Cos[$CellContext`T1$$] 
-                  Cos[$CellContext`T2$$]}, {
-                 Cos[$CellContext`T2$$] Sin[$CellContext`T1$$], -
-                  Sin[$CellContext`T1$$] Sin[$CellContext`T2$$], -
-                  Cos[$CellContext`T1$$], 8 Cos[$CellContext`T2$$] 
-                  Sin[$CellContext`T1$$]}, {
-                  Sin[$CellContext`T2$$], 
-                  Cos[$CellContext`T2$$], 0, 8 Sin[$CellContext`T2$$]}, {0, 0,
-                  0, 1}}, {{
-                 Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
-                   Cos[$CellContext`T3$$] - Cos[$CellContext`T1$$] 
-                  Sin[$CellContext`T2$$] Sin[$CellContext`T3$$], 
-                  Sin[$CellContext`T1$$], 
-                  Cos[$CellContext`T1$$] Cos[$CellContext`T3$$] 
-                   Sin[$CellContext`T2$$] + 
-                  Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
-                   Sin[$CellContext`T3$$], 
-                  8 Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] + 
-                  5 Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
-                   Cos[$CellContext`T3$$] - 5 Cos[$CellContext`T1$$] 
-                  Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]}, {
-                 Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] 
-                   Sin[$CellContext`T1$$] - Sin[$CellContext`T1$$] 
-                  Sin[$CellContext`T2$$] Sin[$CellContext`T3$$], -
-                  Cos[$CellContext`T1$$], 
-                  Cos[$CellContext`T3$$] Sin[$CellContext`T1$$] 
-                   Sin[$CellContext`T2$$] + 
-                  Cos[$CellContext`T2$$] Sin[$CellContext`T1$$] 
-                   Sin[$CellContext`T3$$], 
-                  8 Cos[$CellContext`T2$$] Sin[$CellContext`T1$$] + 
-                  5 Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] 
-                   Sin[$CellContext`T1$$] - 5 Sin[$CellContext`T1$$] 
-                  Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]}, {
-                 Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
-                  Cos[$CellContext`T2$$] Sin[$CellContext`T3$$], 
-                  0, -Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] + 
-                  Sin[$CellContext`T2$$] Sin[$CellContext`T3$$], 
-                  8 Sin[$CellContext`T2$$] + 
-                  5 Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
-                  5 Cos[$CellContext`T2$$] Sin[$CellContext`T3$$]}, {0, 0, 0, 
-                 1}}, {{Cos[$CellContext`T4$$] (
-                    Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
-                    Cos[$CellContext`T3$$] - Cos[$CellContext`T1$$] 
-                    Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) + 
-                  Sin[$CellContext`T1$$] Sin[$CellContext`T4$$], 
-                  Cos[$CellContext`T4$$] Sin[$CellContext`T1$$] - (
+            Append[{"Matrices des transformations"}, 
+             TableForm[
+              Transpose[{{"T1", "T2", "T3", "T4", "T5", "T6"}, 
+                Map[
+                Last, {{0, Rational[1, 2] Pi, 0, $CellContext`T1$$}, {
+                  8, 0, 0, $CellContext`T2$$}, {
+                  5, Rational[1, 2] Pi, 0, $CellContext`T3$$}, {
+                  3, 0, 0, $CellContext`T4$$}, {
+                  5, Rational[1, 2] Pi, 0, $CellContext`T5$$}, {
+                  3, 0, 0, $CellContext`T6$$}}], 
+                Map[MatrixForm, {{{
+                    Cos[$CellContext`T1$$], 0, 
+                    Sin[$CellContext`T1$$], 0}, {
+                    Sin[$CellContext`T1$$], 0, -Cos[$CellContext`T1$$], 0}, {
+                   0, 1, 0, 0}, {0, 0, 0, 1}}, {{
+                   Cos[$CellContext`T1$$] Cos[$CellContext`T2$$], -
+                    Cos[$CellContext`T1$$] Sin[$CellContext`T2$$], 
+                    Sin[$CellContext`T1$$], 8 Cos[$CellContext`T1$$] 
+                    Cos[$CellContext`T2$$]}, {
+                   Cos[$CellContext`T2$$] Sin[$CellContext`T1$$], -
+                    Sin[$CellContext`T1$$] Sin[$CellContext`T2$$], -
+                    Cos[$CellContext`T1$$], 8 Cos[$CellContext`T2$$] 
+                    Sin[$CellContext`T1$$]}, {
+                    Sin[$CellContext`T2$$], 
+                    Cos[$CellContext`T2$$], 0, 8 Sin[$CellContext`T2$$]}, {0, 
+                   0, 0, 1}}, {{
                    Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
                     Cos[$CellContext`T3$$] - Cos[$CellContext`T1$$] 
-                   Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
-                  Sin[$CellContext`T4$$], 
-                  Cos[$CellContext`T1$$] Cos[$CellContext`T3$$] 
-                   Sin[$CellContext`T2$$] + 
-                  Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
-                   Sin[$CellContext`T3$$], 
-                  8 Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] + 
-                  5 Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
-                   Cos[$CellContext`T3$$] - 5 Cos[$CellContext`T1$$] 
-                  Sin[$CellContext`T2$$] Sin[$CellContext`T3$$] + 
-                  3 Cos[$CellContext`T4$$] (
+                    Sin[$CellContext`T2$$] Sin[$CellContext`T3$$], 
+                    Sin[$CellContext`T1$$], 
+                    Cos[$CellContext`T1$$] Cos[$CellContext`T3$$] 
+                    Sin[$CellContext`T2$$] + 
                     Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
-                    Cos[$CellContext`T3$$] - Cos[$CellContext`T1$$] 
-                    Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) + 
-                  3 Sin[$CellContext`T1$$] Sin[$CellContext`T4$$]}, {
-                 Cos[$CellContext`T4$$] (
-                    Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] 
-                    Sin[$CellContext`T1$$] - Sin[$CellContext`T1$$] 
-                    Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) - 
-                  Cos[$CellContext`T1$$] 
-                  Sin[$CellContext`T4$$], -Cos[$CellContext`T1$$] 
-                   Cos[$CellContext`T4$$] - (
+                    Sin[$CellContext`T3$$], 
+                    8 Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] + 
+                    5 Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
+                    Cos[$CellContext`T3$$] - 5 Cos[$CellContext`T1$$] 
+                    Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]}, {
                    Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] 
                     Sin[$CellContext`T1$$] - Sin[$CellContext`T1$$] 
-                   Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
-                  Sin[$CellContext`T4$$], 
-                  Cos[$CellContext`T3$$] Sin[$CellContext`T1$$] 
-                   Sin[$CellContext`T2$$] + 
-                  Cos[$CellContext`T2$$] Sin[$CellContext`T1$$] 
-                   Sin[$CellContext`T3$$], 
-                  8 Cos[$CellContext`T2$$] Sin[$CellContext`T1$$] + 
-                  5 Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] 
-                   Sin[$CellContext`T1$$] - 5 Sin[$CellContext`T1$$] 
-                  Sin[$CellContext`T2$$] Sin[$CellContext`T3$$] + 
-                  3 Cos[$CellContext`T4$$] (
+                    Sin[$CellContext`T2$$] Sin[$CellContext`T3$$], -
+                    Cos[$CellContext`T1$$], 
+                    Cos[$CellContext`T3$$] Sin[$CellContext`T1$$] 
+                    Sin[$CellContext`T2$$] + 
+                    Cos[$CellContext`T2$$] Sin[$CellContext`T1$$] 
+                    Sin[$CellContext`T3$$], 
+                    8 Cos[$CellContext`T2$$] Sin[$CellContext`T1$$] + 
+                    5 Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] 
+                    Sin[$CellContext`T1$$] - 5 Sin[$CellContext`T1$$] 
+                    Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]}, {
+                   Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
+                    Cos[$CellContext`T2$$] Sin[$CellContext`T3$$], 
+                    0, -Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] + 
+                    Sin[$CellContext`T2$$] Sin[$CellContext`T3$$], 
+                    8 Sin[$CellContext`T2$$] + 
+                    5 Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
+                    5 Cos[$CellContext`T2$$] Sin[$CellContext`T3$$]}, {0, 0, 
+                   0, 1}}, {{
+                   Cos[$CellContext`T4$$] (
+                    Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
+                    Cos[$CellContext`T3$$] - Cos[$CellContext`T1$$] 
+                    Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) + 
+                    Sin[$CellContext`T1$$] Sin[$CellContext`T4$$], 
+                    Cos[$CellContext`T4$$] Sin[$CellContext`T1$$] - (
+                    Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
+                    Cos[$CellContext`T3$$] - Cos[$CellContext`T1$$] 
+                    Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
+                    Sin[$CellContext`T4$$], 
+                    Cos[$CellContext`T1$$] Cos[$CellContext`T3$$] 
+                    Sin[$CellContext`T2$$] + 
+                    Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
+                    Sin[$CellContext`T3$$], 
+                    8 Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] + 
+                    5 Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
+                    Cos[$CellContext`T3$$] - 5 Cos[$CellContext`T1$$] 
+                    Sin[$CellContext`T2$$] Sin[$CellContext`T3$$] + 
+                    3 Cos[$CellContext`T4$$] (
+                    Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
+                    Cos[$CellContext`T3$$] - Cos[$CellContext`T1$$] 
+                    Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) + 
+                    3 Sin[$CellContext`T1$$] Sin[$CellContext`T4$$]}, {
+                   Cos[$CellContext`T4$$] (
+                    Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] 
+                    Sin[$CellContext`T1$$] - Sin[$CellContext`T1$$] 
+                    Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) - 
+                    Cos[$CellContext`T1$$] 
+                    Sin[$CellContext`T4$$], -Cos[$CellContext`T1$$] 
+                    Cos[$CellContext`T4$$] - (
+                    Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] 
+                    Sin[$CellContext`T1$$] - Sin[$CellContext`T1$$] 
+                    Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
+                    Sin[$CellContext`T4$$], 
+                    Cos[$CellContext`T3$$] Sin[$CellContext`T1$$] 
+                    Sin[$CellContext`T2$$] + 
+                    Cos[$CellContext`T2$$] Sin[$CellContext`T1$$] 
+                    Sin[$CellContext`T3$$], 
+                    8 Cos[$CellContext`T2$$] Sin[$CellContext`T1$$] + 
+                    5 Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] 
+                    Sin[$CellContext`T1$$] - 5 Sin[$CellContext`T1$$] 
+                    Sin[$CellContext`T2$$] Sin[$CellContext`T3$$] + 
+                    3 Cos[$CellContext`T4$$] (
                     Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] 
                     Sin[$CellContext`T1$$] - Sin[$CellContext`T1$$] 
                     Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) - 3 
-                  Cos[$CellContext`T1$$] Sin[$CellContext`T4$$]}, {
-                 Cos[$CellContext`T4$$] (
-                   Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
-                   Cos[$CellContext`T2$$] Sin[$CellContext`T3$$]), -(
-                   Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
-                   Cos[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
-                  Sin[$CellContext`T4$$], -Cos[$CellContext`T2$$] 
-                   Cos[$CellContext`T3$$] + 
-                  Sin[$CellContext`T2$$] Sin[$CellContext`T3$$], 
-                  8 Sin[$CellContext`T2$$] + 
-                  5 Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
-                  5 Cos[$CellContext`T2$$] Sin[$CellContext`T3$$] + 
-                  3 Cos[$CellContext`T4$$] (
+                    Cos[$CellContext`T1$$] Sin[$CellContext`T4$$]}, {
+                   Cos[$CellContext`T4$$] (
+                    Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
+                    Cos[$CellContext`T2$$] Sin[$CellContext`T3$$]), -(
+                    Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
+                    Cos[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
+                    Sin[$CellContext`T4$$], -Cos[$CellContext`T2$$] 
+                    Cos[$CellContext`T3$$] + 
+                    Sin[$CellContext`T2$$] Sin[$CellContext`T3$$], 
+                    8 Sin[$CellContext`T2$$] + 
+                    5 Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
+                    5 Cos[$CellContext`T2$$] Sin[$CellContext`T3$$] + 
+                    3 Cos[$CellContext`T4$$] (
                     Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
                     Cos[$CellContext`T2$$] Sin[$CellContext`T3$$])}, {0, 0, 0,
-                  1}}, {{
-                 Cos[$CellContext`T5$$] (
+                    1}}, {{
+                   Cos[$CellContext`T5$$] (
                     Cos[$CellContext`T4$$] (
                     Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
                     Cos[$CellContext`T3$$] - Cos[$CellContext`T1$$] 
@@ -1257,11 +1258,11 @@ Cell[BoxData[
                     Cos[$CellContext`T3$$] - Cos[$CellContext`T1$$] 
                     Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
                     Sin[$CellContext`T4$$]) Sin[$CellContext`T5$$], 
-                  Cos[$CellContext`T1$$] Cos[$CellContext`T3$$] 
-                   Sin[$CellContext`T2$$] + 
-                  Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
-                   Sin[$CellContext`T3$$], -
-                   Cos[$CellContext`T5$$] (
+                    Cos[$CellContext`T1$$] Cos[$CellContext`T3$$] 
+                    Sin[$CellContext`T2$$] + 
+                    Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
+                    Sin[$CellContext`T3$$], -
+                    Cos[$CellContext`T5$$] (
                     Cos[$CellContext`T4$$] Sin[$CellContext`T1$$] - (
                     Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
                     Cos[$CellContext`T3$$] - Cos[$CellContext`T1$$] 
@@ -1272,28 +1273,28 @@ Cell[BoxData[
                     Cos[$CellContext`T3$$] - Cos[$CellContext`T1$$] 
                     Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) + 
                     Sin[$CellContext`T1$$] Sin[$CellContext`T4$$]) 
-                   Sin[$CellContext`T5$$], 
-                  8 Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] + 
-                  5 Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
-                   Cos[$CellContext`T3$$] - 5 Cos[$CellContext`T1$$] 
-                  Sin[$CellContext`T2$$] Sin[$CellContext`T3$$] + 
-                  3 Cos[$CellContext`T4$$] (
+                    Sin[$CellContext`T5$$], 
+                    8 Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] + 
+                    5 Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
+                    Cos[$CellContext`T3$$] - 5 Cos[$CellContext`T1$$] 
+                    Sin[$CellContext`T2$$] Sin[$CellContext`T3$$] + 
+                    3 Cos[$CellContext`T4$$] (
                     Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
                     Cos[$CellContext`T3$$] - Cos[$CellContext`T1$$] 
                     Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) + 
-                  3 Sin[$CellContext`T1$$] Sin[$CellContext`T4$$] + 
-                  5 Cos[$CellContext`T5$$] (
+                    3 Sin[$CellContext`T1$$] Sin[$CellContext`T4$$] + 
+                    5 Cos[$CellContext`T5$$] (
                     Cos[$CellContext`T4$$] (
                     Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
                     Cos[$CellContext`T3$$] - Cos[$CellContext`T1$$] 
                     Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) + 
                     Sin[$CellContext`T1$$] Sin[$CellContext`T4$$]) + 
-                  5 (Cos[$CellContext`T4$$] Sin[$CellContext`T1$$] - (
+                    5 (Cos[$CellContext`T4$$] Sin[$CellContext`T1$$] - (
                     Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
                     Cos[$CellContext`T3$$] - Cos[$CellContext`T1$$] 
                     Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
                     Sin[$CellContext`T4$$]) Sin[$CellContext`T5$$]}, {
-                 Cos[$CellContext`T5$$] (
+                   Cos[$CellContext`T5$$] (
                     Cos[$CellContext`T4$$] (
                     Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] 
                     Sin[$CellContext`T1$$] - Sin[$CellContext`T1$$] 
@@ -1305,11 +1306,11 @@ Cell[BoxData[
                     Sin[$CellContext`T1$$] - Sin[$CellContext`T1$$] 
                     Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
                     Sin[$CellContext`T4$$]) Sin[$CellContext`T5$$], 
-                  Cos[$CellContext`T3$$] Sin[$CellContext`T1$$] 
-                   Sin[$CellContext`T2$$] + 
-                  Cos[$CellContext`T2$$] Sin[$CellContext`T1$$] 
-                   Sin[$CellContext`T3$$], -
-                   Cos[$CellContext`T5$$] (-Cos[$CellContext`T1$$] 
+                    Cos[$CellContext`T3$$] Sin[$CellContext`T1$$] 
+                    Sin[$CellContext`T2$$] + 
+                    Cos[$CellContext`T2$$] Sin[$CellContext`T1$$] 
+                    Sin[$CellContext`T3$$], -
+                    Cos[$CellContext`T5$$] (-Cos[$CellContext`T1$$] 
                     Cos[$CellContext`T4$$] - (
                     Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] 
                     Sin[$CellContext`T1$$] - Sin[$CellContext`T1$$] 
@@ -1320,59 +1321,58 @@ Cell[BoxData[
                     Sin[$CellContext`T1$$] - Sin[$CellContext`T1$$] 
                     Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) - 
                     Cos[$CellContext`T1$$] Sin[$CellContext`T4$$]) 
-                   Sin[$CellContext`T5$$], 
-                  8 Cos[$CellContext`T2$$] Sin[$CellContext`T1$$] + 
-                  5 Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] 
-                   Sin[$CellContext`T1$$] - 5 Sin[$CellContext`T1$$] 
-                  Sin[$CellContext`T2$$] Sin[$CellContext`T3$$] + 
-                  3 Cos[$CellContext`T4$$] (
+                    Sin[$CellContext`T5$$], 
+                    8 Cos[$CellContext`T2$$] Sin[$CellContext`T1$$] + 
+                    5 Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] 
+                    Sin[$CellContext`T1$$] - 5 Sin[$CellContext`T1$$] 
+                    Sin[$CellContext`T2$$] Sin[$CellContext`T3$$] + 
+                    3 Cos[$CellContext`T4$$] (
                     Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] 
                     Sin[$CellContext`T1$$] - Sin[$CellContext`T1$$] 
                     Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) - 3 
-                  Cos[$CellContext`T1$$] Sin[$CellContext`T4$$] + 
-                  5 Cos[$CellContext`T5$$] (
+                    Cos[$CellContext`T1$$] Sin[$CellContext`T4$$] + 
+                    5 Cos[$CellContext`T5$$] (
                     Cos[$CellContext`T4$$] (
                     Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] 
                     Sin[$CellContext`T1$$] - Sin[$CellContext`T1$$] 
                     Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) - 
                     Cos[$CellContext`T1$$] Sin[$CellContext`T4$$]) + 
-                  5 (-Cos[$CellContext`T1$$] Cos[$CellContext`T4$$] - (
+                    5 (-Cos[$CellContext`T1$$] Cos[$CellContext`T4$$] - (
                     Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] 
                     Sin[$CellContext`T1$$] - Sin[$CellContext`T1$$] 
                     Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
                     Sin[$CellContext`T4$$]) Sin[$CellContext`T5$$]}, {
-                 Cos[$CellContext`T4$$] 
-                   Cos[$CellContext`T5$$] (
+                   Cos[$CellContext`T4$$] 
+                    Cos[$CellContext`T5$$] (
                     Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
                     Cos[$CellContext`T2$$] Sin[$CellContext`T3$$]) - (
-                   Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
-                   Cos[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
-                  Sin[$CellContext`T4$$] 
-                  Sin[$CellContext`T5$$], -Cos[$CellContext`T2$$] 
-                   Cos[$CellContext`T3$$] + 
-                  Sin[$CellContext`T2$$] Sin[$CellContext`T3$$], 
-                  Cos[$CellContext`T5$$] (
                     Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
                     Cos[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
-                   Sin[$CellContext`T4$$] + 
-                  Cos[$CellContext`T4$$] (
+                    Sin[$CellContext`T4$$] 
+                    Sin[$CellContext`T5$$], -Cos[$CellContext`T2$$] 
+                    Cos[$CellContext`T3$$] + 
+                    Sin[$CellContext`T2$$] Sin[$CellContext`T3$$], 
+                    Cos[$CellContext`T5$$] (
                     Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
                     Cos[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
-                   Sin[$CellContext`T5$$], 8 Sin[$CellContext`T2$$] + 
-                  5 Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
-                  5 Cos[$CellContext`T2$$] Sin[$CellContext`T3$$] + 
-                  3 Cos[$CellContext`T4$$] (
+                    Sin[$CellContext`T4$$] + 
+                    Cos[$CellContext`T4$$] (
+                    Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
+                    Cos[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
+                    Sin[$CellContext`T5$$], 8 Sin[$CellContext`T2$$] + 
+                    5 Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
+                    5 Cos[$CellContext`T2$$] Sin[$CellContext`T3$$] + 
+                    3 Cos[$CellContext`T4$$] (
                     Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
                     Cos[$CellContext`T2$$] Sin[$CellContext`T3$$]) + 
-                  5 Cos[$CellContext`T4$$] 
-                   Cos[$CellContext`T5$$] (
+                    5 Cos[$CellContext`T4$$] 
+                    Cos[$CellContext`T5$$] (
                     Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
                     Cos[$CellContext`T2$$] Sin[$CellContext`T3$$]) - 
-                  5 (Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
-                   Cos[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
-                  Sin[$CellContext`T4$$] Sin[$CellContext`T5$$]}, {0, 0, 0, 
-                 1}}, {{
-                 Cos[$CellContext`T6$$] (
+                    5 (Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
+                    Cos[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
+                    Sin[$CellContext`T4$$] Sin[$CellContext`T5$$]}, {0, 0, 0, 
+                   1}}, {{Cos[$CellContext`T6$$] (
                     Cos[$CellContext`T5$$] (
                     Cos[$CellContext`T4$$] (
                     Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
@@ -1388,12 +1388,12 @@ Cell[BoxData[
                     Sin[$CellContext`T2$$] + 
                     Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
                     Sin[$CellContext`T3$$]) Sin[$CellContext`T6$$], 
-                  Cos[$CellContext`T6$$] (
+                    Cos[$CellContext`T6$$] (
                     Cos[$CellContext`T1$$] Cos[$CellContext`T3$$] 
                     Sin[$CellContext`T2$$] + 
                     Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
                     Sin[$CellContext`T3$$]) - (
-                   Cos[$CellContext`T5$$] (
+                    Cos[$CellContext`T5$$] (
                     Cos[$CellContext`T4$$] (
                     Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
                     Cos[$CellContext`T3$$] - Cos[$CellContext`T1$$] 
@@ -1404,8 +1404,8 @@ Cell[BoxData[
                     Cos[$CellContext`T3$$] - Cos[$CellContext`T1$$] 
                     Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
                     Sin[$CellContext`T4$$]) Sin[$CellContext`T5$$]) 
-                  Sin[$CellContext`T6$$], -
-                   Cos[$CellContext`T5$$] (
+                    Sin[$CellContext`T6$$], -
+                    Cos[$CellContext`T5$$] (
                     Cos[$CellContext`T4$$] Sin[$CellContext`T1$$] - (
                     Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
                     Cos[$CellContext`T3$$] - Cos[$CellContext`T1$$] 
@@ -1416,28 +1416,28 @@ Cell[BoxData[
                     Cos[$CellContext`T3$$] - Cos[$CellContext`T1$$] 
                     Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) + 
                     Sin[$CellContext`T1$$] Sin[$CellContext`T4$$]) 
-                   Sin[$CellContext`T5$$], 
-                  8 Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] + 
-                  5 Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
-                   Cos[$CellContext`T3$$] - 5 Cos[$CellContext`T1$$] 
-                  Sin[$CellContext`T2$$] Sin[$CellContext`T3$$] + 
-                  3 Cos[$CellContext`T4$$] (
+                    Sin[$CellContext`T5$$], 
+                    8 Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] + 
+                    5 Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
+                    Cos[$CellContext`T3$$] - 5 Cos[$CellContext`T1$$] 
+                    Sin[$CellContext`T2$$] Sin[$CellContext`T3$$] + 
+                    3 Cos[$CellContext`T4$$] (
                     Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
                     Cos[$CellContext`T3$$] - Cos[$CellContext`T1$$] 
                     Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) + 
-                  3 Sin[$CellContext`T1$$] Sin[$CellContext`T4$$] + 
-                  5 Cos[$CellContext`T5$$] (
+                    3 Sin[$CellContext`T1$$] Sin[$CellContext`T4$$] + 
+                    5 Cos[$CellContext`T5$$] (
                     Cos[$CellContext`T4$$] (
                     Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
                     Cos[$CellContext`T3$$] - Cos[$CellContext`T1$$] 
                     Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) + 
                     Sin[$CellContext`T1$$] Sin[$CellContext`T4$$]) + 
-                  5 (Cos[$CellContext`T4$$] Sin[$CellContext`T1$$] - (
+                    5 (Cos[$CellContext`T4$$] Sin[$CellContext`T1$$] - (
                     Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
                     Cos[$CellContext`T3$$] - Cos[$CellContext`T1$$] 
                     Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
                     Sin[$CellContext`T4$$]) Sin[$CellContext`T5$$] + 
-                  3 Cos[$CellContext`T6$$] (
+                    3 Cos[$CellContext`T6$$] (
                     Cos[$CellContext`T5$$] (
                     Cos[$CellContext`T4$$] (
                     Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
@@ -1449,11 +1449,11 @@ Cell[BoxData[
                     Cos[$CellContext`T3$$] - Cos[$CellContext`T1$$] 
                     Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
                     Sin[$CellContext`T4$$]) Sin[$CellContext`T5$$]) + 
-                  3 (Cos[$CellContext`T1$$] Cos[$CellContext`T3$$] 
+                    3 (Cos[$CellContext`T1$$] Cos[$CellContext`T3$$] 
                     Sin[$CellContext`T2$$] + 
                     Cos[$CellContext`T1$$] Cos[$CellContext`T2$$] 
                     Sin[$CellContext`T3$$]) Sin[$CellContext`T6$$]}, {
-                 Cos[$CellContext`T6$$] (
+                   Cos[$CellContext`T6$$] (
                     Cos[$CellContext`T5$$] (
                     Cos[$CellContext`T4$$] (
                     Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] 
@@ -1470,12 +1470,12 @@ Cell[BoxData[
                     Sin[$CellContext`T2$$] + 
                     Cos[$CellContext`T2$$] Sin[$CellContext`T1$$] 
                     Sin[$CellContext`T3$$]) Sin[$CellContext`T6$$], 
-                  Cos[$CellContext`T6$$] (
+                    Cos[$CellContext`T6$$] (
                     Cos[$CellContext`T3$$] Sin[$CellContext`T1$$] 
                     Sin[$CellContext`T2$$] + 
                     Cos[$CellContext`T2$$] Sin[$CellContext`T1$$] 
                     Sin[$CellContext`T3$$]) - (
-                   Cos[$CellContext`T5$$] (
+                    Cos[$CellContext`T5$$] (
                     Cos[$CellContext`T4$$] (
                     Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] 
                     Sin[$CellContext`T1$$] - Sin[$CellContext`T1$$] 
@@ -1487,8 +1487,8 @@ Cell[BoxData[
                     Sin[$CellContext`T1$$] - Sin[$CellContext`T1$$] 
                     Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
                     Sin[$CellContext`T4$$]) Sin[$CellContext`T5$$]) 
-                  Sin[$CellContext`T6$$], -
-                   Cos[$CellContext`T5$$] (-Cos[$CellContext`T1$$] 
+                    Sin[$CellContext`T6$$], -
+                    Cos[$CellContext`T5$$] (-Cos[$CellContext`T1$$] 
                     Cos[$CellContext`T4$$] - (
                     Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] 
                     Sin[$CellContext`T1$$] - Sin[$CellContext`T1$$] 
@@ -1499,28 +1499,28 @@ Cell[BoxData[
                     Sin[$CellContext`T1$$] - Sin[$CellContext`T1$$] 
                     Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) - 
                     Cos[$CellContext`T1$$] Sin[$CellContext`T4$$]) 
-                   Sin[$CellContext`T5$$], 
-                  8 Cos[$CellContext`T2$$] Sin[$CellContext`T1$$] + 
-                  5 Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] 
-                   Sin[$CellContext`T1$$] - 5 Sin[$CellContext`T1$$] 
-                  Sin[$CellContext`T2$$] Sin[$CellContext`T3$$] + 
-                  3 Cos[$CellContext`T4$$] (
+                    Sin[$CellContext`T5$$], 
+                    8 Cos[$CellContext`T2$$] Sin[$CellContext`T1$$] + 
+                    5 Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] 
+                    Sin[$CellContext`T1$$] - 5 Sin[$CellContext`T1$$] 
+                    Sin[$CellContext`T2$$] Sin[$CellContext`T3$$] + 
+                    3 Cos[$CellContext`T4$$] (
                     Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] 
                     Sin[$CellContext`T1$$] - Sin[$CellContext`T1$$] 
                     Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) - 3 
-                  Cos[$CellContext`T1$$] Sin[$CellContext`T4$$] + 
-                  5 Cos[$CellContext`T5$$] (
+                    Cos[$CellContext`T1$$] Sin[$CellContext`T4$$] + 
+                    5 Cos[$CellContext`T5$$] (
                     Cos[$CellContext`T4$$] (
                     Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] 
                     Sin[$CellContext`T1$$] - Sin[$CellContext`T1$$] 
                     Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) - 
                     Cos[$CellContext`T1$$] Sin[$CellContext`T4$$]) + 
-                  5 (-Cos[$CellContext`T1$$] Cos[$CellContext`T4$$] - (
+                    5 (-Cos[$CellContext`T1$$] Cos[$CellContext`T4$$] - (
                     Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] 
                     Sin[$CellContext`T1$$] - Sin[$CellContext`T1$$] 
                     Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
                     Sin[$CellContext`T4$$]) Sin[$CellContext`T5$$] + 
-                  3 Cos[$CellContext`T6$$] (
+                    3 Cos[$CellContext`T6$$] (
                     Cos[$CellContext`T5$$] (
                     Cos[$CellContext`T4$$] (
                     Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] 
@@ -1533,11 +1533,11 @@ Cell[BoxData[
                     Sin[$CellContext`T1$$] - Sin[$CellContext`T1$$] 
                     Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
                     Sin[$CellContext`T4$$]) Sin[$CellContext`T5$$]) + 
-                  3 (Cos[$CellContext`T3$$] Sin[$CellContext`T1$$] 
+                    3 (Cos[$CellContext`T3$$] Sin[$CellContext`T1$$] 
                     Sin[$CellContext`T2$$] + 
                     Cos[$CellContext`T2$$] Sin[$CellContext`T1$$] 
                     Sin[$CellContext`T3$$]) Sin[$CellContext`T6$$]}, {
-                 Cos[$CellContext`T6$$] (
+                   Cos[$CellContext`T6$$] (
                     Cos[$CellContext`T4$$] 
                     Cos[$CellContext`T5$$] (
                     Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
@@ -1548,39 +1548,39 @@ Cell[BoxData[
                     Sin[$CellContext`T5$$]) + (-Cos[$CellContext`T2$$] 
                     Cos[$CellContext`T3$$] + 
                     Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
-                   Sin[$CellContext`T6$$], 
-                  Cos[$CellContext`T6$$] (-Cos[$CellContext`T2$$] 
+                    Sin[$CellContext`T6$$], 
+                    Cos[$CellContext`T6$$] (-Cos[$CellContext`T2$$] 
                     Cos[$CellContext`T3$$] + 
                     Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) - (
-                   Cos[$CellContext`T4$$] 
+                    Cos[$CellContext`T4$$] 
                     Cos[$CellContext`T5$$] (
                     Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
                     Cos[$CellContext`T2$$] Sin[$CellContext`T3$$]) - (
                     Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
                     Cos[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
-                   Sin[$CellContext`T4$$] Sin[$CellContext`T5$$]) 
-                  Sin[$CellContext`T6$$], 
-                  Cos[$CellContext`T5$$] (
+                    Sin[$CellContext`T4$$] Sin[$CellContext`T5$$]) 
+                    Sin[$CellContext`T6$$], 
+                    Cos[$CellContext`T5$$] (
                     Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
                     Cos[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
-                   Sin[$CellContext`T4$$] + 
-                  Cos[$CellContext`T4$$] (
+                    Sin[$CellContext`T4$$] + 
+                    Cos[$CellContext`T4$$] (
                     Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
                     Cos[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
-                   Sin[$CellContext`T5$$], 8 Sin[$CellContext`T2$$] + 
-                  5 Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
-                  5 Cos[$CellContext`T2$$] Sin[$CellContext`T3$$] + 
-                  3 Cos[$CellContext`T4$$] (
+                    Sin[$CellContext`T5$$], 8 Sin[$CellContext`T2$$] + 
+                    5 Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
+                    5 Cos[$CellContext`T2$$] Sin[$CellContext`T3$$] + 
+                    3 Cos[$CellContext`T4$$] (
                     Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
                     Cos[$CellContext`T2$$] Sin[$CellContext`T3$$]) + 
-                  5 Cos[$CellContext`T4$$] 
-                   Cos[$CellContext`T5$$] (
+                    5 Cos[$CellContext`T4$$] 
+                    Cos[$CellContext`T5$$] (
                     Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
                     Cos[$CellContext`T2$$] Sin[$CellContext`T3$$]) - 
-                  5 (Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
-                   Cos[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
-                  Sin[$CellContext`T4$$] Sin[$CellContext`T5$$] + 
-                  3 Cos[$CellContext`T6$$] (
+                    5 (Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
+                    Cos[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
+                    Sin[$CellContext`T4$$] Sin[$CellContext`T5$$] + 
+                    3 Cos[$CellContext`T6$$] (
                     Cos[$CellContext`T4$$] 
                     Cos[$CellContext`T5$$] (
                     Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
@@ -1588,9 +1588,9 @@ Cell[BoxData[
                     Cos[$CellContext`T3$$] Sin[$CellContext`T2$$] + 
                     Cos[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
                     Sin[$CellContext`T4$$] Sin[$CellContext`T5$$]) + 
-                  3 (-Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] + 
+                    3 (-Cos[$CellContext`T2$$] Cos[$CellContext`T3$$] + 
                     Sin[$CellContext`T2$$] Sin[$CellContext`T3$$]) 
-                   Sin[$CellContext`T6$$]}, {0, 0, 0, 1}}}]}]]}}, Frame -> 
+                    Sin[$CellContext`T6$$]}, {0, 0, 0, 1}}}]}]]]]}}, Frame -> 
          All], {$CellContext`W, $CellContext`H}], 
       "Specifications" :> {{{$CellContext`T1$$, Rational[1, 2] Pi, "T1"}, 0, 
          2 Pi, Rational[1, 32] 
@@ -1637,7 +1637,13 @@ Cell[BoxData[
   Manipulate`InterpretManipulate[1]]], "Output",
  CellChangeTimes->{
   3.503639491973633*^9, {3.5036396133225737`*^9, 3.5036396388190317`*^9}, {
-   3.503639669999816*^9, 3.503639724838952*^9}, 3.503640121746654*^9}]
+   3.503639669999816*^9, 3.503639724838952*^9}, 3.503640121746654*^9, {
+   3.503640312492564*^9, 3.5036403394811077`*^9}, 3.5036403756661773`*^9, 
+   3.5036404314303665`*^9, 3.5036405195194054`*^9, {3.5036405956147575`*^9, 
+   3.5036406407223377`*^9}, 3.5036407713208075`*^9, {3.5036408085689383`*^9, 
+   3.5036408236017976`*^9}, 3.503640855494622*^9, {3.503641401085828*^9, 
+   3.5036414333166714`*^9}, 3.5036415672413316`*^9, {3.5036416679010887`*^9, 
+   3.5036416954476643`*^9}}]
 }, Open  ]]
 },
 WindowSize->{496, 465},
@@ -1664,10 +1670,10 @@ Cell[7618, 202, 516, 12, 52, "Input"],
 Cell[8137, 216, 2798, 74, 172, "Input"],
 Cell[10938, 292, 1433, 32, 112, "Input"],
 Cell[12374, 326, 3983, 85, 292, "Input"],
-Cell[16360, 413, 10384, 198, 1012, "Input"],
+Cell[16360, 413, 10409, 196, 952, "Input"],
 Cell[CellGroupData[{
-Cell[26769, 615, 190, 3, 31, "Input"],
-Cell[26962, 620, 61096, 1019, 454, "Output"]
+Cell[26794, 613, 190, 3, 31, "Input"],
+Cell[26987, 618, 61934, 1027, 454, "Output"]
 }, Open  ]]
 }
 ]
