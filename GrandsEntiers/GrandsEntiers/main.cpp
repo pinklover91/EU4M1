@@ -29,37 +29,41 @@ int main(){
 	cout << endl; attendeEcran();
 	*/
 
-	//etoile plus proche au centre du galaxie
+	// Etoile la plus proche au centre du galaxie
 	collEtoiles plusProcheEtoile = collEtoiles_creerVide();
 	etoile nouveauEtoile;
 	unsigned long int q=0;
 	bool finProg=false;
 	char choix;
+
+        //Menu Principal
 	while(!finProg){
 		effacerEcran();
 		afficherMenu();
 		cin >> choix;
 		effacerEcran();
 		switch(choix){
+
 			case '0':
 			case 'x':
 			case 'X':
+                            // Fin du programme
 				finProg=true;
 				break;
 			case '1':
-				// Obtenir info galaxie
+				// Obtient info galaxie
 				collEtoiles_afficherInfo(plusProcheEtoile);
 				attendeEcran();
 				break;
 			case '2':
-				// Afficher toutes les toiles
-				cout << "TOUTES LES ETOILES (distance au centre galaxie croissant) :" << endl <<endl;
+				// Affiche tous les toiles
+				cout << "TOUS LES ETOILES (distance au centre de la galaxie en ordre croissant) :" << endl <<endl;
 				collEtoiles_afficherToutes(plusProcheEtoile);
 				attendeEcran();
 				break;
 			case '3':
-				// Afficher info etoile
-				cout << "Choisir etoile ID pour afficher : " ;
+				// Affiche info sur une etoile
+				cout << "Choisir l'etoile ID pour afficher : " ;
 				cin >> q;
 				effacerEcran();
 				if(q>=0 && q<collEtoiles_quantiteEtoiles(plusProcheEtoile)){
@@ -67,12 +71,12 @@ int main(){
 					etoile_info(collEtoiles_getEtoile(plusProcheEtoile, q));
 					attendeEcran();
 				} else {
-					cout << "L'etoile #" << q << " n'exite pas" << endl;
+					cout << "L'etoile #" << q << " n'existe pas" << endl;
 					attendeEcran();
 				}
 				break;
 			case '4':
-				// Ajouter une etoile aleatoire
+				// Ajoute une etoile avec information aleatoire
 				nouveauEtoile = etoile_creerRnd();
 				cout << "Etoile cree :" << endl;
 				etoile_info(nouveauEtoile);
@@ -82,19 +86,19 @@ int main(){
 				attendeEcran();
 				break;
 			case '5':
-				// Ajouter une etoile definie
+				// Ajoute une etoile avec l'info specifie par l'utilisateur
 				nouveauEtoile = etoile_demander();
 				collEtoiles_ajouterEtoile(plusProcheEtoile, nouveauEtoile);
-				cout << endl << "Nouveau etoile ajoutee" << endl << endl;
+				cout << endl << "Nouvelle etoile ajoutee" << endl << endl;
 				collEtoiles_afficherQuantEtoiles(plusProcheEtoile);
 				attendeEcran();
 				break;
 			case '6':
-				// Ajouter X etoiles aleatoires
+				// Ajoute X etoiles aleatoires
 				cout << "Quantite d'etoiles a ajouter : ";
 				cin >> q;
 				for(unsigned long int i=1; i<=q; i++) {
-					cout << "Attende pour la creation d'etoile #" << i << "..." << endl;
+					cout << "Atente pour la creation d'etoile #" << i << "..." << endl;
 					nouveauEtoile = etoile_creerRnd();
 					collEtoiles_ajouterEtoile(plusProcheEtoile, nouveauEtoile);
 				}
@@ -103,8 +107,8 @@ int main(){
 				attendeEcran();
 				break;
 			case '7':
-				// Supprimer une etoile
-				cout << "Choisir etoile ID pour supprimer : " ;
+				// Supprime une etoile
+				cout << "Choisir un etoile-ID pour supprimer : " ;
 				cin >> q;
 				effacerEcran();
 				if(q>=0 && q<collEtoiles_quantiteEtoiles(plusProcheEtoile)){
@@ -114,7 +118,7 @@ int main(){
 					collEtoiles_afficherQuantEtoiles(plusProcheEtoile);
 					attendeEcran();
 				} else {
-					cout << "L'etoile #" << q << " n'exite pas" << endl;
+					cout << "L'etoile #" << q << " n'existe pas" << endl;
 					attendeEcran();
 				}
 				break;
@@ -127,6 +131,6 @@ int main(){
 	return 0;
 }
 
-//#pragma warning( disable : 4996 )		// evite la depreciation de la fonction strcpy
-//#pragma warning( error : 4706 )			// signale une erreur pour l'affectation dans une expression conditionnelle (= au lieu de =)
-//#pragma warning( error : 4700 )			// signale une erreur pour variable non initialise
+//#pragma warning( disable : 4996 )	// evite la depreciation de la fonction strcpy
+//#pragma warning( error : 4706 )	// signale une erreur pour l'affectation dans une expression conditionnelle (= au lieu de =)
+//#pragma warning( error : 4700 )	// signale une erreur pour variable non initialise

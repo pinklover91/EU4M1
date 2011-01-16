@@ -11,9 +11,9 @@
 
 using namespace std;
 
-// Etoile (star)
+// Etoile
 typedef struct etoile {
-	// distance au centre du galaxie (10^12 km)
+	// distance au centre de la galaxie (10^12 km)
 	bint distCentGal;
 
 	// rayon (radius) de l'etoile (10^3 km)
@@ -25,41 +25,27 @@ typedef struct etoile {
 
 
 
-// fonctions basiques
+// Sous-programmes de base
 
-// creer une etoile a partir de la distance au centre du galaxie et son rayon
+// Cree une etoile a partir de la distance au centre de la galaxie et son rayon
 etoile etoile_creer(unsigned long long distanceCentreGalaxie, unsigned long long rayon);
 
-// creer une etoile a partir de la distance au centre du galaxie et son rayon
+// Cree une etoile a partir de la distance au centre de la galaxie et son rayon
 etoile etoile_creer(bint distanceCentreGalaxie, bint rayon);
 
-// creer une etoile a partir de la distance au centre du galaxie, son rayon et volume
+// Cree une etoile a partir de la distance au centre de la galaxie, son rayon et volume
 etoile etoile_creer(bint distanceCentreGalaxie, bint rayon, bint volume);
 
-// creer une etoile de distance au centre du galaxie et rayon aleatorires, et calculer le volume a partir du rayon
+// Cree une etoile de distance au centre du galaxie et rayon aleatoires, et calcule le volume a partir du rayon
 etoile etoile_creerRnd();
 
-
-
-
-
-
-
-
-// obtenir etoile sur le clavier (demander distance au centre du galaxie et rayon. Calculer volume a partir du rayon)
+// Obtient une etoile (demande la distance au centre de la galaxie et le rayon.
+// Calcule le volume a partir du rayon)
 etoile etoile_demander();
 
+// Sous-programmes d'affichage
 
-
-
-
-
-
-
-
-// fonctions d'affichage
-
-// information generale de l'etoile: DEBUG
+// Information generale de l'etoile: DEBUG
 void etoile_info(etoile &e, string teteCout = "");
 
 #endif

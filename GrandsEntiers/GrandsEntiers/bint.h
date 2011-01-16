@@ -11,8 +11,9 @@
 
 using namespace std;
 
-// Entier positive de longueur quelconque (longueur interne dinamique)
+// Enregistrement qui represente un entier positive de longueur quelconque (longueur interne dynamique)
 typedef struct bint {
+
 	// bloques (array)
 	unsigned long long *b;
 
