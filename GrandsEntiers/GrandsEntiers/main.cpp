@@ -56,7 +56,7 @@ int main(){
 				attendeEcran();
 				break;
 			case '2':
-				// Affiche tous les toiles
+				// Affiche tous les etoiles
 				cout << "TOUS LES ETOILES (distance au centre de la galaxie en ordre croissant) :" << endl <<endl;
 				collEtoiles_afficherToutes(plusProcheEtoile);
 				attendeEcran();

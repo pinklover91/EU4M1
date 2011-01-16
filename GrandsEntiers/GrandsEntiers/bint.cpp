@@ -39,7 +39,7 @@ void bint_info(bint &b){
 	cout << endl;
 	for(int i=b.internal_nb-1 ; i>=0 ; i--) cout << "b[" << i << "] = " << b.b[i] << endl;
 	cout << "Bits : " << bint_compterBits(b) << endl;
-	cout << "Valeur environ : " << bint_valEnviron(b) << endl;
+	cout << "Valeur environ : " << bint_valEnviron(b) <<  endl;
 	cout << "Valeur binaire : " << endl << bint_getBin(b) << endl;
 	cout << endl;
 }
