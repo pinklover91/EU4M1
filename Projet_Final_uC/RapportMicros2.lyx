@@ -1,0 +1,1834 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\topmargin 3cm
+\bottommargin 2.5cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Projet Microcontrôleurs
+\end_layout
+
+\begin_layout Author
+Adrián BULNES, David FUENMAYOR
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+Le document illustre d'une manière succinte les processus d'analyse, concéption
+ et dévéloppement d'un système de commande pour un moteur à courant continue.
+ Deux differents approches sont expliqués pour la mise en oeuvre de la commande
+ numérique dans le microcontrôleur, sujet aux contraintes imposées par la
+ construction de la maquette dans laquelle le microcontrôleur est embarqué.
+\end_layout
+
+\begin_layout Section
+Commande numérique PID
+\end_layout
+
+\begin_layout Standard
+Il s'agit d'un mécanisme générique d'asservissement amplement utilisé dans
+ l'industrie, et qui calcule la valeur de l'erreur comme la différence entre
+ une variable du processus à réguler et une certaine signal de consigne
+ fourni au préalable.
+ L'algorithm de calcul inclut trois paramètres constantes: P, I et D, qui
+ pondèrent les correspondantes parties proportionnel, intégrale et dérivatif
+ de la signal d'erreur:
+\end_layout
+
+\begin_layout Subsubsection*
+\begin_inset Formula $U(z)=K_{p}$
+\end_inset
+
+
+\begin_inset Formula $.$
+\end_inset
+
+
+\begin_inset Formula $E(z)$
+\end_inset
+
+
+\begin_inset Formula $+$
+\end_inset
+
+
+\begin_inset Formula $K_{I}$
+\end_inset
+
+
+\begin_inset Formula $.$
+\end_inset
+
+
+\begin_inset Formula $\frac{z}{z-1}\cdot E(z)$
+\end_inset
+
+
+\begin_inset Formula $+$
+\end_inset
+
+
+\begin_inset Formula $K_{D}$
+\end_inset
+
+
+\begin_inset Formula $.$
+\end_inset
+
+
+\begin_inset Formula $\frac{z-1}{z}\cdot E(z)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Vu que cette configuration du 
+\begin_inset CommandInset href
+LatexCommand href
+name "controleur"
+target "http://fr.wikipedia.org/wiki/R%C3%A9gulateur_PID"
+
+\end_inset
+
+ n'est pas forcément la plus approprié dû aux problèmes entraînés par la
+ dérivation du signal d'erreur, on a choisi la méthode de réglage de 
+\begin_inset CommandInset href
+LatexCommand href
+name "Takahashi"
+target "http://www-hadoc.lag.ensieg.inpg.fr/hadoc/discret/top/mstk.htm"
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pasted1.png
+	clip
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Réglage Takahashi
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Après le travail d'identification du système, on a pu obtenir les paramètres
+ des régulateurs P et PI, on ne fera pas le point sur le régulateur PID,
+ vu que ses résultats expérimentales n'ont pas été assez satisfaisants.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $a=\frac{K}{Tau}$
+\end_inset
+
+ : Gain statique/Constante du temps du système
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $T\mbox{\ensuremath{_{R}:} Retard Pur}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Approche I
+\end_layout
+
+\begin_layout Standard
+Pour le calcul du gain statique on considère les deux différents approches.
+ Dans le prémier, on utilise le signal du encoder comme source d'horloge
+ pour le microcontrôleur, on a vu qu'à la vitesse maximale du moteur, on
+ obtient 8 flancs provenant du capteur (encoder) pour chaque période d'echantill
+onage, qui équivalent à une valeur de 255 pour le PWM, donc on utilisera
+ un gain pour le capteur de 
+\begin_inset Formula $K_{capteur}=$
+\end_inset
+
+ 
+\begin_inset Formula $\frac{255}{8}$
+\end_inset
+
+ 
+\begin_inset Formula $\approx32$
+\end_inset
+
+ De cette façon, en multipliant le nombre de flancs de l'encoder par 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $K_{capteur}$
+\end_inset
+
+ pour établir la sortie du système, on arrive a obtenir un gain statique
+ unitaire 
+\begin_inset Formula $K=1$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La période d'echantillonage utilisée corresponde à la constante de temps
+ mesuré du système: 
+\begin_inset Formula $Tau$
+\end_inset
+
+
+\begin_inset Formula $=32ms$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+D'où les équations pour chacun des trois contrôleurs après quelques calculations
+:
+\end_layout
+
+\begin_layout Subsubsection
+Contrôleur Type P:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $K_{p}=0,88$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $u_{k}=0,88$
+\end_inset
+
+
+\begin_inset Formula $*(c_{k}-y_{k})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Contrôleur Type PI:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $K_{p}=0,83$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $K_{I}=7,5$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $u_{k}=u_{k-1}+0,83$
+\end_inset
+
+
+\begin_inset Formula $*(y_{k-1}-y_{k})+0,03*(c_{k}-y_{k})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Afin d'optimiser la performance du microcontrôleur, on evite les opérations
+ aritmétiques avec des nombres de virgule flotant, de façon que pour le
+ régulateur type P, on fait l'approximation: 
+\begin_inset Formula $0,88\approx0,875$
+\end_inset
+
+
+\begin_inset Formula $=0,5+0,25+0,125$
+\end_inset
+
+ donc on a:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $0,88*nombre\approx nombre>>1+nombre>>2+nombre>>3$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Aproche II
+\end_layout
+
+\begin_layout Standard
+Dans cet approche, on utilise le TIMER 1 pour mesurer le temps qui passe
+ entre deux flancs montants consécutifs du signal de l'encoder.
+ Pour faire cela, il est necessaire de générer une interruptions pour chaque
+ flanc.
+ Étant donné la restriction sur l'utilisation du port B du microcontrôleur
+ (affichage LCD) on a dû improviser un système de détection par software
+ de flancs montants sur le port RD1.
+ Le grand avantage cette fois-ci, c'est d'avoir une plus grande résolution
+ avec le capteur (jusqu'a 255 flancs au lieu de 8 pour 
+\begin_inset Formula $T_{e}$
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Standard
+Aussi, avec cet approche, il est possible d'utiliser une période 
+\begin_inset CommandInset href
+LatexCommand href
+name "d'echantillonnage"
+target "http://www-hadoc.lag.ensieg.inpg.fr/hadoc/discret/liens/12fteo.htm"
+
+\end_inset
+
+ 
+\begin_inset Formula $T_{e}$
+\end_inset
+
+ beaucoup plus petite, ce qui permet d'avoir des meilleures performances
+ pour l'asservisement.
+\end_layout
+
+\begin_layout Bibliography
+\labelwidthstring References
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "Polycopies cours d'automatique linéaire echantilloné"
+key "ENSMM"
+
+\end_inset
+
+ENSMM
+\end_layout
+
+\begin_layout Bibliography
+\labelwidthstring References
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "http://www.microchip.com"
+key "Documentation Microchip "
+
+\end_inset
+
+ Documentation Microchip
+\end_layout
+
+\begin_layout Section
+Code implanté sur le microcontrôleur
+\end_layout
+
+\begin_layout Standard
+Le code utilisé pour effectuer la régulation pour les deux approches fut:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+/*********************************************************/
+\end_layout
+
+\begin_layout Plain Layout
+// µ-projet de commande par microcontrôleur
+\end_layout
+
+\begin_layout Plain Layout
+// ENS2M avril 2011
+\end_layout
+
+\begin_layout Plain Layout
+// Adrian BULNES
+\end_layout
+
+\begin_layout Plain Layout
+// David FUENMAYOR
+\end_layout
+
+\begin_layout Plain Layout
+/*********************************************************/
+\end_layout
+
+\begin_layout Quotation
+#include <pic.h>
+\end_layout
+
+\begin_layout Quotation
+#include "afficheur.h"
+\end_layout
+
+\begin_layout Quotation
+#define SwAffichConsigne RE3
+\end_layout
+
+\begin_layout Quotation
+#define SwAffichErreur RD4
+\end_layout
+
+\begin_layout Quotation
+#define SwAffichCommande RD6
+\end_layout
+
+\begin_layout Quotation
+#define SwAffichRetour RD7
+\end_layout
+
+\begin_layout Quotation
+#define Capteur RD1
+\end_layout
+
+\begin_layout Quotation
+#define Appuye 0
+\end_layout
+
+\begin_layout Quotation
+#define MoteurON RD5
+\end_layout
+
+\begin_layout Quotation
+#define Kp 1
+\end_layout
+
+\begin_layout Quotation
+static char consigne;
+\end_layout
+
+\begin_layout Quotation
+static char erreur;
+\end_layout
+
+\begin_layout Quotation
+static char commande;
+\end_layout
+
+\begin_layout Quotation
+static char retour;
+\end_layout
+
+\begin_layout Quotation
+static char encoder;
+\end_layout
+
+\begin_layout Quotation
+static char vitesse;
+\end_layout
+
+\begin_layout Quotation
+//Timer 0 - interrupt 5ms pour faire commande
+\end_layout
+
+\begin_layout Quotation
+void setupT0() {
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+//Fosc=4MHz, Fcy=1MHz, Tcy=1us
+\end_layout
+
+\begin_layout Quotation
+//interrupts chaque 128*256us = 32ms@ 128prescaler 
+\end_layout
+
+\begin_layout Quotation
+T0CS=0; //Horloge Interne
+\end_layout
+
+\begin_layout Quotation
+PSA=0;
+\end_layout
+
+\begin_layout Quotation
+PS2=1;
+\end_layout
+
+\begin_layout Quotation
+PS1=1; //Prescaler 128
+\end_layout
+
+\begin_layout Quotation
+PS0=0;
+\end_layout
+
+\begin_layout Quotation
+TMR0=0; //Initialization a zero
+\end_layout
+
+\begin_layout Quotation
+T0IF=0; //Interrupt flag to zero
+\end_layout
+
+\begin_layout Quotation
+T0IE=1; //Enable interrupt
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+}
+\end_layout
+
+\begin_layout Quotation
+//Timer1 - compteur flancs encoder sans prescaler en RC5/T1CKI
+\end_layout
+
+\begin_layout Quotation
+void setupT1() {
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+T1CKPS1=0; //Pas de prescaler
+\end_layout
+
+\begin_layout Quotation
+T1CKPS0=0; //Pas de prescaler
+\end_layout
+
+\begin_layout Quotation
+TMR1CS=1; //Mode compteur 
+\end_layout
+
+\begin_layout Quotation
+T1SYNC=1; //Synchronisation habilété
+\end_layout
+
+\begin_layout Quotation
+TMR1H=0; //Initialization a zero
+\end_layout
+
+\begin_layout Quotation
+TMR1L=0; //Initialization a zero
+\end_layout
+
+\begin_layout Quotation
+TMR1IF=0; 
+\end_layout
+
+\begin_layout Quotation
+PEIE=1; //Enable peripheral interrupt
+\end_layout
+
+\begin_layout Quotation
+TMR1IE=1;
+\end_layout
+
+\begin_layout Quotation
+TMR1ON=1; //Allume compteur
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+}
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Approche-I
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Quotation
+void setupBoutons(){
+\end_layout
+
+\begin_layout Quotation
+TRISE3=1;
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+TRISC5=1;
+\end_layout
+
+\begin_layout Quotation
+TRISD|=0b11010000;
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+}
+\end_layout
+
+\begin_layout Quotation
+// lire ADC (potentiometer) - commande
+\end_layout
+
+\begin_layout Quotation
+void setupAdcPot(){
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+consigne=0;
+\end_layout
+
+\begin_layout Quotation
+TRISA0=1; //AN0 entree POT1
+\end_layout
+
+\begin_layout Quotation
+ANSEL=1; //AN0 analog, AN1-7 numerique
+\end_layout
+
+\begin_layout Quotation
+ADCON1=0x10; //Fosc/8
+\end_layout
+
+\begin_layout Quotation
+ADRESL=0;
+\end_layout
+
+\begin_layout Quotation
+ADRESH=0;
+\end_layout
+
+\begin_layout Quotation
+ADIF=0;
+\end_layout
+
+\begin_layout Quotation
+ADIE=1;
+\end_layout
+
+\begin_layout Quotation
+PEIE=1;
+\end_layout
+
+\begin_layout Quotation
+ADCON0=1; //ADON, Channel 0 (AN0)
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+}
+\end_layout
+
+\begin_layout Quotation
+//PWM - vitesse moteur
+\end_layout
+
+\begin_layout Quotation
+void setupPWM(){
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+TRISD2=0; //RD2 sortie PWM
+\end_layout
+
+\begin_layout Quotation
+PR2=0xFF;
+\end_layout
+
+\begin_layout Quotation
+TMR2ON=1;
+\end_layout
+
+\begin_layout Quotation
+T2CKPS1=1; //Prescaler mis a 16 pour le PWM donc Periode PWM=4.1ms
+\end_layout
+
+\begin_layout Quotation
+T2CKPS0=1;
+\end_layout
+
+\begin_layout Quotation
+CCP2M3=1; //PWM mode
+\end_layout
+
+\begin_layout Quotation
+CCP2M2=1;
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+}
+\end_layout
+
+\begin_layout Quotation
+void setupMoteur(){
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+TRISD5=0; //MoteurON
+\end_layout
+
+\begin_layout Quotation
+MoteurON=1;
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+}
+\end_layout
+
+\begin_layout Quotation
+void setupCapteur(){
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+TRISD1=1;
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+}
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Approche-I
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Quotation
+void interrupt gestion_IT() {
+\end_layout
+
+\begin_layout Quotation
+if(ADIF){
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+consigne=ADRESH;
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+GODONE=1; //debut ADC/CAN
+\end_layout
+
+\begin_layout Quotation
+ADIF=0;
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+} 
+\end_layout
+
+\begin_layout Quotation
+if(T0IF) { 
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+encoder=TMR1L;
+\end_layout
+
+\begin_layout Quotation
+vitesse= encoder<<5; //Vitesse max = 8 flancs encoder en 32ms ->255 = Gain=255/8
+=32
+\end_layout
+
+\begin_layout Quotation
+erreur=consigne-vitesse;
+\end_layout
+
+\begin_layout Quotation
+commande=(erreur>>1)+(erreur>>2)+(erreur>>3); 
+\end_layout
+
+\begin_layout Quotation
+CCPR2H=0;
+\end_layout
+
+\begin_layout Quotation
+CCPR2L=commande; // Modifie PWM
+\end_layout
+
+\begin_layout Quotation
+TMR1ON=1; 
+\end_layout
+
+\begin_layout Quotation
+TMR1H=0; // Reinitialise Compteur
+\end_layout
+
+\begin_layout Quotation
+TMR1L=0; 
+\end_layout
+
+\begin_layout Quotation
+T0IF=0; 
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+}
+\end_layout
+
+\begin_layout Quotation
+if(TMR1IF) {
+\end_layout
+
+\begin_layout Quotation
+//temps encoder trop grand - fixe a 255
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+TMR1ON=0;
+\end_layout
+
+\begin_layout Quotation
+TMR1H=0xFF;
+\end_layout
+
+\begin_layout Quotation
+TMR1IF=0;
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+}
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+}
+\end_layout
+
+\begin_layout Quotation
+char i;
+\end_layout
+
+\begin_layout Quotation
+void main(){
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+setupMoteur();
+\end_layout
+
+\begin_layout Quotation
+InitialisationAfficheur();
+\end_layout
+
+\begin_layout Quotation
+setupT0();
+\end_layout
+
+\begin_layout Quotation
+setupT1();
+\end_layout
+
+\begin_layout Quotation
+setupBoutons();
+\end_layout
+
+\begin_layout Quotation
+setupAdcPot();
+\end_layout
+
+\begin_layout Quotation
+setupPWM();
+\end_layout
+
+\begin_layout Quotation
+setupCapteur();
+\end_layout
+
+\begin_layout Quotation
+GIE=1; 
+\end_layout
+
+\begin_layout Quotation
+GODONE=1; //debut ADC/CAN
+\end_layout
+
+\begin_layout Quotation
+AfficherDecimal(0);
+\end_layout
+
+\begin_layout Quotation
+while(1){ // Boucle infini
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+i++;
+\end_layout
+
+\begin_layout Quotation
+if(i>250){ // Affiche les infos selectionnes
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+i=0;
+\end_layout
+
+\begin_layout Quotation
+if(SwAffichConsigne==Appuye) {
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+AfficherDecimal(consigne);
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+} else if(SwAffichErreur==Appuye) {
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+AfficherDecimal(erreur);
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+} else if(SwAffichCommande==Appuye) {
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+AfficherDecimal(commande);
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+} else if(SwAffichRetour==Appuye) {
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+AfficherDecimal(vitesse);
+\end_layout
+
+\end_deeper
+\end_deeper
+\end_deeper
+\begin_layout Quotation
+}}}
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+}
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Approche-I
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+/*********************************************************/
+\end_layout
+
+\begin_layout Plain Layout
+// µ-projet de commande par microcontrôleur
+\end_layout
+
+\begin_layout Plain Layout
+// ENS2M avril 2011
+\end_layout
+
+\begin_layout Plain Layout
+// Adrian BULNES
+\end_layout
+
+\begin_layout Plain Layout
+// David FUENMAYOR
+\end_layout
+
+\begin_layout Plain Layout
+/*********************************************************/
+\end_layout
+
+\begin_layout Quotation
+#include <pic.h>
+\end_layout
+
+\begin_layout Quotation
+#include "afficheur.h"
+\end_layout
+
+\begin_layout Quotation
+#define SwAffichConsigne RE3
+\end_layout
+
+\begin_layout Quotation
+#define SwAffichErreur RD4
+\end_layout
+
+\begin_layout Quotation
+#define SwAffichCommande RD6
+\end_layout
+
+\begin_layout Quotation
+#define SwAffichRetour RD7
+\end_layout
+
+\begin_layout Quotation
+#define Capteur RD1
+\end_layout
+
+\begin_layout Quotation
+#define Appuye 0
+\end_layout
+
+\begin_layout Quotation
+#define MoteurON RD5
+\end_layout
+
+\begin_layout Quotation
+#define Kp 1
+\end_layout
+
+\begin_layout Quotation
+#define TestLed RA1
+\end_layout
+
+\begin_layout Quotation
+static char counter;
+\end_layout
+
+\begin_layout Quotation
+static char consigne;
+\end_layout
+
+\begin_layout Quotation
+static char erreur;
+\end_layout
+
+\begin_layout Quotation
+static char commande;
+\end_layout
+
+\begin_layout Quotation
+static char retour;
+\end_layout
+
+\begin_layout Quotation
+static char encoder;
+\end_layout
+
+\begin_layout Quotation
+static char vitesse;
+\end_layout
+
+\begin_layout Quotation
+//Timer 0 - interruptions tout les 4.1ms pour faire commande
+\end_layout
+
+\begin_layout Quotation
+void setupT0() {
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+//Fosc=4MHz, Fcy=1MHz, Tcy=1us
+\end_layout
+
+\begin_layout Quotation
+//interruptions chaque 16*256us = 4.1ms@ prescaler 16
+\end_layout
+
+\begin_layout Quotation
+T0CS=0; //Horloge Interne
+\end_layout
+
+\begin_layout Quotation
+PSA=0;
+\end_layout
+
+\begin_layout Quotation
+PS2=0; //Prescaler 16
+\end_layout
+
+\begin_layout Quotation
+PS1=1; //Prescaler 16
+\end_layout
+
+\begin_layout Quotation
+PS0=1; //Prescaler 16
+\end_layout
+
+\begin_layout Quotation
+TMR0=0; //Initialization a zero
+\end_layout
+
+\begin_layout Quotation
+T0IF=0; //Interrupt flag to zero
+\end_layout
+
+\begin_layout Quotation
+T0IE=1; //Enable interrupt
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+}
+\end_layout
+
+\begin_layout Quotation
+//Timer1 - Mode timer, compte nombre de flancs montants
+\end_layout
+
+\begin_layout Quotation
+// TMR1H:TMRH1L = duration en microsecondes entre deux flancs du signal
+ du encoder
+\end_layout
+
+\begin_layout Quotation
+// On se sert seulement de la partie superieure donc: 65ms > temps entre
+ flancs > 0.256ms 
+\end_layout
+
+\begin_layout Quotation
+void setupT1() {
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+encoder=0;
+\end_layout
+
+\begin_layout Quotation
+vitesse=0;
+\end_layout
+
+\begin_layout Quotation
+T1CKPS1=0; //Prescaler 1
+\end_layout
+
+\begin_layout Quotation
+T1CKPS0=0; //Prescaler 1
+\end_layout
+
+\begin_layout Quotation
+TMR1CS=0; //Mode Timer
+\end_layout
+
+\begin_layout Quotation
+TMR1H=0; //Initialization a zero
+\end_layout
+
+\begin_layout Quotation
+TMR1L=0; //Initialization a zero
+\end_layout
+
+\end_deeper
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Approche-II
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Quotation
+TMR1IF=0;
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+PEIE=1; //Enable peripheral interrupt
+\end_layout
+
+\begin_layout Quotation
+TMR1IE=1;
+\end_layout
+
+\begin_layout Quotation
+TMR1ON=1; //Allume compteur
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+}
+\end_layout
+
+\begin_layout Quotation
+void setupBoutons(){
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+TRISE3=1;
+\end_layout
+
+\begin_layout Quotation
+TRISD|=0b11010000;
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+}
+\end_layout
+
+\begin_layout Quotation
+// lire ADC (potentiometer) - commande
+\end_layout
+
+\begin_layout Quotation
+void setupAdcPot(){
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+consigne=0;
+\end_layout
+
+\begin_layout Quotation
+TRISA0=1; //AN0 entree POT1
+\end_layout
+
+\begin_layout Quotation
+ANSEL=1; //AN0 analog, AN1-7 numerique
+\end_layout
+
+\begin_layout Quotation
+ADCON1=0x10; //Fosc/8
+\end_layout
+
+\begin_layout Quotation
+ADRESL=0;
+\end_layout
+
+\begin_layout Quotation
+ADRESH=0;
+\end_layout
+
+\begin_layout Quotation
+ADIF=0;
+\end_layout
+
+\begin_layout Quotation
+ADIE=1;
+\end_layout
+
+\begin_layout Quotation
+PEIE=1;
+\end_layout
+
+\begin_layout Quotation
+ADCON0=1; //ADON, Channel 0 (AN0)
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+}
+\end_layout
+
+\begin_layout Quotation
+//PWM - vitesse moteur
+\end_layout
+
+\begin_layout Quotation
+void setupPWM(){
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+TRISD2=0; //RD2 sortie PWM
+\end_layout
+
+\begin_layout Quotation
+PR2=0xFF;
+\end_layout
+
+\begin_layout Quotation
+TMR2ON=1;
+\end_layout
+
+\begin_layout Quotation
+T2CKPS1=1;
+\end_layout
+
+\begin_layout Quotation
+T2CKPS0=1; //Prescaler mis a 16 pour le PWM donc PeriodePWM=4.1ms
+\end_layout
+
+\begin_layout Quotation
+CCP2M3=1; //PWM mode
+\end_layout
+
+\begin_layout Quotation
+CCP2M2=1;
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+}
+\end_layout
+
+\begin_layout Quotation
+void setupMoteur(){
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+TRISD5=0; //MoteurON
+\end_layout
+
+\begin_layout Quotation
+MoteurON=1;
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+}
+\end_layout
+
+\begin_layout Quotation
+void setupCapteur(){
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+TRISD1=1;
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+}
+\end_layout
+
+\begin_layout Quotation
+void interrupt gestion_IT() {
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+if(ADIF){
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+consigne=ADRESH;
+\end_layout
+
+\begin_layout Quotation
+if(consigne>250) consigne=255;
+\end_layout
+
+\begin_layout Quotation
+GODONE=1; //debut ADC/CAN
+\end_layout
+
+\begin_layout Quotation
+ADIF=0;
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+}
+\end_layout
+
+\end_deeper
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Approche II
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Quotation
+else if(T0IF) {
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+erreur=consigne-(255-encoder);
+\end_layout
+
+\begin_layout Quotation
+commande=(erreur>>1)+(erreur>>2)+(erreur>>3);
+\end_layout
+
+\begin_layout Quotation
+CCPR2H=0;
+\end_layout
+
+\begin_layout Quotation
+CCPR2L=commande;
+\end_layout
+
+\begin_layout Quotation
+T0IF=0;
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+} else if(TMR1IF) {
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+//temps encoder trop grand - fixe a 255
+\end_layout
+
+\begin_layout Quotation
+TMR1ON=0;
+\end_layout
+
+\begin_layout Quotation
+TMR1H=0xFF; 
+\end_layout
+
+\begin_layout Quotation
+TMR1IF=0;
+\end_layout
+
+\begin_layout Quotation
+}
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+}
+\end_layout
+
+\begin_layout Quotation
+char i;
+\end_layout
+
+\begin_layout Quotation
+void main(){
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+setupMoteur();
+\end_layout
+
+\begin_layout Quotation
+InitialisationAfficheur();
+\end_layout
+
+\begin_layout Quotation
+setupT0();
+\end_layout
+
+\begin_layout Quotation
+setupT1();
+\end_layout
+
+\begin_layout Quotation
+setupBoutons();
+\end_layout
+
+\begin_layout Quotation
+setupAdcPot();
+\end_layout
+
+\begin_layout Quotation
+setupPWM();
+\end_layout
+
+\begin_layout Quotation
+setupCapteur();
+\end_layout
+
+\begin_layout Quotation
+TRISA1=0;
+\end_layout
+
+\begin_layout Quotation
+GIE=1;
+\end_layout
+
+\begin_layout Quotation
+//debut ADC/CAN
+\end_layout
+
+\begin_layout Quotation
+GODONE=1;
+\end_layout
+
+\begin_layout Quotation
+AfficherDecimal(0);
+\end_layout
+
+\begin_layout Quotation
+while(1){ //infinite loop
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+// Software debouncing code
+\end_layout
+
+\begin_layout Quotation
+if (counter < 255){ //previent que le compteur reviens a zero
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+counter++;
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+} 
+\end_layout
+
+\begin_layout Quotation
+//capteur - falling edge
+\end_layout
+
+\begin_layout Quotation
+if(Capteur==1){
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+counter=0;
+\end_layout
+
+\begin_layout Quotation
+TestLed=0;
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+}
+\end_layout
+
+\begin_layout Quotation
+if (counter == 20) { //Apres stabilization et une seule fois
+\end_layout
+
+\begin_layout Quotation
+//lire temp encoder (capteur)
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+TestLed=1; 
+\end_layout
+
+\begin_layout Quotation
+encoder=TMR1H; 
+\end_layout
+
+\begin_layout Quotation
+TMR1ON=1;
+\end_layout
+
+\begin_layout Quotation
+TMR1H=0;
+\end_layout
+
+\begin_layout Quotation
+TMR1L=0;
+\end_layout
+
+\begin_layout Quotation
+counter++;
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+}
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Approche II
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Quotation
+i++;
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+if(i>200){
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+i=0;
+\end_layout
+
+\begin_layout Quotation
+if(SwAffichConsigne==Appuye){
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+AfficherDecimal(consigne);
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+} else if(SwAffichErreur==Appuye){
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+AfficherDecimal(erreur);
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+} else if(SwAffichCommande==Appuye){
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+AfficherDecimal(commande);
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+} else if(SwAffichRetour==Appuye){
+\end_layout
+
+\begin_deeper
+\begin_layout Quotation
+AfficherDecimal(encoder);
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+}
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+}
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+}
+\end_layout
+
+\begin_layout Quotation
+}
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Approche II
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
