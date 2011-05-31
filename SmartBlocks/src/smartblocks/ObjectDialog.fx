@@ -82,7 +82,7 @@ public class ObjectDialog extends Scene {
                         Text {
                             translateX: 8
                             translateY: 20
-                            content: "Create New Object"
+                            content: "Create Object"
                         }
                     ]
                     onMouseClicked:function(e) {

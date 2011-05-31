@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class SmartBlockUtilities {
 
-
+    static private Simulation simulation;
     /**
      * Looks if both blocks actually overlap
      * @param a
@@ -37,30 +37,38 @@ public class SmartBlockUtilities {
      * Implements a blocks' factory - method factory design pattern
      * Params are copied.
      * @param blockType
+     * @param offset
+     * @param size
      * @param params
      * @return
      */
-    public static Block createBlock(EnumBlocks blockType,Map<EnumBlockParams,Double> params){
+    public static Block createBlock(EnumBlocks blockType,int x, int y, int w, int h,Map<EnumBlockParams,Double> params){
+        Vector2D offset=new Vector2D(x,y);
+        Vector2D size=new Vector2D(w,h);
+        return createBlock(blockType, offset, size, params);
+    }
+
+     public static Block createBlock(EnumBlocks blockType,Vector2D offset, Vector2D size,Map<EnumBlockParams,Double> params){
         Block block;
         switch (blockType){
             case ACCELERATOR:
-                block=new AcceleratorBlock(blockType.ACCELERATOR,params);
+                block=new AcceleratorBlock(blockType.ACCELERATOR,offset,size,params);
                 break;
             case BOUNCING:
-                //block=new BouncingBlock(blockType.BOUNCING);
+                block=new BouncingBlock(blockType.BOUNCING,offset,size,params);
             case FORBIDDEN:
 
             case TARGET:
 
             case VISCOUS:
-                
+
             default:
-                block=new AcceleratorBlock(blockType.ACCELERATOR,params);
+                block=new BlockImpl(offset,size);
                 break;
 
         }
         return block;
-    }
+     }
 
     /**
      * Params are copied.

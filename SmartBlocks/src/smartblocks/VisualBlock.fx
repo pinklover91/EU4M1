@@ -11,45 +11,50 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import smartblocks.java.Block;
-import smartblocks.java.MovingObject;
 import javafx.scene.input.MouseButton;
-import java.lang.System;
+import smartblocks.java.EnumBlocks;
+import smartblocks.java.SmartBlockUtilities;
 
 /**
  * @author david
  */
 
 public class VisualBlock extends CustomNode{
-    public var block : Block;
+    public var block : Block;    
+    public var blockTypes: EnumBlocks[]=EnumBlocks.values();
+    public var i:Integer;
+
     override function create(): Node {
        return
        Group {
-           translateX: bind block.getX()
-           translateY: bind block.getY()
+           translateX: bind block.getX()*EnumParamsGUI.PX_PER_METER.getDefValue();
+           translateY: bind block.getY()*EnumParamsGUI.PX_PER_METER.getDefValue();
             content: [
                 Rectangle{
                        x: 0
                        y: 0
-                       height: bind block.getHeight();
-                       width: bind block.getWidth();
+                       height: bind block.getHeight()*EnumParamsGUI.PX_PER_METER.getDefValue();;
+                       width: bind block.getWidth()*EnumParamsGUI.PX_PER_METER.getDefValue();;
                        fill: Color.CHARTREUSE
                 },
                 Text {
-                    translateX: bind block.getWidth()/2
-                    translateY: bind block.getHeight()/2
+                    translateX: bind block.getWidth()*EnumParamsGUI.PX_PER_METER.getDefValue()/2
+                    translateY: bind block.getHeight()*EnumParamsGUI.PX_PER_METER.getDefValue()/2
                     content: bind block.getType().getSymbol()
                 }
             ]
             onMouseClicked: function(e) {
+                if(e.button==MouseButton.PRIMARY and e.clickCount==1){
+                    if(i<blockTypes.size()-1)i++;
+                } 
                 if(e.button==MouseButton.SECONDARY and e.clickCount>1){
-                    block=null;
-                    (scene as SimuCanvas).deleteBlock(this);
-                }                
+                    if(i>0) i--;
+                }
+                changeType();
             }
         }
     }
-    public function update(mo,dt:Double): Void {
-       System.out.println("Operate in block x: {block.getX()}  y: {block.getY()}");
-       block.operate(mo as MovingObject,dt);
+    public function changeType(): Void {
+       block=SmartBlockUtilities.createBlock(blockTypes.get(i),block.getOffset(),block.getSize(),(scene.stage as SimuStage).blockParams);
     }
 }

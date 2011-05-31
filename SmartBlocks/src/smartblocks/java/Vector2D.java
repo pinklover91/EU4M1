@@ -51,6 +51,12 @@ public class Vector2D implements Serializable{
         return new Vector2D(r.x*a,r.y*a);
     }
 
+    public static double cross(Vector2D r1, Vector2D r2){
+        return r1.x * r2.y - r1.y * r2.x;
+    }
+
+
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

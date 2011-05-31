@@ -8,6 +8,7 @@ import javafx.scene.CustomNode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import smartblocks.java.MovingObject;
+import javafx.scene.input.MouseEvent;
 
 /**
  * @author david
@@ -22,9 +23,10 @@ public class VisualObject extends CustomNode {
            centerY: bind mo.getY()
            radius: 10
            fill: Color.DARKBLUE
+           onMouseDragged: function(event:MouseEvent) {
+               mo.setPosition(event.sceneX, event.sceneY);
+           }
        }
     };
-    public function update(dt:Double): Void {
-       mo.updatePosition(dt);
-    }
+    override var blocksMouse=true;
 }

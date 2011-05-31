@@ -15,8 +15,8 @@ import java.util.Map;
 public class AcceleratorBlock extends BlockImpl {
 
 
-    AcceleratorBlock(EnumBlocks type, Map<EnumBlockParams,Double> params){
-        super(type,params);
+    AcceleratorBlock(EnumBlocks type, Vector2D offset, Vector2D size, Map<EnumBlockParams,Double> params){
+        super(type,offset,size,params);
     }
 
     @Override

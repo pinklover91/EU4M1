@@ -18,7 +18,7 @@ public interface Block {
      * @param mo
      * @param dt
      */
-    public void operate(MovingObject mo, double dt);
+    public void operate(MovingObject mo, double dt) throws SimulationTerminatedException;
 
     /**
      * Returns the upper-left point of the block

@@ -10,8 +10,6 @@ import java.util.Map;
 import smartblocks.java.EnumBlockParams;
 import smartblocks.java.EnumBlocks;
 import smartblocks.java.EnumObjectParams;
-import smartblocks.java.EnumObjects;
-import smartblocks.java.SmartBlockUtilities;
 import java.lang.System;
 
 /**
@@ -20,19 +18,17 @@ import java.lang.System;
 
 public class SimuStage extends Stage {
 
-    public var objects : VisualObject[]=[];
-    public var blocks : VisualBlock[]=[];
+    //public var objects : VisualObject[]=[];
+    //public var blocks : VisualBlock[]=[];
 
 
-
+    public var guiParams : Map = new EnumMap(EnumParamsGUI.class);
     public var blockParams : Map = new EnumMap(EnumBlockParams.class);
     public var objectParams : Map = new EnumMap(EnumObjectParams.class);
 
-    public var showScene1:Boolean=true;
-    public var showScene2:Boolean=false;
-    public var showScene3:Boolean=false;
-
-
+    public var showCanvas:Boolean=true;
+    public var showObjectDialog:Boolean=false;
+    public var showBlockDialog:Boolean=false;    
 
     public var blockDialog : BlockDialog=BlockDialog{
         content : bind [
@@ -46,9 +42,7 @@ public class SimuStage extends Stage {
         ]
     }
 
-     public var canvas:SimuCanvas= SimuCanvas{
-        objects: bind objects with inverse
-        blocks: bind blocks with inverse
+     public var canvas:SimuCanvas= SimuCanvas{        
         content: bind  [
              canvas.objects, canvas.blocks, canvas.bottomButtonBox
         ] ;
@@ -73,23 +67,16 @@ public class SimuStage extends Stage {
             width = oldStageW;
             height = oldStageH;
         }
-    }
-
-    public function createBlock(){
-        insert VisualBlock{
-            block:SmartBlockUtilities.createBlock(EnumBlocks.ACCELERATOR,blockParams);
-        } into blocks;
-    }
-
-    public function createObject(){
-        insert VisualObject{
-            mo: SmartBlockUtilities.createMovingObject(EnumObjects.PUNCTUAL,objectParams);
-        } into objects;
-    }
+    }    
 
     public function setBlockParam(e:EnumBlockParams,v:Double){
         System.out.println("Set block params");
         blockParams.put(e, v);
+    }
+
+    public function setGUIParam(e:EnumParamsGUI,v:Double){
+        System.out.println("Set GUI params");
+        guiParams.put(e, v);
     }
 
     public function setObjectParam(e:EnumObjectParams,v:Double){
@@ -97,19 +84,35 @@ public class SimuStage extends Stage {
         objectParams.put(e, v);
     }
 
+    public function getBlockParam(e:EnumBlockParams):Double{
+        return blockParams.get(e) as Double;
+    }
+
+    public function getGuiParam(e:EnumParamsGUI):Double{
+        return guiParams.get(e) as Double;
+    }
+
+    public function getObjectParam(e:EnumObjectParams):Double{
+        return objectParams.get(e) as Double;
+    }
+
+    public function createObject(){
+        canvas.createObject(objectParams);
+    }
+
     public function switchScenes(numScene:Integer):Void{
         if(numScene==1){
-            showScene1=true;
-            showScene2=false;
-            showScene3=false;
+            showCanvas=true;
+            showObjectDialog=false;
+            showBlockDialog=false;
         }else if(numScene==2){
-            showScene1=false;
-            showScene2=true;
-            showScene3=false;
+            showCanvas=false;
+            showObjectDialog=true;
+            showBlockDialog=false;
         }else{
-            showScene1=false;
-            showScene2=false;
-            showScene3=true;
+            showCanvas=false;
+            showObjectDialog=false;
+            showBlockDialog=true;
         }
     }
  }

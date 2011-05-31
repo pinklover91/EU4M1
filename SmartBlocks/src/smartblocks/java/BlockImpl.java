@@ -45,13 +45,17 @@ public class BlockImpl implements Block, Serializable{
         type=EnumBlocks.FREE;
     }
 
-    BlockImpl(EnumBlocks type,Map<EnumBlockParams,Double> params){
-        this();
+     BlockImpl(Vector2D offset, Vector2D size){
+        this.size=size;
+        this.offset=offset;
+        type=EnumBlocks.FREE;
+    }
+
+    BlockImpl(EnumBlocks type, Vector2D offset, Vector2D size,Map<EnumBlockParams,Double> params){
+        params=new EnumMap(EnumBlockParams.class);
         this.params.putAll(params);
-        this.size.x=params.get(EnumBlockParams.WIDTH);
-        this.size.y=params.get(EnumBlockParams.HEIGHT);
-        this.offset.x=params.get(EnumBlockParams.POS_X);
-        this.offset.y=params.get(EnumBlockParams.POS_Y);
+        this.size=size;
+        this.offset=offset;
         this.type=type;
     }
 

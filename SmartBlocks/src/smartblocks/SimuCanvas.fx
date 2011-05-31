@@ -13,6 +13,13 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import smartblocks.SimuStage;
+import smartblocks.java.Simulation;
+import smartblocks.java.SmartBlockUtilities;
+import smartblocks.java.EnumBlocks;
+import smartblocks.java.Block;
+import smartblocks.java.SimulationTerminatedException;
+import smartblocks.java.EnumObjects;
+import java.util.Map;
 /**
  * @author david
  */
@@ -22,11 +29,20 @@ public class SimuCanvas extends Scene {
     public var objects : VisualObject[];
     public var blocks : VisualBlock[];
     public var timeline : Timeline;
+    public var dT:Duration=5ms;
+    public var simulation:Simulation;
+    
 
     public function deleteBlock(vb:VisualBlock):Void{
         delete vb from blocks;
     }
 
+    public function createObject(objectParams:Map){
+        insert VisualObject{
+            mo: bind SmartBlockUtilities.createMovingObject(EnumObjects.PUNCTUAL,objectParams);
+        } into objects;
+
+    }
 
     public var bottomButtonBox:HBox = HBox {
         translateX: bind (width - bottomButtonBox.layoutBounds.width)/2
@@ -44,7 +60,7 @@ public class SimuCanvas extends Scene {
                     Text {
                         translateX: 8
                         translateY: 20
-                        content: "New Object"
+                        content: "Object Params"
                     }
                 ]
                 onMouseClicked:function(e) {                    
@@ -62,7 +78,7 @@ public class SimuCanvas extends Scene {
                     Text {
                         translateX: 8
                         translateY: 20
-                        content: "New Block"
+                        content: "Block Params"
                     }
                 ]
                 onMouseClicked:function(e) {
@@ -106,39 +122,65 @@ public class SimuCanvas extends Scene {
                 }
             }
         ]
-    };    
+    };
+
+    postinit{
+        reset();
+    }
+
+
+    function reset(){
+        var i:Integer=0;
+        var j:Integer;
+        var numX:Double=(stage as SimuStage).getGuiParam(EnumParamsGUI.MATRIX_X);
+        var numY:Double=(stage as SimuStage).getGuiParam(EnumParamsGUI.MATRIX_Y);
+        var offset;
+        var w:Double=(stage as SimuStage).getGuiParam(EnumParamsGUI.SURF_DIMENSION_X)/numX;
+        var h:Double=(stage as SimuStage).getGuiParam(EnumParamsGUI.SURF_DIMENSION_Y)/numY;
+
+        while (i < numX) {
+            j=0;
+            while (j < numY) {
+                insert VisualBlock{
+                    block: SmartBlockUtilities.createBlock(EnumBlocks.FREE,i*w,j*h,w,h,(stage as SimuStage).blockParams);
+                }
+                into blocks;
+            }
+        }
+    }
 
     function play(){
+        var b:Block;
+        for (vblock in blocks){
+            b=vblock.block;
+            if(b.getType()!=EnumBlocks.FREE){
+                simulation.insertBlock(b);
+            }
+        }
+        for (vmo in objects){
+            simulation.insertMovingObject(vmo.mo);
+        }
+
         timeline = Timeline {
         repeatCount: Timeline.INDEFINITE
         keyFrames :
             KeyFrame {
-                time : 5ms
+                time : dT
                 canSkip : true
                 action: function() {
-                    update();
+                    try{
+                        simulation.nextStep(dT.toSeconds());
+                    }catch(ste:SimulationTerminatedException){
+                         stop();
+                    }
                 }
             }
         };
-        timeline.play();
+        timeline.playFromStart();
    }
-
 
     function stop() {
         timeline.stop();
         timeline = null;
-    }
-
-    function update(): Void {
-       var i = sizeof objects - 1;
-        while( i >= 0 ) {
-           objects[i.intValue()].update(timeline.keyFrames.get(0).time.toSeconds());
-           i--;
-           var j = sizeof blocks - 1;
-            while( j >= 0 ) {
-                blocks[j.intValue()].update(objects[i.intValue()].mo,timeline.keyFrames.get(0).time.toSeconds());
-                j--;
-             }
-        }
-    }
+    }    
 }
