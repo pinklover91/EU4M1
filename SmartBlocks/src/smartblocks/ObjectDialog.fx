@@ -29,10 +29,7 @@ public class ObjectDialog extends Scene {
         (stage as SimuStage).setObjectParam(e,value);
     }
 
-    init{
-        for (e in EnumObjectParams.values())
-                    setObjectParam(e,e.getDefValue());
-    }
+    
 
        public var inGroup:Group =Group{
             content: [

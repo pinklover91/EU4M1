@@ -35,7 +35,7 @@ public class VisualBlock extends CustomNode{
                        y: 0
                        height: bind block.getHeight()*EnumParamsGUI.PX_PER_METER.getDefValue();;
                        width: bind block.getWidth()*EnumParamsGUI.PX_PER_METER.getDefValue();;
-                       fill: Color.CHARTREUSE
+                       fill: Color.BLUEVIOLET
                 },
                 Text {
                     translateX: bind block.getWidth()*EnumParamsGUI.PX_PER_METER.getDefValue()/2

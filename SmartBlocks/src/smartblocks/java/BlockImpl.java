@@ -52,7 +52,7 @@ public class BlockImpl implements Block, Serializable{
     }
 
     BlockImpl(EnumBlocks type, Vector2D offset, Vector2D size,Map<EnumBlockParams,Double> params){
-        params=new EnumMap(EnumBlockParams.class);
+        this.params=new EnumMap(EnumBlockParams.class);
         this.params.putAll(params);
         this.size=size;
         this.offset=offset;

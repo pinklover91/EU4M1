@@ -20,6 +20,8 @@ import smartblocks.java.Block;
 import smartblocks.java.SimulationTerminatedException;
 import smartblocks.java.EnumObjects;
 import java.util.Map;
+import smartblocks.java.EnumBlockParams;
+import smartblocks.java.EnumObjectParams;
 /**
  * @author david
  */
@@ -31,6 +33,7 @@ public class SimuCanvas extends Scene {
     public var timeline : Timeline;
     public var dT:Duration=5ms;
     public var simulation:Simulation;
+    public var owner:SimuStage;
     
 
     public function deleteBlock(vb:VisualBlock):Void{
@@ -130,22 +133,30 @@ public class SimuCanvas extends Scene {
 
 
     function reset(){
+        for (e in EnumParamsGUI.values())
+                    owner.setGUIParam(e,e.getDefValue());
+        for (e in EnumBlockParams.values())
+                    owner.setBlockParam(e,e.getDefValue());
+        for (e in EnumObjectParams.values())
+                    owner.setObjectParam(e,e.getDefValue());
         var i:Integer=0;
         var j:Integer;
-        var numX:Double=(stage as SimuStage).getGuiParam(EnumParamsGUI.MATRIX_X);
-        var numY:Double=(stage as SimuStage).getGuiParam(EnumParamsGUI.MATRIX_Y);
+        var numX:Double=owner.getGuiParam(EnumParamsGUI.MATRIX_X);
+        var numY:Double=owner.getGuiParam(EnumParamsGUI.MATRIX_Y);
         var offset;
-        var w:Double=(stage as SimuStage).getGuiParam(EnumParamsGUI.SURF_DIMENSION_X)/numX;
-        var h:Double=(stage as SimuStage).getGuiParam(EnumParamsGUI.SURF_DIMENSION_Y)/numY;
+        var w:Double=owner.getGuiParam(EnumParamsGUI.SURF_DIMENSION_X)/numX;
+        var h:Double=owner.getGuiParam(EnumParamsGUI.SURF_DIMENSION_Y)/numY;
 
         while (i < numX) {
             j=0;
             while (j < numY) {
                 insert VisualBlock{
-                    block: SmartBlockUtilities.createBlock(EnumBlocks.FREE,i*w,j*h,w,h,(stage as SimuStage).blockParams);
+                    block: SmartBlockUtilities.createBlock(EnumBlocks.FREE,i*w,j*h,w,h,owner.blockParams);
                 }
                 into blocks;
+                j++;
             }
+            i++;
         }
     }
 

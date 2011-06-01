@@ -26,24 +26,15 @@ public class BlockDialog extends Scene {
     }
     function setBlockParam(e:EnumBlockParams, value:Double){
         (stage as SimuStage).setBlockParam(e,value);
-    } 
+    }  
 
-     init{
-          for (e in EnumBlockParams.values())
-                    setBlockParam(e,e.getDefValue());
-     }
-
-     function setGUIParam(e:EnumParamsGUI, value:String){
+    function setGUIParam(e:EnumParamsGUI, value:String){
         (stage as SimuStage).setGUIParam(e,Double.valueOf(value));
     }
     function setGUIParam(e:EnumParamsGUI, value:Double){
         (stage as SimuStage).setGUIParam(e,value);
     } 
-
-     init{
-          for (e in EnumParamsGUI.values())
-                    setGUIParam(e,e.getDefValue());
-     }
+     
         
        public var inGroup:Group =Group{
             content: [

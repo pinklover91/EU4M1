@@ -42,11 +42,16 @@ public class SimuStage extends Stage {
         ]
     }
 
-     public var canvas:SimuCanvas= SimuCanvas{        
+     public var canvas:SimuCanvas= SimuCanvas{
+        owner: bind this;
         content: bind  [
              canvas.objects, canvas.blocks, canvas.bottomButtonBox
         ] ;
     }
+
+    
+
+
 
     // save and restore old stage size
     public var oldStageX = 0.0;

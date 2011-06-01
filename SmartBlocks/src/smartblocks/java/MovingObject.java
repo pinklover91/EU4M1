@@ -85,4 +85,6 @@ public interface MovingObject {
      */
     public void rotate(double a);
 
+    public void translate(double dx, double dy);
+
 }

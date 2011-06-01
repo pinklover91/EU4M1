@@ -83,6 +83,12 @@ public class PunctualMass implements MovingObject, Serializable{
     }
 
     @Override
+    public void translate(double dx, double dy){
+        r.x+=dx;
+        r.y+=dy;
+    }
+
+    @Override
     public void setPosition(double x, double y){
         r.x=x;
         r.y=y;

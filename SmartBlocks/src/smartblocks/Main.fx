@@ -7,10 +7,6 @@ package smartblocks;
 
 import smartblocks.EnumParamsGUI;
 
-
-
-
-
 /**
  * @author david
  */
@@ -22,8 +18,6 @@ var stage:SimuStage=SimuStage{
         else stage.canvas
 
     title : "SmartBlocks Simulator"
-    width : bind stage.guiParams.get(EnumParamsGUI.SURF_DIMENSION_X) as Number
-    height : bind stage.guiParams.get(EnumParamsGUI.SURF_DIMENSION_Y) as Number
+    width : bind (stage.guiParams.get(EnumParamsGUI.SURF_DIMENSION_X) as Number)*EnumParamsGUI.PX_PER_METER.getDefValue();
+    height : bind (stage.guiParams.get(EnumParamsGUI.SURF_DIMENSION_Y) as Number)*EnumParamsGUI.PX_PER_METER.getDefValue();
 }
-
-
