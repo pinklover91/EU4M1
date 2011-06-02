@@ -23,15 +23,14 @@ class BouncingBlock extends BlockImpl{
 
 @Override
     public void operate(MovingObject mo, double dt) {
-        // Does nothing
-        double fX, fY;
+        
         if(SmartBlockUtilities.getCollider(this.getType(), mo.getType()).collide(this, mo)){
             Vector2D semiSize=Vector2D.scale(size,0.5);
             Vector2D center =Vector2D.sum(offset,semiSize);
             Vector2D distance=Vector2D.distance(center,mo.getPosition());
-            fX=getParam(EnumBlockParams.RIGID_COEF)*distance.x;
-            fY=getParam(EnumBlockParams.RIGID_COEF)*distance.y;
-                mo.applyForce(fX, fY, dt);
+            force.x=getParam(EnumBlockParams.RIGID_COEF)*distance.x;
+            force.y=getParam(EnumBlockParams.RIGID_COEF)*distance.y;
+                mo.applyForce(force.x, force.y, dt);
         }
     }
 }

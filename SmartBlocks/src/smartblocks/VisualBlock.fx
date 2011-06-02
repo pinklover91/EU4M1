@@ -1,0 +1,57 @@
+/*
+ * Ecole Nationale Superieure de Mecanique et des Microtechniques ENSMM
+ * Besancon - France
+ * 2011
+ */
+
+package smartblocks;
+import javafx.scene.CustomNode;
+import javafx.scene.Node;
+import smartblocks.block.Block;
+import javafx.scene.input.MouseButton;
+import smartblocks.block.EnumBlocks;
+import javafx.scene.image.ImageView;
+import javafx.util.Math;
+import smartblocks.block.EnumBlockParams;
+import smartblocks.block.BlockFactory;
+import java.util.Map;
+import javafx.scene.image.Image;
+
+/**
+ * @author David FUENMAYOR
+ */
+
+public class VisualBlock extends CustomNode{
+    public var block : Block;
+    var blockTypes: EnumBlocks[]=EnumBlocks.values();
+    var i:Integer;
+    public var images:Map;
+    public var owner:SimuStage;
+
+    override function create(): Node {
+       return       
+          ImageView {
+                image: bind images.get(block.getType()) as Image;
+                fitWidth: bind block.getWidth()*EnumParamsGUI.PX_PER_METER.getDefValue();
+                fitHeight: bind block.getHeight()*EnumParamsGUI.PX_PER_METER.getDefValue();
+                translateX: bind block.getX()*EnumParamsGUI.PX_PER_METER.getDefValue();
+                translateY: bind block.getY()*EnumParamsGUI.PX_PER_METER.getDefValue();
+                rotate: bind Math.toDegrees(Math.atan2(block.getLastForce().x,
+                    block.getLastForce().y));
+                visible: true;                
+
+                onMouseClicked: function(e) {
+                    if(e.button==MouseButton.PRIMARY and e.clickCount==1){
+                        if(i<blockTypes.size()-1)i++;
+                    }
+                    if(e.button==MouseButton.SECONDARY and e.clickCount==1){
+                        if(i>0) i--;
+                    }
+                    changeType();
+                }
+            }
+    }
+    public function changeType(): Void {
+       block=BlockFactory.getInstance().createBlock(blockTypes.get(i),block.getOffset(),block.getSize(),owner.blockParams);
+    }
+}

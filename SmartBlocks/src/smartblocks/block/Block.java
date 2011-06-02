@@ -93,9 +93,15 @@ public interface Block {
     public void setParam(String paramName, Double value);
 
     /**
-     *
-     * @return
+     * Returns the type of block
+     * @return Type of this block
      */
     public EnumBlocks getType();
+
+    /**
+     * Returns the last force exerced by this block on a moving object
+     * @return force vector
+     */
+    public Vector2D getLastForce();
 
 }

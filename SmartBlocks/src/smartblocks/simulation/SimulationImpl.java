@@ -60,13 +60,13 @@ public class SimulationImpl implements Simulation{
     public void nextStep(double dt) throws SimulationTerminatedException{
        int i = objects.size()-1;
         while( i >= 0 ) {
-           objects.get(i).updatePosition(dt);
-           i--;
+           objects.get(i).updatePosition(dt);           
            int j = blocks.size() - 1;
             while( j >= 0 ) {
                 blocks.get(j).operate(objects.get(i),dt);
                 j--;
              }
+           i--;
         }    
     }
 

@@ -86,6 +86,7 @@ public class ObjectImpl implements MovingObject, Serializable{
 
     @Override
     public void setPosition(Vector2D pos) {
+        System.out.println("Set Position on object: "+pos.x+" "+pos.y);
         r.x=pos.x;
         r.y=pos.y;
     }
@@ -98,6 +99,7 @@ public class ObjectImpl implements MovingObject, Serializable{
 
     @Override
     public void setPosition(double x, double y){
+        System.out.println("Set Position on object: "+x+" "+y);
         r.x=x;
         r.y=y;
     }

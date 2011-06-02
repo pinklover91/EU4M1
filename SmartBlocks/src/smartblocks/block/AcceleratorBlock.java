@@ -20,16 +20,16 @@ class AcceleratorBlock extends BlockImpl {
 
     AcceleratorBlock(Vector2D offset, Vector2D size, Map<EnumBlockParams,Double> params){
         super(EnumBlocks.ACCELERATOR,offset,size,params);
+        force.x=getParam(EnumBlockParams.CONSTANT_FORCE_X);
+        force.y=getParam(EnumBlockParams.CONSTANT_FORCE_Y);
     }
 
     @Override
     public void operate(MovingObject mo, double dt) {        
-        double fX, fY;
+        
          //Vector2D Tz=Vector2D.cross(Vector2D.substraction(??),new Vector2D(fX,fY));
-        if(SmartBlockUtilities.getCollider(this.getType(), mo.getType()).collide(this, mo)){
-            fX=getParam(EnumBlockParams.CONSTANT_FORCE_X);
-            fY=getParam(EnumBlockParams.CONSTANT_FORCE_Y);
-            mo.applyForce(fX, fY, dt);
+        if(SmartBlockUtilities.getCollider(this.getType(), mo.getType()).collide(this, mo)){            
+            mo.applyForce(force.x,force.y, dt);
                // mo.applyTorque(Tz, dt);
         }
     }

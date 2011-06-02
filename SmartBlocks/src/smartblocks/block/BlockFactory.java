@@ -64,12 +64,16 @@ public class BlockFactory {
                 break;
             case BOUNCING:
                 block=new BouncingBlock(offset,size,params);
+                break;
             case FORBIDDEN:
                 block=new ForbiddenBlock(offset,size,params);
+                break;
             case TARGET:
                 block=new TargetBlock(offset,size,params);
+                break;
             case VISCOUS:
                 block=new ViscousBlock(offset,size,params);
+                break;
             default:
                 block=new BlockImpl(blockType,offset,size);
                 break;

@@ -31,6 +31,11 @@ class BlockImpl implements Block, Serializable{
     protected Vector2D size;
 
     /**
+     * height and width of the block
+     */
+    protected Vector2D force;
+
+    /**
      * Type of behavior of the block
      */
     EnumBlocks type;
@@ -44,10 +49,7 @@ class BlockImpl implements Block, Serializable{
      * Default constructor
      */
     BlockImpl(){
-        size=new Vector2D(0,0);
-        offset=new Vector2D(0,0);
-        params=new EnumMap(EnumBlockParams.class);
-        type=EnumBlocks.FREE;
+        this(EnumBlocks.FREE,new Vector2D(0,0),new Vector2D(0,0));
     }
 
     /**
@@ -60,7 +62,8 @@ class BlockImpl implements Block, Serializable{
         this.size=size;
         this.type=type;
         this.offset=offset;
-        type=EnumBlocks.FREE;
+        force=new Vector2D(0.0,0.0);
+        params=new EnumMap(EnumBlockParams.class);
     }
 
      /**
@@ -71,11 +74,8 @@ class BlockImpl implements Block, Serializable{
       * @param params
       */
     BlockImpl(EnumBlocks type, Vector2D offset, Vector2D size,Map<EnumBlockParams,Double> params){
-        this.params=new EnumMap(EnumBlockParams.class);
-        this.params.putAll(params);
-        this.size=size;
-        this.offset=offset;
-        this.type=type;
+        this(type,offset,size);
+        this.params.putAll(params);        
     }
 
     //***************************Overriden methods********************
@@ -137,6 +137,11 @@ class BlockImpl implements Block, Serializable{
     @Override
     public EnumBlocks getType() {
         return this.type;
+    }
+
+    @Override
+    public Vector2D getLastForce() {
+        return this.force;
     }
 
     @Override
