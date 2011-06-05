@@ -6,13 +6,14 @@
 
 package smartblocks.object;
 
+import smartblocks.simulation.SimulationObject;
 import smartblocks.utilities.Vector2D;
 
 /**
  * Interface implemented by all objects to be used in the simulation
  * @author David FUENMAYOR
  */
-public interface MovingObject {
+public interface MovingObject extends SimulationObject{
 
     /**
      * Applies the force represented by the vector [fX,fY,0] during the specified
@@ -21,7 +22,7 @@ public interface MovingObject {
      * @param fY
      * @param dt
      */
-    public void applyForce(double fX, double fY, double dt);
+    public void applyForce(float fX, float fY, float dt);
     
     /**
      * Applies the torque represented by the vector [0,0,Tz] during the specified
@@ -29,14 +30,14 @@ public interface MovingObject {
      * @param Tz
      * @param dt
      */
-    public void applyTorque(double Tz, double dt);
+    public void applyTorque(float Tz, float dt);
 
     /**
      * Updates the values of linear and angular position according to the time
      * interval specified and the current values of linear and angular momentum.
      * @param dt
      */
-    public void updatePosition(double dt);
+    public void updatePosition(float dt);
 
     /**
      * Translates the object to the new location
@@ -49,7 +50,7 @@ public interface MovingObject {
      * @param x
      * @param y
      */
-    public void setPosition(double x, double y);
+    public void setPosition(float x, float y);
 
     /**
      * Returns the upper-left point of the moving object
@@ -61,14 +62,14 @@ public interface MovingObject {
      * Returns the upper-left point of the moving object
      * @return
      */
-    public double getX();
+    public float getX();
 
     /**
      * Returns the upper-left point of the moving object
      * @return
      */
 
-    public double getY();
+    public float getY();
     /**
      * Returns the velocity vector of the moving object
      * @return
@@ -86,14 +87,14 @@ public interface MovingObject {
      * Rotates the object to the angle specified
      * @param a The angle specified in radians
      */
-    public void rotate(double a);
+    public void rotate(float a);
 
     /**
      * Translates the object the specified distance
      * @param dx
      * @param dy
      */
-    public void translate(double dx, double dy);
+    public void translate(float dx, float dy);
 
     /**
      * Returns the type of the object which determines its shape

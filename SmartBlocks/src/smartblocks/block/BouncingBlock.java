@@ -7,8 +7,9 @@
 package smartblocks.block;
 
 import smartblocks.utilities.Vector2D;
-import smartblocks.object.MovingObject;
 import java.util.Map;
+import smartblocks.object.MovingObject;
+import smartblocks.simulation.SimulationObject;
 import smartblocks.utilities.SmartBlockUtilities;
 
 /**
@@ -17,20 +18,20 @@ import smartblocks.utilities.SmartBlockUtilities;
  */
 class BouncingBlock extends BlockImpl{
 
-    BouncingBlock(Vector2D offset, Vector2D size, Map<EnumBlockParams,Double> params){
+    BouncingBlock(Vector2D offset, Vector2D size, Map<EnumBlockParams,Object> params){
         super(EnumBlocks.BOUNCING,offset,size,params);
     }
 
-@Override
-    public void operate(MovingObject mo, double dt) {
-        
-        if(SmartBlockUtilities.getCollider(this.getType(), mo.getType()).collide(this, mo)){
-            Vector2D semiSize=Vector2D.scale(size,0.5);
-            Vector2D center =Vector2D.sum(offset,semiSize);
-            Vector2D distance=Vector2D.distance(center,mo.getPosition());
-            force.x=getParam(EnumBlockParams.RIGID_COEF)*distance.x;
-            force.y=getParam(EnumBlockParams.RIGID_COEF)*distance.y;
-                mo.applyForce(force.x, force.y, dt);
+    @Override    
+    public void operate(SimulationObject so, float dt) {
+        if(so instanceof MovingObject){
+            MovingObject mo=(MovingObject)so;
+            if(SmartBlockUtilities.getCollider(this.getType(), mo.getType()).collide(this, mo)!=null){
+                Vector2D center =shape.getCentroid(true);
+                Vector2D distance=Vector2D.distance(center,mo.getPosition());
+                force.x=getParam(EnumBlockParams.RIGID_COEF)*distance.x;
+                force.y=getParam(EnumBlockParams.RIGID_COEF)*distance.y;              
+            }
         }
     }
 }

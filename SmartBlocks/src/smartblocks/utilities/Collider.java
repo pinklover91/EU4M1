@@ -16,11 +16,12 @@ import smartblocks.object.MovingObject;
 public interface Collider {
 
     /**
-     * Tells if the specified block and object collide
+     * Tells if the specified block and object collide, if so,
+     * returns array of colliding points
      * @param block
      * @param object
-     * @return true is block and object collide
+     * @return array of colliding points
      */
-    boolean collide(Block block, MovingObject object);
+    Vector2D[] collide(Block block, MovingObject object);
 
 }

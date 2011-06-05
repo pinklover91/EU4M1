@@ -50,31 +50,31 @@ public class SimuStage extends Stage {
         ] ;
     }
 
-    public function setBlockParam(e:EnumBlockParams,v:Double){
+    public function setBlockParam(e:EnumBlockParams,v:Float){
         System.out.println("Set block params");
         blockParams.put(e, v);
     }
 
-    public function setGUIParam(e:EnumParamsGUI,v:Double){
+    public function setGUIParam(e:EnumParamsGUI,v:Float){
         System.out.println("Set GUI params");
         guiParams.put(e, v);
     }
 
-    public function setObjectParam(e:EnumObjectParams,v:Double){
+    public function setObjectParam(e:EnumObjectParams,v:Float){
         System.out.println("Set object params");
         objectParams.put(e, v);
     }
 
-    public function getBlockParam(e:EnumBlockParams):Double{
-        return blockParams.get(e) as Double;
+    public function getBlockParam(e:EnumBlockParams):Float{
+        return blockParams.get(e) as Float;
     }
 
-    public function getGuiParam(e:EnumParamsGUI):Double{
-        return guiParams.get(e) as Double;
+    public function getGuiParam(e:EnumParamsGUI):Float{
+        return guiParams.get(e) as Float;
     }
 
-    public function getObjectParam(e:EnumObjectParams):Double{
-        return objectParams.get(e) as Double;
+    public function getObjectParam(e:EnumObjectParams):Float{
+        return objectParams.get(e) as Float;
     }
 
     public function createObject(){

@@ -12,10 +12,10 @@ import javafx.scene.input.MouseButton;
 import smartblocks.block.EnumBlocks;
 import javafx.scene.image.ImageView;
 import javafx.util.Math;
-import smartblocks.block.EnumBlockParams;
 import smartblocks.block.BlockFactory;
 import java.util.Map;
 import javafx.scene.image.Image;
+import smartblocks.shapes.Shape;
 
 /**
  * @author David FUENMAYOR
@@ -32,10 +32,10 @@ public class VisualBlock extends CustomNode{
        return       
           ImageView {
                 image: bind images.get(block.getType()) as Image;
-                fitWidth: bind block.getWidth()*EnumParamsGUI.PX_PER_METER.getDefValue();
-                fitHeight: bind block.getHeight()*EnumParamsGUI.PX_PER_METER.getDefValue();
-                translateX: bind block.getX()*EnumParamsGUI.PX_PER_METER.getDefValue();
-                translateY: bind block.getY()*EnumParamsGUI.PX_PER_METER.getDefValue();
+                fitWidth: bind block.getShape().getWidth()*EnumParamsGUI.PX_PER_METER.getDefValue();
+                fitHeight: bind block.getShape().getHeight()*EnumParamsGUI.PX_PER_METER.getDefValue();
+                translateX: bind block.getShape().getX()*EnumParamsGUI.PX_PER_METER.getDefValue();
+                translateY: bind block.getShape().getY()*EnumParamsGUI.PX_PER_METER.getDefValue();
                 rotate: bind Math.toDegrees(Math.atan2(block.getLastForce().x,
                     block.getLastForce().y));
                 visible: true;                
@@ -52,6 +52,9 @@ public class VisualBlock extends CustomNode{
             }
     }
     public function changeType(): Void {
-       block=BlockFactory.getInstance().createBlock(blockTypes.get(i),block.getOffset(),block.getSize(),owner.blockParams);
+       var shape:Shape=block.getShape();
+       block=BlockFactory.getInstance().createBlock(
+                    blockTypes.get(i),shape.getX(),shape.getY(),
+                    shape.getWidth(),shape.getHeight(),owner.blockParams);
     }
 }

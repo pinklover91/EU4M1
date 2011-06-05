@@ -41,7 +41,7 @@ public class BlockFactory {
      * @param params Parameters to be copied into the block
      * @return A new Block
      */
-    public Block createBlock(EnumBlocks blockType,int x, int y, int w, int h,Map<EnumBlockParams,Double> params){
+    public Block createBlock(EnumBlocks blockType,float x, float y, float w, float h,Map<EnumBlockParams,Object> params){
         Vector2D offset=new Vector2D(x,y);
         Vector2D size=new Vector2D(w,h);
         return createBlock(blockType, offset, size, params);
@@ -56,7 +56,7 @@ public class BlockFactory {
      * @param params Parameters to be copied into the block
      * @return A new Block
      */
-     public Block createBlock(EnumBlocks blockType,Vector2D offset, Vector2D size,Map<EnumBlockParams,Double> params){
+     public Block createBlock(EnumBlocks blockType,Vector2D offset, Vector2D size,Map<EnumBlockParams,Object> params){
         Block block;
         switch (blockType){
             case ACCELERATOR:

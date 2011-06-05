@@ -13,18 +13,18 @@ package smartblocks;
 public enum EnumParamsGUI {
 
     
-    PX_PER_METER("Pixels per meter, for conversions inside GUI",100.0,1),
-    MATRIX_X("Number of blocks in X direction",6,2),
-    MATRIX_Y("Number of blocks in Y direction",4,3),
-    SURF_DIMENSION_X("X dimension of smarblocks' surface",8,4),
-    SURF_DIMENSION_Y("Y dimension of smarblocks' surface",6,5);
+    PX_PER_METER("Pixels per meter, for conversions inside GUI",100.0f,1),
+    MATRIX_X("Number of blocks in X direction",6f,2),
+    MATRIX_Y("Number of blocks in Y direction",4f,3),
+    SURF_DIMENSION_X("X dimension of smarblocks' surface",8f,4),
+    SURF_DIMENSION_Y("Y dimension of smarblocks' surface",6f,5);
 
 
     String description;
-    double defValue;
+    float defValue;
     int index;
 
-    EnumParamsGUI(String s, double d,int in){
+    EnumParamsGUI(String s, float d,int in){
         description=s;
         index=in;
         defValue=d;
@@ -38,7 +38,7 @@ public enum EnumParamsGUI {
         return index;
     }
 
-    public double getDefValue() {
+    public Float getDefValue() {
         return defValue;
     }
 }

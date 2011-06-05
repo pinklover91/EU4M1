@@ -10,6 +10,9 @@ import java.io.Serializable;
 import java.util.EnumMap;
 import java.util.Map;
 import smartblocks.utilities.Vector2D;
+import smartblocks.shapes.Shape;
+import smartblocks.simulation.SimulationObject;
+import smartblocks.simulation.SimulationTerminatedException;
 
 /**
  * Default implementation of the MovingObject interface
@@ -28,14 +31,19 @@ public class ObjectImpl implements MovingObject, Serializable{
     protected Vector2D p;
 
     /**
+     * The shape of the object
+     */
+    protected Shape shape;
+
+    /**
      * The mass of the object
      */
-    double m;
+    float m;
 
     /**
      * Parameters of the moving object
      */
-    Map<EnumObjectParams,Double> params;
+    Map<EnumObjectParams,Object> params;
 
     /**
      *
@@ -43,10 +51,22 @@ public class ObjectImpl implements MovingObject, Serializable{
      */
     EnumObjects type;
 
+    /**
+     * Last force exerted by this moving object
+     */
+    protected Vector2D force;
+
+    /**
+     * Last torque exerted by this moving object
+     */
+    protected float torque;
+
     ObjectImpl(){
-        r=new Vector2D(0,0);
-        p=new Vector2D(0,0);
-        m=1;
+        r=new Vector2D();
+        p=new Vector2D();
+        force=new Vector2D();
+        torque=0;
+        m=1f;
         params=new EnumMap(EnumObjectParams.class);
     }
 
@@ -55,31 +75,31 @@ public class ObjectImpl implements MovingObject, Serializable{
         this.type=type;
     }
 
-    ObjectImpl(EnumObjects type,Map<EnumObjectParams,Double> params){
+    ObjectImpl(EnumObjects type,Map<EnumObjectParams,Object> params){
         this(type);
         this.params.putAll(params);
-        m=params.get(EnumObjectParams.MASS);
-        r.x=params.get(EnumObjectParams.X_0);
-        r.y=params.get(EnumObjectParams.Y_0);
-        p.x=params.get(EnumObjectParams.PX_0);
-        p.y=params.get(EnumObjectParams.PY_0);
+        m=(Float)params.get(EnumObjectParams.MASS);
+        r.x=(Float)params.get(EnumObjectParams.X_0);
+        r.y=(Float)params.get(EnumObjectParams.Y_0);
+        p.x=(Float)params.get(EnumObjectParams.PX_0);
+        p.y=(Float)params.get(EnumObjectParams.PY_0);
     }
 
     //*************Overriden Methods
 
     @Override
-    public void applyForce(double fX, double fY, double dt) {
+    public void applyForce(float fX, float fY, float dt) {
         p.x+=fX*dt;
         p.y+=fY*dt;
     }
 
     @Override
-    public void applyTorque(double Tz, double dt) {
-        // Does nothing
+    public void applyTorque(float Tz, float dt) {
+        // TODO: Does nothing
     }
 
     @Override
-    public void updatePosition(double dt) {
+    public void updatePosition(float dt) {
         r.x+=p.x*dt/m;
         r.y+=p.y*dt/m;
     }
@@ -92,13 +112,13 @@ public class ObjectImpl implements MovingObject, Serializable{
     }
 
     @Override
-    public void translate(double dx, double dy){
+    public void translate(float dx, float dy){
         r.x+=dx;
         r.y+=dy;
     }
 
     @Override
-    public void setPosition(double x, double y){
+    public void setPosition(float x, float y){
         System.out.println("Set Position on object: "+x+" "+y);
         r.x=x;
         r.y=y;
@@ -121,23 +141,38 @@ public class ObjectImpl implements MovingObject, Serializable{
     }
 
     @Override
-    public double getX() {
+    public float getX() {
         return r.x;
     }
 
     @Override
-    public double getY() {
+    public float getY() {
         return r.y;
     }
 
     @Override
-    public void rotate(double angle) {
+    public void rotate(float angle) {
         // Does nothing
     }
 
     @Override
     public EnumObjects getType(){
         return type;
+    }
+    
+    @Override
+    public void operate(SimulationObject mo, float dt)  throws SimulationTerminatedException{
+        // Does nothing
+    }
+
+    @Override
+    public Vector2D getLastForce() {
+        return this.force;
+    }
+
+    @Override
+    public float getLastTorque(){
+        return this.torque;
     }
 
     @Override
@@ -155,7 +190,7 @@ public class ObjectImpl implements MovingObject, Serializable{
         if (this.p != other.p && (this.p == null || !this.p.equals(other.p))) {
             return false;
         }
-        if (Double.doubleToLongBits(this.m) != Double.doubleToLongBits(other.m)) {
+        if (Float.floatToIntBits(this.m) != Float.floatToIntBits(other.m)) {
             return false;
         }
         if (this.type != other.type) {
@@ -167,6 +202,12 @@ public class ObjectImpl implements MovingObject, Serializable{
     @Override
     public int hashCode() {
         int hash = 7;
+        hash = 67 * hash + (this.r != null ? this.r.hashCode() : 0);
+        hash = 67 * hash + (this.p != null ? this.p.hashCode() : 0);
+        hash = 67 * hash + Float.floatToIntBits(this.m);
+        hash = 67 * hash + (this.type != null ? this.type.hashCode() : 0);
         return hash;
     }
+
+   
 }

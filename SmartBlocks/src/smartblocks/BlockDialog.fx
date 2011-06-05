@@ -23,16 +23,16 @@ import smartblocks.SimuStage;
 public class BlockDialog extends Scene {   
 
     function setBlockParam(e:EnumBlockParams, value:String){
-        (stage as SimuStage).setBlockParam(e,Double.valueOf(value));
+        (stage as SimuStage).setBlockParam(e,Float.valueOf(value));
     }
-    function setBlockParam(e:EnumBlockParams, value:Double){
+    function setBlockParam(e:EnumBlockParams, value:Float){
         (stage as SimuStage).setBlockParam(e,value);
     }  
 
     function setGUIParam(e:EnumParamsGUI, value:String){
-        (stage as SimuStage).setGUIParam(e,Double.valueOf(value));
+        (stage as SimuStage).setGUIParam(e,Float.valueOf(value));
     }
-    function setGUIParam(e:EnumParamsGUI, value:Double){
+    function setGUIParam(e:EnumParamsGUI, value:Float){
         (stage as SimuStage).setGUIParam(e,value);
     } 
      

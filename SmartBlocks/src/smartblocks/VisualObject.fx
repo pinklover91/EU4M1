@@ -20,8 +20,8 @@ import javafx.scene.Node;
 public class VisualObject extends CustomNode {
 
     public var mo : MovingObject ;
-    public var cX:Double;
-    public var cY:Double;
+    public var cX:Float;
+    public var cY:Float;
 
     public function update(){
         cX=mo.getX()*EnumParamsGUI.PX_PER_METER.getDefValue();
@@ -44,5 +44,5 @@ public class VisualObject extends CustomNode {
            }
        };
     };
-    //override var blocksMouse=true;
+    override var blocksMouse=true;
 }

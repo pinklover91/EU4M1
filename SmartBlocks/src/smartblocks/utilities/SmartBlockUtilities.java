@@ -15,7 +15,7 @@ import smartblocks.object.MovingObject;
  * Provides the methods for external code to instantiate colliders
  * @author David FUENMAYOR
  */
-public class SmartBlockUtilities {
+public strictfp class SmartBlockUtilities {
 
     /**
      * Looks if both blocks actually overlap
@@ -24,15 +24,7 @@ public class SmartBlockUtilities {
      * @return true if they overlap each other
      */
     public static boolean overlaps(Block a,Block b){
-        if(a.getX()<b.getX()&&a.getY()<b.getY()){
-            if(a.getX()+a.getWidth()>b.getX()&&a.getY()+a.getHeight()>b.getY()){
-                return true;
-            }else return false;
-        }else if(a.getX()>b.getX()&&a.getX()>b.getY()){
-            if(a.getX()<b.getX()+b.getWidth()&&a.getY()<b.getY()+b.getHeight()){
-                return true;
-            }else return false;
-        }// TODO: it's not over!!!
+        
         return false;
     }
 

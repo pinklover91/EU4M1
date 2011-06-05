@@ -11,7 +11,7 @@ import java.util.List;
 import smartblocks.block.Block;
 
 /**
- *
+ * Interface representing the current simulation
  * @author David FUENMAYOR
  */
 public interface Simulation {
@@ -45,7 +45,7 @@ public interface Simulation {
      * @param dt
      * @throws SimulationTerminatedException
      */
-    void nextStep(double dt) throws SimulationTerminatedException;
+    void nextStep(float dt) throws SimulationTerminatedException;
 
     /**
      * Returns the List of blocks for this simulation

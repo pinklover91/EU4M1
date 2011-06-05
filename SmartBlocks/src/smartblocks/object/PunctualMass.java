@@ -21,7 +21,7 @@ class PunctualMass extends ObjectImpl{
         super(EnumObjects.PUNCTUAL);
     }
 
-    PunctualMass(Map<EnumObjectParams,Double> params){
+    PunctualMass(Map<EnumObjectParams,Object> params){
         super(EnumObjects.PUNCTUAL,params);
     }
 

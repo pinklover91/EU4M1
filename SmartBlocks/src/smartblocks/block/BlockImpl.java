@@ -8,11 +8,13 @@ package smartblocks.block;
 
 import smartblocks.utilities.SmartBlockUtilities;
 import smartblocks.utilities.Vector2D;
-import smartblocks.object.MovingObject;
 import java.io.Serializable;
 import java.util.EnumMap;
 import java.util.Map;
 import smartblocks.simulation.SimulationTerminatedException;
+import smartblocks.shapes.Shape;
+import smartblocks.shapes.Box;
+import smartblocks.simulation.SimulationObject;
 
 /**
  * Default implementation of the Block interface
@@ -21,19 +23,19 @@ import smartblocks.simulation.SimulationTerminatedException;
 class BlockImpl implements Block, Serializable{
 
      /**
-     * Coordinates of the upper-left point of the block
+     * Shape with the bounds of this block
      */
-    protected Vector2D offset;
+    protected Shape shape;
 
     /**
-     * height and width of the block
-     */
-    protected Vector2D size;
-
-    /**
-     * height and width of the block
+     * Last force exerted by this block
      */
     protected Vector2D force;
+
+    /**
+     * Last torque exerted by this block
+     */
+    protected Float torque;
 
     /**
      * Type of behavior of the block
@@ -43,13 +45,13 @@ class BlockImpl implements Block, Serializable{
     /**
      * Parameters of the block
      */
-    Map<EnumBlockParams,Double> params;
+    Map<EnumBlockParams,Object> params;
 
     /**
      * Default constructor
      */
     BlockImpl(){
-        this(EnumBlocks.FREE,new Vector2D(0,0),new Vector2D(0,0));
+        this(EnumBlocks.FREE,new Vector2D(0f,0f),new Vector2D(0f,0f));
     }
 
     /**
@@ -59,10 +61,10 @@ class BlockImpl implements Block, Serializable{
      * @param size Size of the block
      */
      BlockImpl(EnumBlocks type, Vector2D offset, Vector2D size){
-        this.size=size;
-        this.type=type;
-        this.offset=offset;
-        force=new Vector2D(0.0,0.0);
+        this.shape=new Box(offset,size);
+        this.type=type;        
+        force=new Vector2D();
+        torque=0f;
         params=new EnumMap(EnumBlockParams.class);
     }
 
@@ -73,7 +75,7 @@ class BlockImpl implements Block, Serializable{
       * @param size Size of the block
       * @param params
       */
-    BlockImpl(EnumBlocks type, Vector2D offset, Vector2D size,Map<EnumBlockParams,Double> params){
+    BlockImpl(EnumBlocks type, Vector2D offset, Vector2D size,Map<EnumBlockParams,Object> params){
         this(type,offset,size);
         this.params.putAll(params);        
     }
@@ -81,67 +83,48 @@ class BlockImpl implements Block, Serializable{
     //***************************Overriden methods********************
 
     @Override
-    public void operate(MovingObject mo, double dt)  throws SimulationTerminatedException{
+    public void operate(SimulationObject mo, float dt)  throws SimulationTerminatedException{
         // Does nothing
     }
 
     @Override
-    public double getX() {
-        return offset.x;
+    public Vector2D getLastForce() {
+        return this.force;
     }
 
     @Override
-    public double getY() {
-        return offset.y;
+    public float getLastTorque(){
+        return this.torque;
     }
 
     @Override
-    public double getWidth() {
-        return size.x;
+    public Shape getShape(){
+        return shape;
     }
 
     @Override
-    public double getHeight() {
-        return size.y;
-    }
-
-    public Vector2D getSize(){
-        return size;
-    }
-
-    public Vector2D getOffset(){
-        return offset;
+    public void setPosition(Vector2D r) {
+        this.shape.setPosition(r);    
     }
 
     @Override
-    public void setPosition(double x, double y) {
-        this.offset.x=x;
-        this.offset.y=y;
-    }
-
-    @Override
-    public Map<EnumBlockParams,Double> getParams(){
+    public Map<EnumBlockParams,Object> getParams(){
         return params;
     }
 
     @Override
-    public Double getParam(EnumBlockParams param){
-        return params!=null?(Double)params.get(param):param.defValue;
+    public Float getParam(EnumBlockParams param){
+        return params!=null?(Float)params.get(param):param.defValue;
     }
 
     @Override
-    public void setParam(String paramName, Double value){
+    public void setParam(String paramName, Object value){
         params.put(EnumBlockParams.valueOf(paramName), value);
     }
 
     @Override
     public EnumBlocks getType() {
         return this.type;
-    }
-
-    @Override
-    public Vector2D getLastForce() {
-        return this.force;
     }
 
     @Override
@@ -165,12 +148,12 @@ class BlockImpl implements Block, Serializable{
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 71 * hash + (this.offset != null ? this.offset.hashCode() : 0);
-        hash = 71 * hash + (this.size != null ? this.size.hashCode() : 0);
-        hash = 71 * hash + (this.type != null ? this.type.hashCode() : 0);
-        hash = 71 * hash + (this.params != null ? this.params.hashCode() : 0);
+        hash = 53 * hash + (this.shape != null ? this.shape.hashCode() : 0);
+        hash = 53 * hash + (this.type != null ? this.type.hashCode() : 0);
         return hash;
     }
+
+    
 
     
 

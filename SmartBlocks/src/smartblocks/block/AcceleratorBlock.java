@@ -7,9 +7,8 @@
 package smartblocks.block;
 
 import smartblocks.utilities.Vector2D;
-import smartblocks.object.MovingObject;
 import java.util.Map;
-import smartblocks.utilities.SmartBlockUtilities;
+import smartblocks.simulation.SimulationObject;
 
 
 /**
@@ -18,19 +17,21 @@ import smartblocks.utilities.SmartBlockUtilities;
  */
 class AcceleratorBlock extends BlockImpl {
 
-    AcceleratorBlock(Vector2D offset, Vector2D size, Map<EnumBlockParams,Double> params){
+    AcceleratorBlock(Vector2D offset, Vector2D size, Map<EnumBlockParams,Object> params){
         super(EnumBlocks.ACCELERATOR,offset,size,params);
         force.x=getParam(EnumBlockParams.CONSTANT_FORCE_X);
         force.y=getParam(EnumBlockParams.CONSTANT_FORCE_Y);
     }
 
     @Override
-    public void operate(MovingObject mo, double dt) {        
+    public void operate(SimulationObject mo, float dt) {
         
          //Vector2D Tz=Vector2D.cross(Vector2D.substraction(??),new Vector2D(fX,fY));
-        if(SmartBlockUtilities.getCollider(this.getType(), mo.getType()).collide(this, mo)){            
-            mo.applyForce(force.x,force.y, dt);
+        //if(SmartBlockUtilities.getCollider(this.getType(), mo.getType()).collide(this, mo)){
+            //mo.applyForce(force.x,force.y, dt);
                // mo.applyTorque(Tz, dt);
-        }
+        //}
+        //torque=
+
     }
 }

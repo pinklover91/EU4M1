@@ -38,7 +38,7 @@ public class ObjectFactory {
      * @param params
      * @return
      */
-     public MovingObject createMovingObject(EnumObjects objectType,Map<EnumObjectParams,Double> params){
+     public MovingObject createMovingObject(EnumObjects objectType,Map<EnumObjectParams,Object> params){
         MovingObject mo;
         switch (objectType){
             case PUNCTUAL:

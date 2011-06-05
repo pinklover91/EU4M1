@@ -23,9 +23,9 @@ import java.lang.System;
 public class ObjectDialog extends Scene {       
 
     function setObjectParam(e:EnumObjectParams, value:String){
-        (stage as SimuStage).setObjectParam(e,Double.valueOf(value));
+        (stage as SimuStage).setObjectParam(e,Float.valueOf(value));
     }
-    function setObjectParam(e:EnumObjectParams, value:Double){
+    function setObjectParam(e:EnumObjectParams, value:Float){
         (stage as SimuStage).setObjectParam(e,value);
     }
 

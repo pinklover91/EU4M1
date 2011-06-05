@@ -14,6 +14,7 @@ import smartblocks.block.Block;
 import smartblocks.block.BlockFactory;
 import smartblocks.block.EnumBlocks;
 import smartblocks.object.ObjectFactory;
+import smartblocks.utilities.Vector2D;
 
 /**
  * Default implementation of the Simulation interface
@@ -51,23 +52,38 @@ public class SimulationImpl implements Simulation{
      * TODO: Do not use
      */
     public Block createBlock() {
-        Block b=BlockFactory.getInstance().createBlock(EnumBlocks.TARGET, 0,0,0,0, null); //TODO
+        Block b=BlockFactory.getInstance().createBlock(EnumBlocks.TARGET, 0f,0f,0f,0f, null); //TODO
         blocks.add(b);
         return b;
     }
 
     @Override
-    public void nextStep(double dt) throws SimulationTerminatedException{
-       int i = objects.size()-1;
-        while( i >= 0 ) {
-           objects.get(i).updatePosition(dt);           
-           int j = blocks.size() - 1;
-            while( j >= 0 ) {
-                blocks.get(j).operate(objects.get(i),dt);
-                j--;
-             }
-           i--;
-        }    
+    public void nextStep(float dt) throws SimulationTerminatedException{
+       Vector2D force=new Vector2D();
+       float torque=0f;
+       int i = 0;
+        while( i < objects.size()) {
+           int j=i+1;
+           MovingObject o1=objects.get(i);
+           while( j < objects.size()) {
+                MovingObject o2=objects.get(j);
+                o2.operate(o1,dt);
+                force.add(o2.getLastForce());
+                torque+=o2.getLastTorque();
+                j++;
+           }
+           j = 0;
+           while( j < blocks.size()) {
+                Block b=blocks.get(j);
+                b.operate(o1,dt);
+                force.add(b.getLastForce());
+                torque+=b.getLastTorque();
+                j++;
+           }
+           i++;
+           o1.applyForce(force.x,force.y, dt);
+           o1.applyTorque(torque, dt);
+        }
     }
 
     @Override

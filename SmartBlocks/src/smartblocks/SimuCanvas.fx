@@ -74,11 +74,11 @@ public class SimuCanvas extends Scene {
 
         var i:Integer=0;
         var j:Integer;
-        var numX:Double=owner.getGuiParam(EnumParamsGUI.MATRIX_X);
-        var numY:Double=owner.getGuiParam(EnumParamsGUI.MATRIX_Y);
+        var numX:Float=owner.getGuiParam(EnumParamsGUI.MATRIX_X);
+        var numY:Float=owner.getGuiParam(EnumParamsGUI.MATRIX_Y);
         var offset;
-        var w:Double=owner.getGuiParam(EnumParamsGUI.SURF_DIMENSION_X)/numX;
-        var h:Double=owner.getGuiParam(EnumParamsGUI.SURF_DIMENSION_Y)/numY;
+        var w:Float=owner.getGuiParam(EnumParamsGUI.SURF_DIMENSION_X)/numX;
+        var h:Float=owner.getGuiParam(EnumParamsGUI.SURF_DIMENSION_Y)/numY;
 
         while (i < numX) {
             j=0;
