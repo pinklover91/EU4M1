@@ -14,6 +14,8 @@ import smartblocks.block.Block;
 import smartblocks.block.BlockFactory;
 import smartblocks.block.EnumBlocks;
 import smartblocks.object.ObjectFactory;
+import smartblocks.utilities.CollisionOcurred;
+import smartblocks.utilities.EnumDirections;
 import smartblocks.utilities.Vector2D;
 
 /**
@@ -58,31 +60,39 @@ public class SimulationImpl implements Simulation{
     }
 
     @Override
-    public void nextStep(float dt) throws SimulationTerminatedException{
+    public void nextStep(float dt) throws SimulationTerminated{
        Vector2D force=new Vector2D();
        float torque=0f;
        int i = 0;
         while( i < objects.size()) {
            int j=i+1;
            MovingObject o1=objects.get(i);
-           while( j < objects.size()) {
-                MovingObject o2=objects.get(j);
-                o2.operate(o1,dt);
-                force.add(o2.getLastForce());
-                torque+=o2.getLastTorque();
-                j++;
+           try{
+               while( j < objects.size()) {
+                    MovingObject o2=objects.get(j);
+                    if (o2.operate(o1,dt)){
+                        force.add(o2.getLastForce());
+                        torque+=o2.getLastTorque();
+                    }
+                    j++;
+               }
+               j = 0;
+               while( j < blocks.size()) {
+                    Block b=blocks.get(j);
+                    if(b.operate(o1,dt)){
+                        force.add(b.getLastForce());
+                        torque+=b.getLastTorque();
+                    }
+                    j++;
+               }
+               i++;
+               o1.applyForce(force.x,force.y, dt);
+               o1.applyTorque(torque, dt);
+            }
+           catch(CollisionOcurred c){
+               o1.bounce(c.getDirection());
            }
-           j = 0;
-           while( j < blocks.size()) {
-                Block b=blocks.get(j);
-                b.operate(o1,dt);
-                force.add(b.getLastForce());
-                torque+=b.getLastTorque();
-                j++;
-           }
-           i++;
-           o1.applyForce(force.x,force.y, dt);
-           o1.applyTorque(torque, dt);
+           o1.updatePosition(dt);
         }
     }
 

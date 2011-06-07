@@ -23,14 +23,15 @@ class ViscousBlock extends BlockImpl{
     }
 
 @Override
-    public void operate(SimulationObject so, float dt) {
-
+    public boolean operate(SimulationObject so, float dt) {
         if(so instanceof MovingObject){
                 MovingObject mo=(MovingObject)so;
             if(SmartBlockUtilities.getCollider(this.getType(), mo.getType()).collide(this, mo)!=null){
                 force.x=-1.0f*getParam(EnumBlockParams.VISCOUS_COEF)*mo.getVelocity().x;
                 force.y=-1.0f*getParam(EnumBlockParams.VISCOUS_COEF)*mo.getVelocity().y;
+                return true;
             }
         }
+        return false;
     }
 }

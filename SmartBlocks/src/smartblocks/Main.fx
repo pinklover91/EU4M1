@@ -11,7 +11,7 @@ import smartblocks.EnumParamsGUI;
 /**
  * @author David FUENMAYOR
  */
-
+def TOOLBAR_WIDTH = 50;
 var stage:SimuStage=SimuStage{
     
     scene: bind if (stage.showObjectDialog) then stage.objectDialog
@@ -20,5 +20,6 @@ var stage:SimuStage=SimuStage{
 
     title : "SmartBlocks Simulator"
     width : bind (stage.guiParams.get(EnumParamsGUI.SURF_DIMENSION_X) as Number)*EnumParamsGUI.PX_PER_METER.getDefValue();
-    height : bind (stage.guiParams.get(EnumParamsGUI.SURF_DIMENSION_Y) as Number)*EnumParamsGUI.PX_PER_METER.getDefValue();
+    height : bind (stage.guiParams.get(EnumParamsGUI.SURF_DIMENSION_Y) as Number)*EnumParamsGUI.PX_PER_METER.getDefValue()
+                    +2*TOOLBAR_WIDTH;
 }

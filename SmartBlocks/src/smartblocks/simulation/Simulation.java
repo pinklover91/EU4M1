@@ -45,7 +45,7 @@ public interface Simulation {
      * @param dt
      * @throws SimulationTerminatedException
      */
-    void nextStep(float dt) throws SimulationTerminatedException;
+    void nextStep(float dt) throws SimulationTerminated;
 
     /**
      * Returns the List of blocks for this simulation

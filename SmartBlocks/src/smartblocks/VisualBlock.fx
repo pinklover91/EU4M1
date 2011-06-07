@@ -36,8 +36,8 @@ public class VisualBlock extends CustomNode{
                 fitHeight: bind block.getShape().getHeight()*EnumParamsGUI.PX_PER_METER.getDefValue();
                 translateX: bind block.getShape().getX()*EnumParamsGUI.PX_PER_METER.getDefValue();
                 translateY: bind block.getShape().getY()*EnumParamsGUI.PX_PER_METER.getDefValue();
-                rotate: bind Math.toDegrees(Math.atan2(block.getLastForce().x,
-                    block.getLastForce().y));
+                rotate: bind if(block.getType()==EnumBlocks.ACCELERATOR) then Math.toDegrees(Math.atan2(block.getLastForce().x,
+                    block.getLastForce().y)) else 0.0;
                 visible: true;                
 
                 onMouseClicked: function(e) {

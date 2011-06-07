@@ -6,9 +6,7 @@
 
 package smartblocks.block;
 
-import smartblocks.simulation.SimulationTerminatedException;
 import smartblocks.utilities.Vector2D;
-import smartblocks.object.MovingObject;
 import java.util.Map;
 import smartblocks.shapes.Shape;
 import smartblocks.simulation.SimulationObject;

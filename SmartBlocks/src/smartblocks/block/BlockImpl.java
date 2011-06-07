@@ -11,10 +11,12 @@ import smartblocks.utilities.Vector2D;
 import java.io.Serializable;
 import java.util.EnumMap;
 import java.util.Map;
-import smartblocks.simulation.SimulationTerminatedException;
 import smartblocks.shapes.Shape;
 import smartblocks.shapes.Box;
 import smartblocks.simulation.SimulationObject;
+import smartblocks.simulation.SimulationTerminated;
+import smartblocks.utilities.CollisionOcurred;
+import smartblocks.utilities.Vector3D;
 
 /**
  * Default implementation of the Block interface
@@ -83,8 +85,9 @@ class BlockImpl implements Block, Serializable{
     //***************************Overriden methods********************
 
     @Override
-    public void operate(SimulationObject mo, float dt)  throws SimulationTerminatedException{
-        // Does nothing
+    public boolean operate(SimulationObject mo, float dt)  throws SimulationTerminated, CollisionOcurred{
+        // TODO
+        return false;
     }
 
     @Override

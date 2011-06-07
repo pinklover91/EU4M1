@@ -12,7 +12,9 @@ import java.util.Map;
 import smartblocks.utilities.Vector2D;
 import smartblocks.shapes.Shape;
 import smartblocks.simulation.SimulationObject;
-import smartblocks.simulation.SimulationTerminatedException;
+import smartblocks.simulation.SimulationTerminated;
+import smartblocks.utilities.EnumDirections;
+import smartblocks.utilities.Vector3D;
 
 /**
  * Default implementation of the MovingObject interface
@@ -136,6 +138,11 @@ public class ObjectImpl implements MovingObject, Serializable{
     }
 
     @Override
+    public Vector2D getMomentum() {
+        return new Vector2D(p.x,p.y);
+    }
+
+    @Override
     public Vector2D getPosition() {
         return r;
     }
@@ -161,8 +168,31 @@ public class ObjectImpl implements MovingObject, Serializable{
     }
     
     @Override
-    public void operate(SimulationObject mo, float dt)  throws SimulationTerminatedException{
-        // Does nothing
+    public boolean operate(SimulationObject mo, float dt)  throws SimulationTerminated{
+        //TODO: Not implemented yet
+        return false;
+    }
+
+    @Override
+    public void bounce(EnumDirections direction){
+        switch(direction){
+            case UP:
+                p.y=-Math.abs(p.y);
+                break;
+            case DOWN:
+                p.y=Math.abs(p.y);
+                break;
+            case LEFT:
+                p.x=-Math.abs(p.x);
+                break;
+            case RIGHT:
+                p.x=Math.abs(p.x);
+                break;
+            case ALL:
+                p.x=-p.x;
+                p.y=-p.y;
+                break;
+        }
     }
 
     @Override

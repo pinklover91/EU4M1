@@ -8,7 +8,11 @@ package smartblocks.block;
 
 import smartblocks.utilities.Vector2D;
 import java.util.Map;
+import smartblocks.object.MovingObject;
 import smartblocks.simulation.SimulationObject;
+import smartblocks.utilities.CollisionOcurred;
+import smartblocks.utilities.SmartBlockUtilities;
+import smartblocks.utilities.Vector3D;
 
 
 /**
@@ -24,14 +28,14 @@ class AcceleratorBlock extends BlockImpl {
     }
 
     @Override
-    public void operate(SimulationObject mo, float dt) {
+    public boolean operate(SimulationObject so, float dt) {
         
-         //Vector2D Tz=Vector2D.cross(Vector2D.substraction(??),new Vector2D(fX,fY));
-        //if(SmartBlockUtilities.getCollider(this.getType(), mo.getType()).collide(this, mo)){
-            //mo.applyForce(force.x,force.y, dt);
-               // mo.applyTorque(Tz, dt);
-        //}
-        //torque=
-
+         if(so instanceof MovingObject){
+            MovingObject mo=(MovingObject)so;
+            if(SmartBlockUtilities.getCollider(this.getType(), mo.getType()).collide(this, mo)!=null){
+                return true;
+            }
+        }
+         return false;
     }
 }

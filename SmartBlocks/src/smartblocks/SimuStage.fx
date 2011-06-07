@@ -46,7 +46,7 @@ public class SimuStage extends Stage {
      public var canvas:SimuCanvas= SimuCanvas{
         owner: bind this;
         content: bind  [
-             canvas.objects, canvas.blocks, canvas.bottomButtonBox
+             canvas.boundBlocks, canvas.blocks, canvas.objects, canvas.bottomButtonBox
         ] ;
     }
 

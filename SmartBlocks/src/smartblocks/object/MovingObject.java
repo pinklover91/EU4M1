@@ -7,6 +7,7 @@
 package smartblocks.object;
 
 import smartblocks.simulation.SimulationObject;
+import smartblocks.utilities.EnumDirections;
 import smartblocks.utilities.Vector2D;
 
 /**
@@ -70,12 +71,18 @@ public interface MovingObject extends SimulationObject{
      */
 
     public float getY();
+
     /**
      * Returns the velocity vector of the moving object
      * @return
      */
-
     public Vector2D getVelocity();
+
+    /**
+     * Returns the momentum vector of the moving object
+     * @return
+     */
+    public Vector2D getMomentum();
 
     /**
      *
@@ -95,6 +102,12 @@ public interface MovingObject extends SimulationObject{
      * @param dy
      */
     public void translate(float dx, float dy);
+
+    /**
+     * Makes this object bounce towards the specified direction
+     * @param direction
+     */
+    public void bounce(EnumDirections direction);
 
     /**
      * Returns the type of the object which determines its shape

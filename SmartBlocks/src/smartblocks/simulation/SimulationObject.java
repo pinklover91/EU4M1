@@ -6,7 +6,9 @@
 
 package smartblocks.simulation;
 
+import smartblocks.utilities.CollisionOcurred;
 import smartblocks.utilities.Vector2D;
+import smartblocks.utilities.Vector3D;
 
 /**
  *
@@ -15,12 +17,14 @@ import smartblocks.utilities.Vector2D;
 public interface SimulationObject {
 
     /**
-     * Calculate forces and torques resulting from the interaction with the specified
-     * simulation object
+     * Calculate forces and torques resulting from the
+     * interaction with the specified simulation object
+     * 
      * @param mo
      * @param dt
+     * @return true if an interaction occurred
      */
-    public void operate(SimulationObject mo, float dt) throws SimulationTerminatedException;
+    public boolean operate(SimulationObject so, float dt) throws SimulationTerminated,CollisionOcurred;
 
     /**
      * Returns the last force exerted by this block on a moving object

@@ -10,7 +10,7 @@ import java.util.Map;
 import smartblocks.object.MovingObject;
 import smartblocks.simulation.EnumSimulation;
 import smartblocks.simulation.SimulationObject;
-import smartblocks.simulation.SimulationTerminatedException;
+import smartblocks.simulation.SimulationTerminated;
 import smartblocks.utilities.SmartBlockUtilities;
 import smartblocks.utilities.Vector2D;
 
@@ -21,17 +21,18 @@ import smartblocks.utilities.Vector2D;
 class TargetBlock extends BlockImpl{
     
     TargetBlock(Vector2D offset, Vector2D size, Map<EnumBlockParams,Object> params){
-        super(EnumBlocks.BOUNCING,offset,size,params);
+        super(EnumBlocks.TARGET,offset,size,params);
     }
 
     @Override
-    public void operate(SimulationObject so, float dt) throws SimulationTerminatedException{
+    public boolean operate(SimulationObject so, float dt) throws SimulationTerminated{
         if(so instanceof MovingObject){
                 MovingObject mo=(MovingObject)so;
 
             if(SmartBlockUtilities.getCollider(this.getType(), mo.getType()).collide(this, mo)!=null){
-                throw new SimulationTerminatedException(this,mo,EnumSimulation.TARGET_BLOCK);
+                throw new SimulationTerminated(this,mo,EnumSimulation.TARGET_BLOCK);
             }
         }
+        return false;
     }
 }

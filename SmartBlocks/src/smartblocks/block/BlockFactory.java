@@ -7,6 +7,7 @@
 package smartblocks.block;
 
 import java.util.Map;
+import smartblocks.utilities.EnumDirections;
 import smartblocks.utilities.Vector2D;
 
 /**
@@ -62,8 +63,8 @@ public class BlockFactory {
             case ACCELERATOR:
                 block=new AcceleratorBlock(offset,size,params);
                 break;
-            case BOUNCING:
-                block=new BouncingBlock(offset,size,params);
+            case BOUNDING:
+                block=new BoundingBlock(offset,size,EnumDirections.ALL);
                 break;
             case FORBIDDEN:
                 block=new ForbiddenBlock(offset,size,params);
@@ -79,5 +80,11 @@ public class BlockFactory {
                 break;
         }
         return block;
+     }
+
+     public Block createBoundingBlock(float x, float y, float w, float h, EnumDirections direction){
+        Vector2D offset=new Vector2D(x,y);
+        Vector2D size=new Vector2D(w,h);
+        return new BoundingBlock(offset,size,direction);
      }
 }
