@@ -48,7 +48,7 @@ public strictfp class Polygon extends Circle {
 	
 	/**
 	 * Computes the area as described by Paul Borke.
-	 * See: http://local.wasp.uwa.edu.au/~pbourke/geometry/polyarea/
+	 * @see {@link http://local.wasp.uwa.edu.au/~pbourke/geometry/polyarea/}
 	 * 
 	 * @return this polygon's computed area
 	 */
@@ -69,7 +69,7 @@ public strictfp class Polygon extends Circle {
 	
 	/**
 	 * Compute the centroid (center of mass) as described by Paul Borke.
-	 * See: http://local.wasp.uwa.edu.au/~pbourke/geometry/polyarea/
+	 * @see {@link http://local.wasp.uwa.edu.au/~pbourke/geometry/polyarea/}
 	 * 
 	 * Make sure you have computed the area before calling this!
 	 * 
@@ -134,18 +134,19 @@ public strictfp class Polygon extends Circle {
 	}
 
         /**
-         * Returns a copy of the polygon's vertices
-         * @param absolute if true applies transformations
+         * Returns a copy of the polygon's vertices with respect to this shape's centroid
+         * @param absolute if true applies transformations, rotation and then translation
          * @return
          */
         @Override
 	public Vector2D[] getVertices(boolean absolute) {
 		Vector2D[] vert = new Vector2D[vertices.length];
-                System.arraycopy(vertices, 0, vert, 0, vertices.length);
+                System.arraycopy(vertices, 0, vert, 0, vertices.length);                
 		if(absolute){
+                    Vector2D cen=getCentroid(true);
                     for(int i=0;i<vertices.length;i++){
                         vert[i].rotate(angle);
-                        vert[i].add(centroid);
+                        vert[i].add(cen);
                     }
                 }
                 return vert;

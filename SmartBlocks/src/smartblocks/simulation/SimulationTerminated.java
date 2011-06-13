@@ -35,4 +35,14 @@ public class SimulationTerminated extends Throwable{
     public String getMessage() {
         return "Smartblocks simulation is over: "+reason.name();
     }
+
+    public MovingObject getSourceObject() {
+        return sourceObject;
+    }
+
+    public void setSourceObject(MovingObject sourceObject) {
+        this.sourceObject = sourceObject;
+    }
+
+
 }

@@ -31,63 +31,62 @@ public class ObjectDialog extends Scene {
 
     
 
-       public var inGroup:Group =Group{
-            content: [
-                for (e in EnumObjectParams.values()){  
-                    VBox {
-                        translateX: 8
-                        translateY: 40*e.getIndex();
-                        spacing: 10
-                        content: [
-                            HBox {
-                                translateX: 10
-                                translateY: 0
-                                spacing: 10
-                                content: [
-                                    Text {
-                                        translateX: 8
-                                        translateY: 20
-                                        content: e.name()
-                                    }
-                                    TextBox{
-                                        var tx:String= "{e.getDefValue()}";
-                                        text: bind tx with inverse
-                                        columns: 6
-                                        selectOnFocus: true
-                                        action: function() {
-                                            setObjectParam(e,tx)
-                                        }
-                                    }
-                                    Text {
-                                        translateX: 8
-                                        translateY: 20
-                                        content: e.getDescription()
-                                    }
-                                ]
-                             }
-                        ]
-                    }
-                }
-                Group {
+   public var inGroup:Group =Group{
+        content: [
+            for (e in EnumObjectParams.values()){  
+                VBox {
+                    translateX: 8
+                    translateY: 40*e.getIndex();
+                    spacing: 10
                     content: [
-                        Rectangle {
-                            width: 65
-                            height: 30
-                            fill: Color.web("#CCCCCC")
-                            stroke: Color.web("#BBBBBB")
-                        }
-                        Text {
-                            translateX: 8
-                            translateY: 20
-                            content: "Create Object"
+                        HBox {
+                            translateX: 10
+                            translateY: 0
+                            spacing: 10
+                            content: [
+                                Text {
+                                    translateX: 8
+                                    translateY: 20
+                                    content: e.name()
+                                }
+                                TextBox{
+                                    var tx:String= "{e.getDefValue()}";
+                                    text: bind tx with inverse
+                                    columns: 6
+                                    selectOnFocus: true
+                                    action: function() {
+                                        setObjectParam(e,tx)
+                                    }
+                                }
+                                Text {
+                                    translateX: 8
+                                    translateY: 20
+                                    content: e.getDescription()
+                                }
+                            ]
+                         }
+                         Group {
+                            content: [
+                                Rectangle {
+                                    width: 80
+                                    height: 30
+                                    fill: Color.web("#CCCCCC")
+                                    stroke: Color.web("#BBBBBB")
+                                }
+                                Text {
+                                    translateX: 8
+                                    translateY: 20
+                                    content: "Create Object"
+                                }
+                            ]
+                            onMouseClicked:function(e) {
+                                (stage as SimuStage).createObject();
+                                (stage as SimuStage).switchScenes(1);
+                            }
                         }
                     ]
-                    onMouseClicked:function(e) {
-                        (stage as SimuStage).createObject();
-                        (stage as SimuStage).switchScenes(1);
-                    }
                 }
-            ];
-
+            }
+        ];
     }
 }

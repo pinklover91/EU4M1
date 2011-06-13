@@ -6,6 +6,7 @@
 
 package smartblocks.object;
 
+import smartblocks.shapes.EnumShapes;
 import smartblocks.simulation.SimulationObject;
 import smartblocks.utilities.EnumDirections;
 import smartblocks.utilities.Vector2D;
@@ -16,67 +17,38 @@ import smartblocks.utilities.Vector2D;
  */
 public interface MovingObject extends SimulationObject{
 
-    /**
-     * Applies the force represented by the vector [fX,fY,0] during the specified
-     * time, changing the linear momentum of the moving object.
-     * @param fX
-     * @param fY
-     * @param dt
-     */
-    public void applyForce(float fX, float fY, float dt);
-    
-    /**
-     * Applies the torque represented by the vector [0,0,Tz] during the specified
-     * time, changing the angular momentum of the moving object.
-     * @param Tz
-     * @param dt
-     */
-    public void applyTorque(float Tz, float dt);
+
+    public void resetForces();
+
+    public void applyForces(float dt);
+
+    public void addForces(float fx, float fy, float fz);
+
 
     /**
      * Updates the values of linear and angular position according to the time
      * interval specified and the current values of linear and angular momentum.
      * @param dt
      */
-    public void updatePosition(float dt);
+    public void updatePosition(float dt); 
 
     /**
-     * Translates the object to the new location
-     * @param pos
-     */
-    public void setPosition(Vector2D pos);
-
-    /**
-     * Translates the object to the new location
-     * @param x
-     * @param y
-     */
-    public void setPosition(float x, float y);
-
-    /**
-     * Returns the upper-left point of the moving object
+     * Returns current angle of this object in radians
      * @return
      */
-    public Vector2D getPosition();
-
-/**
-     * Returns the upper-left point of the moving object
-     * @return
-     */
-    public float getX();
-
-    /**
-     * Returns the upper-left point of the moving object
-     * @return
-     */
-
-    public float getY();
+    public float getRotation();
 
     /**
      * Returns the velocity vector of the moving object
-     * @return
+     * @return Vector2D velocity vector
      */
     public Vector2D getVelocity();
+
+    /**
+     * Returns the angular velocity of the moving object     *
+     * @return angular velocity
+     */
+    public float getAngularVelocity();
 
     /**
      * Returns the momentum vector of the moving object
@@ -84,17 +56,37 @@ public interface MovingObject extends SimulationObject{
      */
     public Vector2D getMomentum();
 
-    /**
-     *
-     * @param v
-     */
-    public void setVelocity(Vector2D vel);
 
     /**
-     * Rotates the object to the angle specified
+     * Returns the angular momentum of this moving object
+     * @return angular momentum
+     */
+    public float getAngularMomentum();
+
+    /**
+     * Sets momentum for this moving object
+     * @param mom
+     */
+    public void setMomentum(Vector2D mom);
+
+    /**
+     * Sets momentum for this moving object
+     * @param px
+     * @param py
+     */
+    public void setMomentum(float px, float py);
+
+    /**
+     * Rotates the object the given amount in radians
      * @param a The angle specified in radians
      */
-    public void rotate(float a);
+    public void rotate(float da);
+
+    /**
+     * Sets the object to the specified angle
+     * @param a The angle specified in radians
+     */
+    public void setRotation(float da);
 
     /**
      * Translates the object the specified distance
@@ -112,6 +104,6 @@ public interface MovingObject extends SimulationObject{
     /**
      * Returns the type of the object which determines its shape
      */
-    public EnumObjects getType();
+    public EnumShapes getType();
 
 }

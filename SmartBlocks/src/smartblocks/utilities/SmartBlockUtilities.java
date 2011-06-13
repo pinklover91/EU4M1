@@ -7,8 +7,7 @@ package smartblocks.utilities;
 
 import smartblocks.block.Block;
 import smartblocks.block.EnumBlocks;
-import smartblocks.object.EnumObjects;
-import smartblocks.object.MovingObject;
+import smartblocks.shapes.EnumShapes;
 
 /**
  * Static class with utilities to be used during a simulation
@@ -23,9 +22,20 @@ public strictfp class SmartBlockUtilities {
      * @param b Second block
      * @return true if they overlap each other
      */
-    public static boolean overlaps(Block a,Block b){
-        
+    public static boolean overlaps(Block a,Block b){        
         return false;
+    }
+
+    public static float[] asArray(Vector2D[] points){
+        float[] ret=new float[points.length*2];
+        int i=0;
+        for(Vector2D p:points){
+            ret[i]=p.x;
+            i++;
+            ret[i]=p.y;
+            i++;
+        }
+        return ret;
     }
 
     /**
@@ -34,11 +44,14 @@ public strictfp class SmartBlockUtilities {
      * @param objectType
      * @return The collider responsible for checking collisions
      */
-    public static Collider getCollider(EnumBlocks blockType, EnumObjects objectType){
+    public static Collider getCollider(EnumBlocks blockType, EnumShapes objectType){
             switch(objectType){
-                case CIRCLE:                   
-                case RECTANGLE:                    
-                case POLYGON:                    
+                case CIRCLE:
+                    return CollidersHolder.CIRCLE_COLLIDER;
+                case BOX:
+                    return CollidersHolder.BOX_COLLIDER;
+                case POLYGON: 
+                    return CollidersHolder.POLYGON_COLLIDER;
                 default:
                     return CollidersHolder.PUNCTUAL_COLLIDER;
             }
@@ -46,6 +59,8 @@ public strictfp class SmartBlockUtilities {
 
     private static class CollidersHolder{
         public static final PunctualCollider PUNCTUAL_COLLIDER = new PunctualCollider();
-        //TODO: Add more colliders
+        public static final BoxCollider BOX_COLLIDER = new BoxCollider();
+        public static final CircleCollider CIRCLE_COLLIDER = new CircleCollider();
+        public static final PolygonCollider POLYGON_COLLIDER = new PolygonCollider();
     }
 }

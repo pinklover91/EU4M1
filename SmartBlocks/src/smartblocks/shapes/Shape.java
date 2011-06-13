@@ -58,6 +58,8 @@ public interface Shape {
          */
         public Vector2D[] getVertices(boolean absolute);
 
+        public void setVertices(Vector2D[] vertices);
+
         /**
          * Rotates the specified angle around the centroid of this shape
          * @param a
@@ -68,19 +70,34 @@ public interface Shape {
          * Sets the specified angle around the centroid of this shape
          * @param a
          */
-        public void setAngle(float a);
+        public void setRotation(float a);
+
+        public float getRotation();
+
+        /**
+         * Translates this shape
+         * @param dr
+         */
+        public void translate(Vector2D dr);
 
         /**
          * Translates this shape
          * @param dX
          */
-        public void translate(Vector2D dr);
+        public void translate(float dx, float dy);
 
         /**
          * Set new position of this shape
          * @param r
          */
         public void setPosition(Vector2D r);
+
+        /**
+         * Set new position of this shape
+         * @param x
+         * @param y
+         */
+        public void setPosition(float x, float y);
 
         /**
          * Tells if this shape overlaps another one

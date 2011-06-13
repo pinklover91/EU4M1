@@ -11,10 +11,10 @@ import smartblocks.object.MovingObject;
 import smartblocks.shapes.Shape;
 
 /**
- * Collider used to get collisions between a rectangular block and a punctual mass
+ * Collider used to get collisions between a rectangular block and a circular object
  * @author David FUENMAYOR
  */
-public strictfp class PunctualCollider implements Collider{
+public strictfp class CircleCollider implements Collider{
 
     @Override
     public void collide(MovingObject mo,Vector2D[] forces,Vector2D[] vertices){
@@ -34,4 +34,5 @@ public strictfp class PunctualCollider implements Collider{
               return null;
          }
     }
+
 }

@@ -61,7 +61,19 @@ public class BlockFactory {
         Block block;
         switch (blockType){
             case ACCELERATOR:
-                block=new AcceleratorBlock(offset,size,params);
+                block=new AcceleratorBlock(offset,size,params,EnumDirections.ALL);
+                break;
+            case ACCELERATOR_UP:
+                block=new AcceleratorBlock(offset,size,params,EnumDirections.UP);
+                break;
+            case ACCELERATOR_LEFT:
+                block=new AcceleratorBlock(offset,size,params,EnumDirections.LEFT);
+                break;
+            case ACCELERATOR_DOWN:
+                block=new AcceleratorBlock(offset,size,params,EnumDirections.DOWN);
+                break;
+            case ACCELERATOR_RIGHT:
+                block=new AcceleratorBlock(offset,size,params,EnumDirections.RIGHT);
                 break;
             case BOUNDING:
                 block=new BoundingBlock(offset,size,EnumDirections.ALL);

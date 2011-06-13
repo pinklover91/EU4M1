@@ -9,8 +9,10 @@ package smartblocks.object;
 import java.io.Serializable;
 import java.util.EnumMap;
 import java.util.Map;
+import smartblocks.shapes.EnumShapes;
 import smartblocks.utilities.Vector2D;
 import smartblocks.shapes.Shape;
+import smartblocks.shapes.ShapeFactory;
 import smartblocks.simulation.SimulationObject;
 import smartblocks.simulation.SimulationTerminated;
 import smartblocks.utilities.EnumDirections;
@@ -22,15 +24,17 @@ import smartblocks.utilities.Vector3D;
  */
 public class ObjectImpl implements MovingObject, Serializable{
 
-    /**
-     * The position of the object's centroid
-     */
-    protected Vector2D r;
-
+    
     /**
      * The momentum of the object
      */
     protected Vector2D p;
+
+
+    /**
+     * The angular momentum of the object
+     */
+    protected float l;
 
     /**
      * The shape of the object
@@ -40,7 +44,13 @@ public class ObjectImpl implements MovingObject, Serializable{
     /**
      * The mass of the object
      */
-    float m;
+    protected float m;
+
+    /**
+     * The rotational inertia of the object
+     */
+    protected float inertia;
+    
 
     /**
      * Parameters of the moving object
@@ -51,38 +61,40 @@ public class ObjectImpl implements MovingObject, Serializable{
      *
      * The type of this moving object
      */
-    EnumObjects type;
+    EnumShapes type;    
 
     /**
-     * Last force exerted by this moving object
+     * Last force exerted on this moving object by another SimulationObject
      */
-    protected Vector2D force;
+    protected Vector2D f;
+    
 
     /**
-     * Last torque exerted by this moving object
+     * Last torque exerted on this moving object by another SimulationObject
      */
-    protected float torque;
+    protected float tq;
 
-    ObjectImpl(){
-        r=new Vector2D();
-        p=new Vector2D();
-        force=new Vector2D();
-        torque=0;
+    ObjectImpl(){        
+        p=new Vector2D();        
+        f=new Vector2D();       
         m=1f;
         params=new EnumMap(EnumObjectParams.class);
     }
 
-    ObjectImpl(EnumObjects type){
+    ObjectImpl(EnumShapes type){
         this();
+        shape=ShapeFactory.getInstance().createShape(type);        
         this.type=type;
     }
 
-    ObjectImpl(EnumObjects type,Map<EnumObjectParams,Object> params){
+    ObjectImpl(EnumShapes type,Map<EnumObjectParams,Object> params){
         this(type);
         this.params.putAll(params);
         m=(Float)params.get(EnumObjectParams.MASS);
+        Vector2D r=new Vector2D();
         r.x=(Float)params.get(EnumObjectParams.X_0);
         r.y=(Float)params.get(EnumObjectParams.Y_0);
+        shape.setPosition(r); 
         p.x=(Float)params.get(EnumObjectParams.PX_0);
         p.y=(Float)params.get(EnumObjectParams.PY_0);
     }
@@ -90,46 +102,54 @@ public class ObjectImpl implements MovingObject, Serializable{
     //*************Overriden Methods
 
     @Override
-    public void applyForce(float fX, float fY, float dt) {
-        p.x+=fX*dt;
-        p.y+=fY*dt;
+    public void resetForces(){
+        f.x=0;
+        f.y=0;
+        tq=0;
     }
 
+
     @Override
-    public void applyTorque(float Tz, float dt) {
-        // TODO: Does nothing
+    public void applyForces(float dt){
+        p.x+=f.x*dt;
+        p.y+=f.y*dt;
+        l+=tq*dt;
+    }
+
+
+    @Override
+    public void addForces(float fx, float fy, float tz){
+        f.x+=fx;
+        f.y+=fy;
+        tq+=tz;
     }
 
     @Override
     public void updatePosition(float dt) {
-        r.x+=p.x*dt/m;
-        r.y+=p.y*dt/m;
+        shape.rotate(l*dt);
+        shape.translate(p.x*dt/m, p.y*dt/m);
     }
 
     @Override
     public void setPosition(Vector2D pos) {
-        System.out.println("Set Position on object: "+pos.x+" "+pos.y);
-        r.x=pos.x;
-        r.y=pos.y;
+        this.shape.setPosition(pos);       
     }
 
     @Override
     public void translate(float dx, float dy){
-        r.x+=dx;
-        r.y+=dy;
+        shape.translate(dx, dy);
+    }    
+
+    @Override
+    public void setMomentum(Vector2D mom) {
+        p.x=mom.x;
+        p.y=mom.y;
     }
 
     @Override
-    public void setPosition(float x, float y){
-        System.out.println("Set Position on object: "+x+" "+y);
-        r.x=x;
-        r.y=y;
-    }
-
-    @Override
-    public void setVelocity(Vector2D vel) {
-        p.x=vel.x*m;
-        p.y=vel.y*m;
+    public void setMomentum(float px, float py) {
+        p.x=px;
+        p.y=py;
     }
 
     @Override
@@ -138,39 +158,56 @@ public class ObjectImpl implements MovingObject, Serializable{
     }
 
     @Override
+    public float getAngularVelocity(){
+        return l/inertia;
+    }
+
+    @Override
     public Vector2D getMomentum() {
         return new Vector2D(p.x,p.y);
     }
 
     @Override
-    public Vector2D getPosition() {
-        return r;
+    public float getAngularMomentum(){
+        return l;
     }
 
     @Override
-    public float getX() {
-        return r.x;
-    }
-
-    @Override
-    public float getY() {
-        return r.y;
-    }
-
-    @Override
-    public void rotate(float angle) {
-        // Does nothing
-    }
-
-    @Override
-    public EnumObjects getType(){
-        return type;
+    public float getRotation(){
+        return shape.getRotation();
     }
     
     @Override
-    public boolean operate(SimulationObject mo, float dt)  throws SimulationTerminated{
-        //TODO: Not implemented yet
-        return false;
+    public Shape getShape(){
+        return shape;
+    }
+
+
+    @Override
+    public Vector2D getPosition() {
+        return shape.getCentroid(true);
+    }
+    
+
+    @Override
+    public void rotate(float da) {
+        shape.rotate(da);
+    }
+
+    @Override
+    public void setRotation(float angle) {
+        shape.setRotation(angle);
+    }
+
+    @Override
+    public EnumShapes getType(){
+        return type;
+    }
+
+    @Override
+    public Vector2D[] computeForces(MovingObject mo,Vector2D[] vertices){
+        //TODO
+        return new Vector2D[vertices.length];
     }
 
     @Override
@@ -194,16 +231,7 @@ public class ObjectImpl implements MovingObject, Serializable{
                 break;
         }
     }
-
-    @Override
-    public Vector2D getLastForce() {
-        return this.force;
-    }
-
-    @Override
-    public float getLastTorque(){
-        return this.torque;
-    }
+   
 
     @Override
     public boolean equals(Object obj) {
@@ -213,11 +241,8 @@ public class ObjectImpl implements MovingObject, Serializable{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ObjectImpl other = (ObjectImpl) obj;
-        if (this.r != other.r && (this.r == null || !this.r.equals(other.r))) {
-            return false;
-        }
-        if (this.p != other.p && (this.p == null || !this.p.equals(other.p))) {
+        final ObjectImpl other = (ObjectImpl) obj;        
+        if (!this.shape.equals(other.shape)) {
             return false;
         }
         if (Float.floatToIntBits(this.m) != Float.floatToIntBits(other.m)) {
@@ -231,13 +256,10 @@ public class ObjectImpl implements MovingObject, Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 67 * hash + (this.r != null ? this.r.hashCode() : 0);
+        int hash = 7;        
         hash = 67 * hash + (this.p != null ? this.p.hashCode() : 0);
         hash = 67 * hash + Float.floatToIntBits(this.m);
         hash = 67 * hash + (this.type != null ? this.type.hashCode() : 0);
         return hash;
-    }
-
-   
+    }   
 }

@@ -18,21 +18,14 @@ import smartblocks.utilities.Vector2D;
  *
  * @author David FUENMAYOR
  */
-class TargetBlock extends BlockImpl{
+strictfp class TargetBlock extends BlockImpl{
     
     TargetBlock(Vector2D offset, Vector2D size, Map<EnumBlockParams,Object> params){
         super(EnumBlocks.TARGET,offset,size,params);
     }
 
     @Override
-    public boolean operate(SimulationObject so, float dt) throws SimulationTerminated{
-        if(so instanceof MovingObject){
-                MovingObject mo=(MovingObject)so;
-
-            if(SmartBlockUtilities.getCollider(this.getType(), mo.getType()).collide(this, mo)!=null){
-                throw new SimulationTerminated(this,mo,EnumSimulation.TARGET_BLOCK);
-            }
-        }
-        return false;
+    public Vector2D[] computeForces(MovingObject mo,Vector2D[] contacts) throws SimulationTerminated{
+                 throw new SimulationTerminated(this,null,EnumSimulation.TARGET_BLOCK);
     }
 }

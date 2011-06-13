@@ -7,32 +7,31 @@
 package smartblocks.block;
 
 import smartblocks.utilities.Vector2D;
-import smartblocks.object.MovingObject;
 import java.util.Map;
-import smartblocks.simulation.SimulationTerminated;
+import smartblocks.object.MovingObject;
 
 /**
- *
+ * Block with a force proportional to the inverse of the distance between its
+ * centroid and that of the moving object.
  * @author David FUENMAYOR
  */
-strictfp class ViscousBlock extends BlockImpl{
+strictfp class ProportionalBlock extends BlockImpl{
 
- ViscousBlock(Vector2D offset, Vector2D size, Map<EnumBlockParams,Object> params){
-        super(EnumBlocks.VISCOUS,offset,size,params);
+    ProportionalBlock(Vector2D offset, Vector2D size, Map<EnumBlockParams,Object> params){
+        super(EnumBlocks.PROPORTIONAL,offset,size,params);
     }
 
     @Override
     public Vector2D[] computeForces(MovingObject mo,Vector2D[] contacts) {
          int n=contacts.length;
          Vector2D[] forces=new Vector2D[n];
-         float b=(Float)getParam(EnumBlockParams.VISCOUS_COEF);
-         b/=n;
-         Vector2D velocity=mo.getVelocity();
+         float k=(Float)getParam(EnumBlockParams.RIGID_COEF);
          int i=0;
          for(Vector2D c:contacts){
-             forces[i]=new Vector2D(-b*velocity.x,-b*velocity.y);
+             forces[i]=new Vector2D(k/(c.x*n),k/(c.y*n));
              i++;
          }
          return forces;
     }
 }
+

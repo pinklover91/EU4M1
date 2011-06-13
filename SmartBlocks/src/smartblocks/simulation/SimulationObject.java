@@ -6,36 +6,44 @@
 
 package smartblocks.simulation;
 
+import smartblocks.object.MovingObject;
+import smartblocks.shapes.Shape;
 import smartblocks.utilities.CollisionOcurred;
 import smartblocks.utilities.Vector2D;
-import smartblocks.utilities.Vector3D;
 
 /**
- *
+ * Common interface representing an object used during the simulation, such as
+ * a block or a moving object.
  * @author David FUENMAYOR
  */
 public interface SimulationObject {
 
     /**
-     * Calculate forces and torques resulting from the
-     * interaction with the specified simulation object
-     * 
-     * @param mo
-     * @param dt
-     * @return true if an interaction occurred
+     * Returns the shape of this SimulationObject
+     * @return
      */
-    public boolean operate(SimulationObject so, float dt) throws SimulationTerminated,CollisionOcurred;
+    public Shape getShape();
 
     /**
-     * Returns the last force exerted by this block on a moving object
-     * @return force vector
+     * Sets the position of this SimulationObject
+     * @param r Vector2D
      */
-    public Vector2D getLastForce();
+    public void setPosition(Vector2D r);
 
     /**
-     * Returns the last torque exerted by this block on a moving object
-     * @return torque in Z direction
+     * Returns the position of this SimulationObject
+     * @return
      */
-    public float getLastTorque();
-
+    public Vector2D getPosition();
+       
+    /**
+     * Computes the forces and torques to be exerted by this object from a set of
+     * points giving the coordinates of the vertices of the colliding moving object
+     * with respect to the offset of this object.
+     * @param contacts array of Vector2D giving the colliding vertices
+     * @return array of Vector2D giving the forces on every vertex
+     * @throws CollisionOcurred
+     * @throws SimulationTerminated
+     */
+    public Vector2D[] computeForces(MovingObject mo, Vector2D[] contacts) throws CollisionOcurred,SimulationTerminated;
 }

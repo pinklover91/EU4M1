@@ -27,6 +27,7 @@ public class VisualBlock extends CustomNode{
     var i:Integer;
     public var images:Map;
     public var owner:SimuStage;
+    public var canvas:SimuCanvas;
 
     override function create(): Node {
        return       
@@ -36,8 +37,8 @@ public class VisualBlock extends CustomNode{
                 fitHeight: bind block.getShape().getHeight()*EnumParamsGUI.PX_PER_METER.getDefValue();
                 translateX: bind block.getShape().getX()*EnumParamsGUI.PX_PER_METER.getDefValue();
                 translateY: bind block.getShape().getY()*EnumParamsGUI.PX_PER_METER.getDefValue();
-                rotate: bind if(block.getType()==EnumBlocks.ACCELERATOR) then Math.toDegrees(Math.atan2(block.getLastForce().x,
-                    block.getLastForce().y)) else 0.0;
+                rotate: bind if(block.getType()==EnumBlocks.ACCELERATOR) then Math.toDegrees(Math.atan2(block.getForce().y,
+                    block.getForce().x)) else 0.0;
                 visible: true;                
 
                 onMouseClicked: function(e) {
@@ -53,8 +54,11 @@ public class VisualBlock extends CustomNode{
     }
     public function changeType(): Void {
        var shape:Shape=block.getShape();
+       canvas.deleteBlock(block);
        block=BlockFactory.getInstance().createBlock(
                     blockTypes.get(i),shape.getX(),shape.getY(),
                     shape.getWidth(),shape.getHeight(),owner.blockParams);
+
+        canvas.insertBlock(block);
     }
 }

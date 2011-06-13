@@ -11,33 +11,24 @@ import smartblocks.utilities.Vector2D;
 import java.io.Serializable;
 import java.util.EnumMap;
 import java.util.Map;
+import smartblocks.object.MovingObject;
 import smartblocks.shapes.Shape;
 import smartblocks.shapes.Box;
 import smartblocks.simulation.SimulationObject;
 import smartblocks.simulation.SimulationTerminated;
 import smartblocks.utilities.CollisionOcurred;
-import smartblocks.utilities.Vector3D;
 
 /**
  * Default implementation of the Block interface
  * @author David FUENMAYOR
  */
-class BlockImpl implements Block, Serializable{
+strictfp class BlockImpl implements Block, Serializable{
 
      /**
      * Shape with the bounds of this block
      */
-    protected Shape shape;
+    protected Shape shape;   
 
-    /**
-     * Last force exerted by this block
-     */
-    protected Vector2D force;
-
-    /**
-     * Last torque exerted by this block
-     */
-    protected Float torque;
 
     /**
      * Type of behavior of the block
@@ -64,9 +55,7 @@ class BlockImpl implements Block, Serializable{
      */
      BlockImpl(EnumBlocks type, Vector2D offset, Vector2D size){
         this.shape=new Box(offset,size);
-        this.type=type;        
-        force=new Vector2D();
-        torque=0f;
+        this.type=type;
         params=new EnumMap(EnumBlockParams.class);
     }
 
@@ -83,23 +72,16 @@ class BlockImpl implements Block, Serializable{
     }
 
     //***************************Overriden methods********************
-
     @Override
-    public boolean operate(SimulationObject mo, float dt)  throws SimulationTerminated, CollisionOcurred{
-        // TODO
-        return false;
+    public Vector2D getForce(){
+        return new Vector2D();
     }
 
-    @Override
-    public Vector2D getLastForce() {
-        return this.force;
+   @Override
+    public Vector2D[] computeForces(MovingObject mo,Vector2D[] contacts) throws CollisionOcurred,SimulationTerminated {
+        return new Vector2D[contacts.length];
     }
-
-    @Override
-    public float getLastTorque(){
-        return this.torque;
-    }
-
+    
     @Override
     public Shape getShape(){
         return shape;
@@ -111,12 +93,18 @@ class BlockImpl implements Block, Serializable{
     }
 
     @Override
+    public Vector2D getPosition() {
+        return shape.getCentroid(true);
+    }
+
+
+    @Override
     public Map<EnumBlockParams,Object> getParams(){
         return params;
     }
 
     @Override
-    public Float getParam(EnumBlockParams param){
+    public Object getParam(EnumBlockParams param){
         return params!=null?(Float)params.get(param):param.defValue;
     }
 

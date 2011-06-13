@@ -6,7 +6,6 @@
 
 package smartblocks.simulation;
 
-import smartblocks.object.EnumObjects;
 import smartblocks.object.MovingObject;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +13,10 @@ import smartblocks.block.Block;
 import smartblocks.block.BlockFactory;
 import smartblocks.block.EnumBlocks;
 import smartblocks.object.ObjectFactory;
+import smartblocks.shapes.EnumShapes;
+import smartblocks.utilities.Collider;
 import smartblocks.utilities.CollisionOcurred;
-import smartblocks.utilities.EnumDirections;
+import smartblocks.utilities.SmartBlockUtilities;
 import smartblocks.utilities.Vector2D;
 
 /**
@@ -43,15 +44,18 @@ public class SimulationImpl implements Simulation{
     }
 
     @Override
+    /**
+     * TODO: Creates a moving object and inserts it, only works with punctual type
+     */
     public MovingObject createMovingObject() {
-        MovingObject mo=ObjectFactory.getInstance().createMovingObject(EnumObjects.PUNCTUAL, null);
+        MovingObject mo=ObjectFactory.getInstance().createMovingObject(EnumShapes.PUNCTUAL, null);
         objects.add(mo);
         return mo;
     }
 
     @Override
     /**
-     * TODO: Do not use
+     * TODO: Creates a block and inserts it, do not use yet
      */
     public Block createBlock() {
         Block b=BlockFactory.getInstance().createBlock(EnumBlocks.TARGET, 0f,0f,0f,0f, null); //TODO
@@ -60,34 +64,31 @@ public class SimulationImpl implements Simulation{
     }
 
     @Override
-    public void nextStep(float dt) throws SimulationTerminated{
-       Vector2D force=new Vector2D();
-       float torque=0f;
+    public void nextStep(float dt) throws SimulationTerminated{       
        int i = 0;
+       Collider collider;
+       Vector2D[] vertices;
         while( i < objects.size()) {
            int j=i+1;
            MovingObject o1=objects.get(i);
+           o1.resetForces();
            try{
                while( j < objects.size()) {
-                    MovingObject o2=objects.get(j);
-                    if (o2.operate(o1,dt)){
-                        force.add(o2.getLastForce());
-                        torque+=o2.getLastTorque();
-                    }
+                    MovingObject o2=objects.get(j); 
+                    //SmartBlockUtilities.getCollider(o2.getType(), o1.getType())
+                    //collider.collide(o2.computeForces(collider.getCollidingVertices(o2, o1)));
                     j++;
                }
                j = 0;
                while( j < blocks.size()) {
                     Block b=blocks.get(j);
-                    if(b.operate(o1,dt)){
-                        force.add(b.getLastForce());
-                        torque+=b.getLastTorque();
-                    }
+                    collider=SmartBlockUtilities.getCollider(b.getType(), o1.getType());
+                    vertices=collider.getCollidingVertices(b, o1);
+                    collider.collide(o1,b.computeForces(o1,vertices),vertices);
                     j++;
                }
                i++;
-               o1.applyForce(force.x,force.y, dt);
-               o1.applyTorque(torque, dt);
+               o1.applyForces(dt);
             }
            catch(CollisionOcurred c){
                o1.bounce(c.getDirection());

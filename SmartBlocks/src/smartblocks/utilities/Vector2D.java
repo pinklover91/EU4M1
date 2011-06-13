@@ -39,6 +39,11 @@ public strictfp class Vector2D implements Serializable{
         y+=r2.y;
     }
 
+    public void reset(){
+        x=0;
+        y=0;
+    }
+
     /**
      * Substract the specified vector to this one
      * @param r2
@@ -78,6 +83,17 @@ public strictfp class Vector2D implements Serializable{
      */
     public static Vector2D distance(Vector2D r1, Vector2D r2){
         return new Vector2D(Math.abs(r1.x-r2.x),Math.abs(r1.y-r2.y));
+    }
+
+    public static Vector2D mean(Vector2D[] v){
+        Vector2D ret=new Vector2D();
+        int i=0;
+        for(Vector2D w:v){
+            i++;
+            ret.add(w);
+        }
+        ret.scale(1/i);
+        return ret;
     }
 
     /**

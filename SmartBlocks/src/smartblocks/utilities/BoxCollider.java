@@ -11,11 +11,10 @@ import smartblocks.object.MovingObject;
 import smartblocks.shapes.Shape;
 
 /**
- * Collider used to get collisions between a rectangular block and a punctual mass
+ * Collider used to get collisions between a rectangular block and a rectangular object
  * @author David FUENMAYOR
  */
-public strictfp class PunctualCollider implements Collider{
-
+public strictfp class BoxCollider implements Collider{
     @Override
     public void collide(MovingObject mo,Vector2D[] forces,Vector2D[] vertices){
         Vector2D totalForce=Vector2D.mean(forces);

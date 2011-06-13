@@ -18,9 +18,9 @@ public strictfp class Box implements Shape{
 
     Vector2D size;
 
-    Vector2D centroid;
+    protected Vector2D centroid;
 
-    Vector2D[] vertices;
+    protected Vector2D[] vertices;
 
     float angle;
     
@@ -34,11 +34,14 @@ public strictfp class Box implements Shape{
     public Box(Vector2D offset, Vector2D size) {
             this.offset = offset;
             this.size = size;
+            angle=0;
             area=size.x*size.y;
             centroid= Vector2D.scale(size,0.5f);
-            /*vertices=new Vector2D[4];
-            vertices[0]=new Vector2D(offset.x,offset.y);
-            vertices[1]=new Vector2D(offset.x,offset.y);*/
+            vertices=new Vector2D[4];
+            vertices[0]=Vector2D.scale(size,-0.5f);
+            vertices[1]=new Vector2D(-centroid.x,centroid.y);
+            vertices[2]=new Vector2D(centroid);
+            vertices[3]=new Vector2D(centroid.x,-centroid.y);
     }
 
     /**
@@ -104,7 +107,21 @@ public strictfp class Box implements Shape{
     
     @Override
     public Vector2D[] getVertices(boolean absolute) {
-        return vertices;
+        Vector2D cen=getCentroid(true);
+        Vector2D[] ret=new Vector2D[vertices.length];
+        System.arraycopy(vertices, 0, ret, 0, vertices.length);
+        if(absolute){
+            for(int i=0;i<4;i++){
+                ret[i].add(cen);
+            }
+        }
+        return ret;        
+    }
+
+    @Override
+    public void setVertices(Vector2D[] v) {
+        vertices=new Vector2D[v.length];
+        System.arraycopy(v, 0, vertices, 0, v.length);
     }
 
     @Override
@@ -113,8 +130,13 @@ public strictfp class Box implements Shape{
     }
 
     @Override
-    public void setAngle(float a) {
-        angle=a;
+    public void setRotation(float angle) {
+        this.angle=angle;
+    }
+
+    @Override
+    public float getRotation() {
+        return angle;
     }
 
     @Override
@@ -123,9 +145,21 @@ public strictfp class Box implements Shape{
     }
 
     @Override
+    public void translate(float dx, float dy) {
+        offset.x+=dx;
+        offset.y+=dy;
+    }
+
+    @Override
     public void setPosition(Vector2D r) {
-        offset=new Vector2D();
-        offset.add(r);
+        offset.x=r.x;
+        offset.y=r.y;
+    }
+
+    @Override
+    public void setPosition(float x, float y) {
+        offset.x=x;
+        offset.y=y;
     }
 
     @Override

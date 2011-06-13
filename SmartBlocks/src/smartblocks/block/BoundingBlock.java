@@ -19,45 +19,17 @@ import smartblocks.utilities.SmartBlockUtilities;
  * specified direction.
  * @author David FUENMAYOR
  */
-public class BoundingBlock extends BlockImpl{
+strictfp class BoundingBlock extends BlockImpl{
     protected EnumDirections direction;
 
     BoundingBlock(Vector2D offset, Vector2D size,EnumDirections direction){
         super(EnumBlocks.BOUNDING,offset,size);
-        this.direction=direction;
-        switch(direction){
-            case RIGHT:
-                force.x=1f;
-                force.y=0;
-                break;
-            case UP:
-                force.x=0;
-                force.y=-1f;
-                break;
-            case LEFT:
-                force.x=-1f;
-                force.y=0;
-                break;
-            case DOWN:
-                force.x=0;
-                force.y=1f;
-                break;
-            default:
-                break;
-        }
+        this.direction=direction;        
     }
 
     @Override    
-    public boolean operate(SimulationObject so, float dt) throws CollisionOcurred {
-        if(so instanceof MovingObject){
-            MovingObject mo=(MovingObject)so;
-            if(SmartBlockUtilities.getCollider(this.getType(), mo.getType()).collide(this, mo)!=null){
-                Vector2D center =shape.getCentroid(true);
-                Vector2D momentum=mo.getMomentum();
+    public Vector2D[] computeForces(MovingObject mo,Vector2D[] contacts) throws CollisionOcurred{
                 throw new CollisionOcurred(this, direction);                
-            }
-        }
-        return false;
     }
 }
 

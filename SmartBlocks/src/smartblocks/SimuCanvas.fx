@@ -16,7 +16,6 @@ import javafx.scene.shape.Rectangle;
 import smartblocks.simulation.Simulation;
 import smartblocks.block.EnumBlocks;
 import smartblocks.block.Block;
-import smartblocks.object.EnumObjects;
 import java.util.Map;
 import smartblocks.block.EnumBlockParams;
 import smartblocks.object.EnumObjectParams;
@@ -28,6 +27,7 @@ import java.util.EnumMap;
 import smartblocks.simulation.SimulationFactory;
 import smartblocks.utilities.EnumDirections;
 import smartblocks.simulation.SimulationTerminated;
+import smartblocks.shapes.EnumShapes;
 
 /**
  * @author David FUENMAYOR
@@ -45,13 +45,17 @@ public class SimuCanvas extends Scene {
     public var images:Map=new EnumMap(EnumBlocks.class);
     
 
-    public function deleteBlock(vb:VisualBlock):Void{
-        delete vb from blocks;
+    public function deleteBlock(b:Block):Void{
+        simulation.deleteBlock(b);
+    }
+
+    public function insertBlock(b:Block):Void{
+        simulation.insertBlock(b);
     }
 
     public function createObject(objectParams:Map){        
         insert VisualObject{
-            mo: ObjectFactory.getInstance().createMovingObject(EnumObjects.PUNCTUAL,objectParams);           
+            mo: ObjectFactory.getInstance().createMovingObject(EnumShapes.PUNCTUAL,objectParams);
         } into objects;
 
     }
@@ -92,21 +96,25 @@ public class SimuCanvas extends Scene {
                     block:BlockFactory.getInstance().createBoundingBlock(0,0,w,h,EnumDirections.ALL);
                     images: bind images
                     owner: bind owner
+                    canvas: bind this
              }
              VisualBlock{
                     block:BlockFactory.getInstance().createBoundingBlock(w*(numX+1),0,w,h,EnumDirections.ALL);
                     images: bind images
                     owner: bind owner
+                    canvas: bind this
              }
              VisualBlock{
                     block:BlockFactory.getInstance().createBoundingBlock(0,h*(numY+1),w,h,EnumDirections.ALL);
                     images: bind images
                     owner: bind owner
+                    canvas: bind this
              }
              VisualBlock{
                     block:BlockFactory.getInstance().createBoundingBlock(w*(numX+1),h*(numY+1),w,h,EnumDirections.ALL);
                     images: bind images
                     owner: bind owner
+                    canvas: bind this
              }
            ]
          into boundBlocks;
@@ -119,11 +127,13 @@ public class SimuCanvas extends Scene {
                         block:BlockFactory.getInstance().createBoundingBlock(i*w,0,w,h,EnumDirections.DOWN)
                         images: bind images
                         owner: bind owner
+                        canvas: bind this
                     }
                     VisualBlock{
                         block:BlockFactory.getInstance().createBoundingBlock(i*w,(numY+1)*h,w,h,EnumDirections.UP)
                         images: bind images
                         owner: bind owner
+                        canvas: bind this
                     }
                 ]
                 into boundBlocks;
@@ -136,11 +146,13 @@ public class SimuCanvas extends Scene {
                         block:BlockFactory.getInstance().createBoundingBlock(0,i*h,w,h,EnumDirections.RIGHT)
                         images: bind images
                         owner: bind owner
+                        canvas: bind this
                     }
                     VisualBlock{
                         block:BlockFactory.getInstance().createBoundingBlock(w*(numX+1),i*h,w,h,EnumDirections.LEFT)
                         images: bind images
                         owner: bind owner
+                        canvas: bind this
                     }
                 ]
                 into boundBlocks;
@@ -158,7 +170,7 @@ public class SimuCanvas extends Scene {
                     block:BlockFactory.getInstance().createBlock(EnumBlocks.FREE,i*w,j*h,w,h,owner.blockParams)
                     images: bind images
                     owner: bind owner
-
+                    canvas: bind this
                 }
                 into blocks;
                 j++
@@ -218,7 +230,7 @@ public class SimuCanvas extends Scene {
             Group {
                 content: [
                     Rectangle {
-                        width: 70
+                        width: 80
                         height: 30
                         fill: Color.web("#CCCCCC")
                         stroke: Color.web("#BBBBBB")
@@ -226,7 +238,7 @@ public class SimuCanvas extends Scene {
                     Text {
                         translateX: 8
                         translateY: 20
-                        content: "Object Params"
+                        content: "New Object"
                     }
                 ]
                 onMouseClicked:function(e) {                    
@@ -236,7 +248,7 @@ public class SimuCanvas extends Scene {
             Group {
                 content: [
                     Rectangle {
-                        width: 70
+                        width: 80
                         height: 30
                         fill: Color.web("#CCCCCC")
                         stroke: Color.web("#BBBBBB")
@@ -244,7 +256,7 @@ public class SimuCanvas extends Scene {
                     Text {
                         translateX: 8
                         translateY: 20
-                        content: "Block Params"
+                        content: "Options"
                     }
                 ]
                 onMouseClicked:function(e) {
@@ -295,9 +307,4 @@ public class SimuCanvas extends Scene {
             }
         ]
     };
-
-    
-
-
-   
 }

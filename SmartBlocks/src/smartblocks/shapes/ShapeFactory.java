@@ -29,6 +29,32 @@ public class ShapeFactory {
        return SingletonHolder.INSTANCE;
    }
 
+
+   /**
+    * Creates a non-initialized Shape according to the type passed as argument
+    * @param t
+    * @return new Shape object
+    */
+   public Shape createShape(EnumShapes t){
+       Shape ret;
+       switch(t){
+           case BOX:
+              ret= createShape(new Vector2D(),t.getSize());
+              break;
+           case CIRCLE:
+               ret= createShape(new Vector2D(),t.getSize());
+               break;
+           case POLYGON :
+              Vector2D[] v=new Vector2D[3];
+              ret= createShape(new Vector2D(),v);
+              break;
+           default:
+              ret= createShape(new Vector2D() ,t.getSize());
+              break;
+       }
+       return ret;
+   }
+
      public Shape createShape(Vector2D offset,Vector2D size){
             return new Box(offset,size);
      }

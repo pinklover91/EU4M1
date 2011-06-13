@@ -7,6 +7,7 @@
 package smartblocks.object;
 
 import java.util.Map;
+import smartblocks.shapes.EnumShapes;
 
 /**
  *
@@ -38,13 +39,13 @@ public class ObjectFactory {
      * @param params
      * @return
      */
-     public MovingObject createMovingObject(EnumObjects objectType,Map<EnumObjectParams,Object> params){
+     public MovingObject createMovingObject(EnumShapes objectType,Map<EnumObjectParams,Object> params){
         MovingObject mo;
         switch (objectType){
             case PUNCTUAL:
                 mo=new PunctualMass(params);
                 break;
-            case RECTANGLE:
+            case BOX:
                 //block=new BouncingBlock(blockType.BOUNCING);
             case CIRCLE:
 

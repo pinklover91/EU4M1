@@ -7,6 +7,7 @@
 package smartblocks.object;
 
 import java.util.Map;
+import smartblocks.shapes.EnumShapes;
 
 /**
  * A punctual mass moving over the smart surfaces
@@ -18,11 +19,11 @@ class PunctualMass extends ObjectImpl{
      * Default constructor
      */
     PunctualMass(){
-        super(EnumObjects.PUNCTUAL);
+        super(EnumShapes.CIRCLE);
     }
 
     PunctualMass(Map<EnumObjectParams,Object> params){
-        super(EnumObjects.PUNCTUAL,params);
+        super(EnumShapes.CIRCLE,params);
     }
 
 }
