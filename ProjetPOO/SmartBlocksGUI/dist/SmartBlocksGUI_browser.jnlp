@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp spec="1.0+" codebase="file:/home/david/NetBeansProjects/SmartBlocksGUI/dist/" href="SmartBlocksGUI_browser.jnlp">
+    <information>
+        <title>SmartBlocksGUI</title>
+        <vendor>${application.vendor}</vendor>
+        <homepage href=""/>
+        <description>SmartBlocksGUI</description>
+        <icon kind="splash" href="http://dl.javafx.com/1.3/splash.png"/>
+        <offline-allowed/>
+    </information>
+    <resources>
+        <j2se version="1.5+"/>
+        <extension name="JavaFX Runtime" href="http://dl.javafx.com/1.3/javafx-rt.jnlp"/>
+        <jar href="SmartBlocksGUI.jar" main="true" size="661867"/>
+        <jar href="lib/SmartBlocks.jar" size="92452"/>
+    </resources>
+    <applet-desc name="SmartBlocksGUI" main-class="com.sun.javafx.runtime.adapter.Applet" progress-class="com.javafx.progressbar.ProgressManager" width="200" height="200">
+        <param name="MainJavaFXScript" value="smartblocks.javafx.Main"/>
+    </applet-desc>
+    <update check="always"/>
+</jnlp>
